@@ -12,6 +12,7 @@
 namespace Sonata\DatagridBundle\ProxyQuery;
 
 use Doctrine\ORM\QueryBuilder;
+use Sonata\ProductBundle\Search\Provider\SearchProviderInterface;
 
 /**
  * This class try to unify the query usage between different models
@@ -19,7 +20,7 @@ use Doctrine\ORM\QueryBuilder;
 class BaseProxyQuery
 {
     /**
-     * @var QueryBuilder
+     * @var QueryBuilder|SearchProviderInterface
      */
     protected $queryBuilder;
 
@@ -49,17 +50,9 @@ class BaseProxyQuery
     protected $results;
 
     /**
-     * Constructor
+     * @param $sortBy
      *
-     * @param QueryBuilder $queryBuilder A query builder object
-     */
-    public function __construct(QueryBuilder $queryBuilder)
-    {
-        $this->queryBuilder = $queryBuilder;
-    }
-
-    /**
-     * {@inheritdoc}
+     * @return BaseProxyQuery
      */
     public function setSortBy($sortBy)
     {
@@ -69,7 +62,7 @@ class BaseProxyQuery
     }
 
     /**
-     * {@inheritdoc}
+     * @return array
      */
     public function getSortBy()
     {
@@ -77,7 +70,9 @@ class BaseProxyQuery
     }
 
     /**
-     * {@inheritdoc}
+     * @param $sortOrder
+     *
+     * @return BaseProxyQuery
      */
     public function setSortOrder($sortOrder)
     {
@@ -87,7 +82,7 @@ class BaseProxyQuery
     }
 
     /**
-     * {@inheritdoc}
+     * @return array
      */
     public function getSortOrder()
     {
@@ -95,7 +90,9 @@ class BaseProxyQuery
     }
 
     /**
-     * {@inheritdoc}
+     * @param $firstResult
+     *
+     * @return BaseProxyQuery
      */
     public function setFirstResult($firstResult)
     {
@@ -105,7 +102,7 @@ class BaseProxyQuery
     }
 
     /**
-     * {@inheritdoc}
+     * @return int
      */
     public function getFirstResult()
     {
@@ -113,7 +110,9 @@ class BaseProxyQuery
     }
 
     /**
-     * {@inheritdoc}
+     * @param $maxResults
+     *
+     * @return BaseProxyQuery
      */
     public function setMaxResults($maxResults)
     {
@@ -123,7 +122,7 @@ class BaseProxyQuery
     }
 
     /**
-     * {@inheritdoc}
+     * @return int
      */
     public function getMaxResults()
     {
@@ -139,24 +138,18 @@ class BaseProxyQuery
     }
 
     /**
-     * {@inheritdoc}
+     * @return array
      */
     public function getResults()
     {
         return $this->results;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __clone()
     {
         $this->queryBuilder = clone $this->queryBuilder;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __call($name, $args)
     {
         return call_user_func_array(array($this->queryBuilder, $name), $args);

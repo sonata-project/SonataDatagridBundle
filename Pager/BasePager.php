@@ -46,7 +46,6 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
         $this->setMaxPerPage($maxPerPage);
     }
 
-
     /**
      * Returns the current pager's max link.
      *

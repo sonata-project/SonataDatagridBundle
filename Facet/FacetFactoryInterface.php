@@ -9,19 +9,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Sonata\DatagridBundle\Filter;
+namespace Sonata\DatagridBundle\Facet;
 
 /**
- * Interface FilterFactoryInterface
+ * Interface FacetFactoryInterface
  */
-interface FilterFactoryInterface
+interface FacetFactoryInterface
 {
     /**
      * @param string $name
      * @param string $type
      * @param array  $options
      *
-     * @return FilterInterface
+     * @return FacetInterface
      */
     public function create($name, $type, array $options = array());
 }

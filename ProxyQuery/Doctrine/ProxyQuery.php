@@ -12,6 +12,7 @@
 namespace Sonata\DatagridBundle\ProxyQuery\Doctrine;
 
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Sonata\DatagridBundle\ProxyQuery\BaseProxyQuery;
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
@@ -23,25 +24,27 @@ use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 class ProxyQuery extends BaseProxyQuery implements ProxyQueryInterface
 {
     /**
+     * Constructor
+     *
+     * @param QueryBuilder $queryBuilder A query builder object
+     */
+    public function __construct(QueryBuilder $queryBuilder)
+    {
+        $this->queryBuilder = $queryBuilder;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function execute(array $params = array(), $hydrationMode = null)
     {
-        $query = $this->queryBuilder->getQuery();
-
-        // Sorted field and sort order
-        $sortBy = $this->getSortBy();
-        $sortOrder = $this->getSortOrder();
-
-        if ($sortBy && $sortOrder) {
-            $sortBy = sprintf('%s.%s', $query->getRootAlias(), $sortBy);
-            $query->orderBy($sortBy, $sortOrder);
-        }
+        // Sort
+        $this->getQueryBuilder()->orderBy($this->getSortBy());
 
         // Limit & offset
-        $query->setFirstResult($this->getFirstResult());
-        $query->setMaxResults($this->getMaxResults());
+        $this->getQueryBuilder()->setFirstResult($this->getFirstResult());
+        $this->getQueryBuilder()->setMaxResults($this->getMaxResults());
 
-        return $query->execute();
+        return $this->getQueryBuilder()->getQuery()->execute();
     }
 }

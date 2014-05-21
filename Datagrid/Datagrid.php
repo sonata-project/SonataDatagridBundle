@@ -11,10 +11,9 @@
 
 namespace Sonata\DatagridBundle\Datagrid;
 
+use Sonata\DatagridBundle\Facet\FacetInterface;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Symfony\Component\Form\CallbackTransformer;
 
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 use Sonata\DatagridBundle\Pager\PagerInterface;
@@ -28,6 +27,13 @@ class Datagrid implements DatagridInterface
      * @var array
      */
     protected $filters = array();
+
+    /**
+     * The facet instances
+     *
+     * @var array
+     */
+    protected $facets = array();
 
     /**
      * Values / Datagrid options
@@ -113,7 +119,7 @@ class Datagrid implements DatagridInterface
             return;
         }
 
-        foreach ($this->getFilters() as $name => $filter) {
+        foreach ($this->getFilters() as $filter) {
             list($type, $options) = $filter->getRenderSettings();
 
             $this->formBuilder->add($filter->getFormName(), $type, $options);
@@ -132,6 +138,10 @@ class Datagrid implements DatagridInterface
         foreach ($this->getFilters() as $name => $filter) {
             $this->values[$name] = isset($this->values[$name]) ? $this->values[$name] : null;
             $filter->apply($this->query, $data[$filter->getFormName()]);
+        }
+
+        foreach ($this->getFacets() as $facet) {
+            $facet->apply($this->query);
         }
 
         if (isset($this->values['_sort_by'])) {
@@ -198,6 +208,54 @@ class Datagrid implements DatagridInterface
     /**
      * {@inheritdoc}
      */
+    public function addFacet(FacetInterface $facet)
+    {
+        $this->facets[$facet->getName()] = $facet;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hasFacet($name)
+    {
+        return isset($this->facets[$name]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeFacet($name)
+    {
+        unset($this->facets[$name]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFacet($name)
+    {
+        return $this->hasFacet($name) ? $this->facets[$name] : null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFacets()
+    {
+        return $this->facets;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function reorderFacets(array $keys)
+    {
+        $this->facets = array_merge(array_flip($keys), $this->facets);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getValues()
     {
         return $this->values;
@@ -217,9 +275,34 @@ class Datagrid implements DatagridInterface
     /**
      * {@inheritdoc}
      */
+    public function setSort($sortField, $sortDirection)
+    {
+        $this->values['_sort_by']    = $sortField;
+        $this->values['_sort_order'] = $sortDirection;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setPage($page)
+    {
+        $this->values['_page'] = $page;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setMaxPerPage($maxPerPage)
+    {
+        $this->values['_per_page'] = $maxPerPage;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function hasActiveFilters()
     {
-        foreach ($this->filters as $name => $filter) {
+        foreach ($this->getFilters() as $filter) {
             if ($filter->isActive()) {
                 return true;
             }

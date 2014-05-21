@@ -9,12 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Sonata\DatagridBundle\Tests\ProxyQuery;
+namespace Sonata\DatagridBundle\Tests\ProxyQuery\Doctrine;
+
+use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 
 /**
  * @author Romain Mouillard <romain.mouillard@gmail.com>
  */
-class BaseProxyQueryTest extends \PHPUnit_Framework_TestCase
+class DoctrineProxyQueryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test calling undefined method on proxy query object will also try it on its query builder
@@ -33,9 +35,7 @@ class BaseProxyQueryTest extends \PHPUnit_Framework_TestCase
             ->method('getType')
             ->will($this->returnValue('foobar'));
 
-        $proxyQuery = $this->getMockBuilder('Sonata\DatagridBundle\ProxyQuery\BaseProxyQuery')
-            ->setConstructorArgs(array($queryBuilder))
-            ->getMockForAbstractClass();
+        $proxyQuery = new ProxyQuery($queryBuilder);
 
         $this->assertEquals('foobar', $proxyQuery->getType());
     }

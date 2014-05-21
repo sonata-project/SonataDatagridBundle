@@ -14,34 +14,49 @@ namespace Sonata\DatagridBundle\ProxyQuery\Elastica;
 use Sonata\DatagridBundle\ProxyQuery\BaseProxyQuery;
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
-use Elastica\Search;
-
 /**
  * This class try to unify the query usage with Doctrine
  */
 class ProxyQuery extends BaseProxyQuery implements ProxyQueryInterface
 {
     /**
+     * @param QueryBuilder $queryBuilder
+     */
+    public function __construct(QueryBuilder $queryBuilder)
+    {
+        $this->queryBuilder = $queryBuilder;
+    }
+
+    public function getResults()
+    {
+        if (null === $this->results) {
+            $this->execute();
+        }
+
+        return parent::getResults();
+    }
+
+    public function getSortBy()
+    {
+        return parent::getSortBy() ? : array();
+    }
+    /**
      * {@inheritdoc}
      */
     public function execute(array $params = array(), $hydrationMode = null)
     {
-        $query = $this->queryBuilder->getQuery();
-
-        // Sorted field and sort order
-        $sortBy = $this->getSortBy();
-        $sortOrder = $this->getSortOrder();
-
-        if ($sortBy && $sortOrder) {
-            $query->setSort(array($sortBy => array('order' => $sortOrder)));
-        }
+        // Sort
+        $this->getQueryBuilder()->getQuery()->setSort($this->getSortBy());
 
         // Limit & offset
-        $this->results = $this->queryBuilder->getRepository()->createPaginatorAdapter($query, array(
-            Search::OPTION_SIZE => $this->getMaxResults(),
-            Search::OPTION_FROM => $this->getFirstResult(),
-        ));
+        $this->results = $this->getQueryBuilder()->getFinder()->find($this->getQueryBuilder()->getQuery(), $this->getMaxResults(), array('limit' => $this->getMaxResults()));
+//        $this->results = $this->getQueryBuilder()->getRepository()->createPaginatorAdapter(
+//            $this->getQueryBuilder()->getQuery()
+//        )->getResults(
+//            $this->getFirstResult(),
+//            $this->getMaxResults()
+//        );
 
-        return $this->results->getResults($this->getFirstResult(), $this->getMaxResults())->toArray();
+        return $this->getResults();
     }
 }

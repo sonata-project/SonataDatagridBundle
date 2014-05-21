@@ -28,7 +28,7 @@ class Pager extends BasePager
         $countQuery = clone $this->getQuery();
         $countQuery->execute();
 
-        return $countQuery->getResults()->getTotalHits();
+        return count($countQuery->getResults());
     }
 
     /**
