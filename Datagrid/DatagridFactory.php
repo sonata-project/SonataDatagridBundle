@@ -12,12 +12,9 @@
 namespace Sonata\DatagridBundle\Datagrid;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
 use Elastica\Query;
-use FOS\ElasticaBundle\Finder\FinderInterface;
-use FOS\ElasticaBundle\Manager\RepositoryManager;
-use FOS\ElasticaBundle\Repository;
+use FOS\ElasticaBundle\Finder\PaginatedFinderInterface;
 use Sonata\DatagridBundle\Facet\FacetFactoryInterface;
 use Sonata\DatagridBundle\Filter\FilterFactoryInterface;
 use Sonata\DatagridBundle\Pager\Elastica\Pager as ElasticaPager;
@@ -26,8 +23,6 @@ use Sonata\DatagridBundle\ProxyQuery\Elastica\QueryBuilder as ElasticaQueryBuild
 use Sonata\DatagridBundle\Pager\Doctrine\Pager as DoctrinePager;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery as DoctrineProxyQuery;
 use Doctrine\ORM\QueryBuilder as DoctrineQueryBuilder;
-use Symfony\Component\Form\FormBuilder;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
 
@@ -56,7 +51,7 @@ class DatagridFactory implements DatagridFactoryInterface
     protected $formFactory;
 
     /**
-     * @var FinderInterface
+     * @var PaginatedFinderInterface
      */
     protected $finder;
 
@@ -66,14 +61,14 @@ class DatagridFactory implements DatagridFactoryInterface
     protected $entityManager;
 
     /**
-     * @param Registry               $registry
-     * @param FinderInterface        $finder
-     * @param string                 $class
-     * @param FilterFactoryInterface $filterFactory
-     * @param FacetFactoryInterface  $facetFactory
-     * @param FormFactoryInterface   $formFactory
+     * @param Registry                 $registry
+     * @param PaginatedFinderInterface $finder
+     * @param string                   $class
+     * @param FilterFactoryInterface   $filterFactory
+     * @param FacetFactoryInterface    $facetFactory
+     * @param FormFactoryInterface     $formFactory
      */
-    public function __construct(Registry $registry, FinderInterface $finder, $class, FilterFactoryInterface $filterFactory, FacetFactoryInterface $facetFactory, FormFactoryInterface $formFactory)
+    public function __construct(Registry $registry, PaginatedFinderInterface $finder, $class, FilterFactoryInterface $filterFactory, FacetFactoryInterface $facetFactory, FormFactoryInterface $formFactory)
     {
         $this->entityManager = $registry->getManagerForClass($class);
         $this->finder        = $finder;
@@ -100,6 +95,9 @@ class DatagridFactory implements DatagridFactoryInterface
                 throw new \RuntimeException(sprintf("Unsupported datagrid builder type '%s'; supported types are: 'doctrine', 'elastica'", $type));
                 break;
         }
+
+        $this->filterFactory->setEngine($type);
+        $this->facetFactory->setEngine($type);
 
         $datagrid = new Datagrid($proxyQuery, $pager, $this->formFactory->createBuilder(), $params);
 

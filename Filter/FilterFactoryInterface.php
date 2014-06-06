@@ -17,6 +17,8 @@ namespace Sonata\DatagridBundle\Filter;
 interface FilterFactoryInterface
 {
     /**
+     * Creates a new filter
+     *
      * @param string $name
      * @param string $type
      * @param array  $options
@@ -24,4 +26,11 @@ interface FilterFactoryInterface
      * @return FilterInterface
      */
     public function create($name, $type, array $options = array());
+
+    /**
+     * Sets the engine for the filter to build
+     *
+     * @param string $engine
+     */
+    public function setEngine($engine);
 }

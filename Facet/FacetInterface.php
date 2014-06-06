@@ -11,26 +11,14 @@
 
 namespace Sonata\DatagridBundle\Facet;
 
-use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
-
 /**
  * Interface FacetInterface
  */
 interface FacetInterface
 {
     /**
-     * Apply the facet to the QueryBuilder instance
+     * Applies the facet to the query
      *
-     * @param ProxyQueryInterface $queryBuilder
-     * @param string              $alias
-     * @param string              $field
-     * @param string              $value
-     *
-     * @return void
-     */
-    public function facet(ProxyQueryInterface $queryBuilder, $alias, $field, $value);
-
-    /**
      * @param mixed $query
      */
     public function apply($query);

@@ -74,4 +74,12 @@ abstract class BaseFacet implements FacetInterface
     {
         return $this->options;
     }
+
+    /**
+     * @return array
+     */
+    public function getDefaultOptions()
+    {
+        return array();
+    }
 }

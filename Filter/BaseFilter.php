@@ -194,4 +194,12 @@ abstract class BaseFilter implements FilterInterface
     {
         return $this->getOption('translation_domain');
     }
+
+    /**
+     * @return array
+     */
+    public function getDefaultOptions()
+    {
+        return array();
+    }
 }

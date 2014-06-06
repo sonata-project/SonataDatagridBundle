@@ -23,23 +23,37 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class FacetFactory implements FacetFactoryInterface
 {
     /**
-     * @var ContainerInterface
-     */
-    private $container;
-
-    /**
      * @var array
      */
     private $types = array();
 
     /**
-     * @param ContainerInterface $container
-     * @param array              $types
+     * @var string The factory engine (elastica or doctrine)
      */
-    public function __construct(ContainerInterface $container, array $types = array())
+    private $engine;
+
+    /**
+     * @param array $types
+     */
+    public function __construct(array $types = array())
     {
-        $this->container = $container;
-        $this->types     = $types;
+        $this->types = $types;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setEngine($engine)
+    {
+        $this->engine = $engine;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEngine()
+    {
+        return $this->engine;
     }
 
     /**
@@ -51,20 +65,22 @@ class FacetFactory implements FacetFactoryInterface
             throw new \RunTimeException('The Facet type must be defined');
         }
 
-        $id = isset($this->types[$type]) ? $this->types[$type] : false;
-
-        if (!$id) {
-            throw new \RunTimeException(sprintf('No attached service to Facet type named `%s`', $type));
+        if (!$this->getEngine()) {
+            throw new \RuntimeException('The engine of facets must be defined, call setEngine method on filter factory with elastica or doctrine.');
         }
 
-        $Facet = $this->container->get($id);
+        $facet = isset($this->types[$this->getEngine()][$type]) ? $this->types[$this->getEngine()][$type] : false;
 
-        if (!$Facet instanceof FacetInterface) {
-            throw new \RunTimeException(sprintf('The service `%s` must implement `FacetInterface`', $id));
+        if (!$facet) {
+            throw new \RunTimeException(sprintf('No attached service to Facet type named `%s` in engine `%s`', $type, $this->getEngine()));
         }
 
-        $Facet->initialize($name, $options);
+        if (!$facet instanceof FacetInterface) {
+            throw new \RunTimeException(sprintf('The service `%s` must implement `FacetInterface`', $type));
+        }
 
-        return $Facet;
+        $facet->initialize($name, $options);
+
+        return $facet;
     }
 }

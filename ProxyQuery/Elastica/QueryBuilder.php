@@ -12,8 +12,7 @@
 namespace Sonata\DatagridBundle\ProxyQuery\Elastica;
 
 use Elastica\Query;
-use FOS\ElasticaBundle\Finder\FinderInterface;
-use FOS\ElasticaBundle\Repository;
+use FOS\ElasticaBundle\Finder\PaginatedFinderInterface;
 
 
 /**
@@ -31,15 +30,15 @@ class QueryBuilder
     private $query;
 
     /**
-     * @var FinderInterface
+     * @var PaginatedFinderInterface
      */
     private $finder;
 
     /**
-     * @param Query           $query
-     * @param FinderInterface $finder
+     * @param Query                    $query
+     * @param PaginatedFinderInterface $finder
      */
-    public function __construct(Query $query, FinderInterface $finder)
+    public function __construct(Query $query, PaginatedFinderInterface $finder)
     {
         $this->query  = $query;
         $this->finder = $finder;
@@ -54,7 +53,7 @@ class QueryBuilder
     }
 
     /**
-     * @return FinderInterface
+     * @return PaginatedFinderInterface
      */
     public function getFinder()
     {

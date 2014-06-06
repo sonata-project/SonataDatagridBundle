@@ -12,6 +12,7 @@
 namespace Sonata\DatagridBundle\Pager\Elastica;
 
 use Sonata\DatagridBundle\Pager\BasePager;
+use Sonata\DatagridBundle\ProxyQuery\Elastica\ProxyQuery;
 
 /**
  * Elastica pager class
@@ -25,10 +26,16 @@ class Pager extends BasePager
      */
     public function computeNbResult()
     {
+        if (!$this->getQuery() instanceof ProxyQuery) {
+            throw new \RuntimeException(sprintf('Elastica pager expects an instance of `Sonata\DatagridBundle\ProxyQuery\Elastica\ProxyQuery`, instance of `%s` given', get_class($this->getQuery())));
+        }
+
+        /** @var ProxyQuery $countQuery */
         $countQuery = clone $this->getQuery();
+        $countQuery->setMaxResults(0);
         $countQuery->execute();
 
-        return count($countQuery->getResults());
+        return $countQuery->count();
     }
 
     /**
@@ -55,6 +62,7 @@ class Pager extends BasePager
         $this->resetIterator();
 
         $this->getQuery()->setMaxResults($this->getMaxPerPage());
+        $this->getQuery()->setFirstResult($this->getFirstIndice());
 
         $this->setNbResults($this->computeNbResult());
 

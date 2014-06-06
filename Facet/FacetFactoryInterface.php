@@ -24,4 +24,9 @@ interface FacetFactoryInterface
      * @return FacetInterface
      */
     public function create($name, $type, array $options = array());
+
+    /**
+     * @param string $engine
+     */
+    public function setEngine($engine);
 }

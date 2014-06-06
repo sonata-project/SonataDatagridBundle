@@ -11,8 +11,6 @@
 
 namespace Sonata\DatagridBundle\Filter;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
 /**
  * Class FilterFactory
  *
@@ -23,23 +21,37 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class FilterFactory implements FilterFactoryInterface
 {
     /**
-     * @var ContainerInterface
-     */
-    private $container;
-
-    /**
      * @var array
      */
     private $types = array();
 
     /**
-     * @param ContainerInterface $container
-     * @param array              $types
+     * @var string The engine of the filters to build (elastica or doctrine)
      */
-    public function __construct(ContainerInterface $container, array $types = array())
+    private $engine;
+
+    /**
+     * @param array $types
+     */
+    public function __construct(array $types = array())
     {
-        $this->container = $container;
-        $this->types     = $types;
+        $this->types = $types;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setEngine($engine)
+    {
+        $this->engine = $engine;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEngine()
+    {
+        return $this->engine;
     }
 
     /**
@@ -51,16 +63,18 @@ class FilterFactory implements FilterFactoryInterface
             throw new \RunTimeException('The filter type must be defined');
         }
 
-        $id = isset($this->types[$type]) ? $this->types[$type] : false;
-
-        if (!$id) {
-            throw new \RunTimeException(sprintf('No attached service to filter type named `%s`', $type));
+        if (!$this->getEngine()) {
+            throw new \RuntimeException('The engine of filters must be defined, call setEngine method on filter factory with elastica or doctrine.');
         }
 
-        $filter = $this->container->get($id);
+        $filter = isset($this->types[$this->getEngine()][$type]) ? $this->types[$this->getEngine()][$type] : false;
+
+        if (!$filter) {
+            throw new \RunTimeException(sprintf('No attached service to filter type named `%s` in', $type));
+        }
 
         if (!$filter instanceof FilterInterface) {
-            throw new \RunTimeException(sprintf('The service `%s` must implement `FilterInterface`', $id));
+            throw new \RunTimeException(sprintf('The service `%s` of engine `%s` must implement `FilterInterface`', $name, $this->getEngine()));
         }
 
         $filter->initialize($name, $options);

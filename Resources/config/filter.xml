@@ -10,8 +10,19 @@
 
     <services>
         <service id="sonata.datagrid.filter.factory" class="%sonata.datagrid.filter.factory.class%">
-            <argument type="service" id="service_container" />
-            <argument type="collection"></argument>
+            <argument type="collection" />
+        </service>
+
+        <service id="sonata.datagrid.filter.elastica.missing" class="Sonata\DatagridBundle\Filter\Elastica\Missing">
+            <tag name="sonata.datagrid.filter.type" alias="missing" engine="elastica" />
+        </service>
+
+        <service id="sonata.datagrid.filter.elastica.term" class="Sonata\DatagridBundle\Filter\Elastica\Term">
+            <tag name="sonata.datagrid.filter.type" alias="term" engine="elastica" />
+        </service>
+
+        <service id="sonata.datagrid.filter.elastica.max" class="Sonata\DatagridBundle\Filter\Elastica\Max">
+            <tag name="sonata.datagrid.filter.type" alias="max" engine="elastica" />
         </service>
     </services>
 </container>

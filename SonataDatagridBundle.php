@@ -11,6 +11,9 @@
 
 namespace Sonata\DatagridBundle;
 
+use Sonata\DatagridBundle\DependencyInjection\CompilerPass\FacetCompilerPass;
+use Sonata\DatagridBundle\DependencyInjection\CompilerPass\FilterCompilerPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -18,5 +21,12 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class SonataDatagridBundle extends Bundle
 {
-
+    /**
+     * {@inheritdoc}
+     */
+    public function build(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new FilterCompilerPass());
+        $container->addCompilerPass(new FacetCompilerPass());
+    }
 }

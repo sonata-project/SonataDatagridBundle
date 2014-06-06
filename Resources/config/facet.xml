@@ -10,8 +10,11 @@
 
     <services>
         <service id="sonata.datagrid.facet.factory" class="%sonata.datagrid.facet.factory.class%">
-            <argument type="service" id="service_container" />
             <argument type="collection"></argument>
+        </service>
+
+        <service id="sonata.datagrid.facet.elastica.terms" class="Sonata\DatagridBundle\Facet\Elastica\Terms">
+            <tag name="sonata.datagrid.facet.type" alias="terms" engine="elastica" />
         </service>
     </services>
 </container>
