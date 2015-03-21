@@ -5,7 +5,7 @@ SonataDatagridBundle
 
 This bundle provides base class to generate Datagrid.
 
-The online documentation of the bundle is in http://sonata-project.org/bundles/datagrid
+The online documentation of the bundle is in https://sonata-project.org/bundles/datagrid
 
 For contribution to the documentation you cand find it on [Resources/doc](https://github.com/sonata-project/SonataDatagridBundle/tree/master/Resources/doc).
 
