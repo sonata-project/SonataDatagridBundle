@@ -14,10 +14,9 @@ namespace Sonata\DatagridBundle\ProxyQuery\Doctrine;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\DatagridBundle\ProxyQuery\BaseProxyQuery;
-use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
 /**
- * Class ProxyQuery
+ * Class ProxyQuery.
  *
  * This is the Doctrine proxy query class
  */
@@ -49,7 +48,7 @@ class ProxyQuery extends BaseProxyQuery
 
     /**
      * This method alters the query to return a clean set of object with a working
-     * set of Object
+     * set of Object.
      *
      * @param QueryBuilder $queryBuilder
      *
@@ -71,7 +70,7 @@ class ProxyQuery extends BaseProxyQuery
         $rootAlias   = $rootAliases[0];
         $select      = sprintf('%s.%s', $rootAlias, $idName);
         $queryBuilderId->resetDQLPart('select');
-        $queryBuilderId->add('select', 'DISTINCT ' . $select);
+        $queryBuilderId->add('select', 'DISTINCT '.$select);
 
         // for SELECT DISTINCT, ORDER BY expressions must appear in select list
         /* Consider
@@ -84,7 +83,7 @@ class ProxyQuery extends BaseProxyQuery
             $sortBy = $this->getSortBy();
             if (strpos($sortBy, '.') === false) {
                 // add the current alias
-                $sortBy = $rootAlias . '.' . $sortBy;
+                $sortBy = $rootAlias.'.'.$sortBy;
             }
             $sortBy .= ' AS __order_by';
             $queryBuilderId->addSelect($sortBy);

@@ -17,7 +17,7 @@ namespace Sonata\DatagridBundle\Tests\ProxyQuery;
 class BaseProxyQueryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test calling undefined method on proxy query object will also try it on its query builder
+     * Test calling undefined method on proxy query object will also try it on its query builder.
      */
     public function testFallbackOnQuerybuilder()
     {

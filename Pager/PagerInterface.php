@@ -16,34 +16,32 @@ interface PagerInterface
 {
     /**
      * Initialize the Pager.
-     *
-     * @return void
      */
     public function init();
 
     /**
      * Returns the maximum number of results per page.
      *
-     * @return integer
+     * @return int
      */
     public function getMaxPerPage();
 
     /**
      * Sets the maximum number of results per page.
      *
-     * @param integer $max
+     * @param int $max
      */
     public function setMaxPerPage($max);
 
     /**
      * Sets the current page.
      *
-     * @param integer $page
+     * @param int $page
      */
     public function setPage($page);
 
     /**
-     * Set query
+     * Set query.
      *
      * @param mixed $query
      */

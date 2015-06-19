@@ -14,7 +14,7 @@ namespace Sonata\DatagridBundle\Pager\Elastica;
 use Sonata\DatagridBundle\Pager\BasePager;
 
 /**
- * Elastica pager class
+ * Elastica pager class.
  *
  * @author Vincent Composieux <vincent.composieux@gmail.com>
  */

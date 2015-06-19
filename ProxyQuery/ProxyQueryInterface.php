@@ -12,12 +12,11 @@
 namespace Sonata\DatagridBundle\ProxyQuery;
 
 /**
- * Interface used by the Datagrid to build the query
+ * Interface used by the Datagrid to build the query.
  */
 interface ProxyQueryInterface
 {
     /**
-     *
      * @param array $params
      * @param null  $hydrationMode
      *
@@ -82,7 +81,7 @@ interface ProxyQueryInterface
     public function getMaxResults();
 
     /**
-     * Returns query results
+     * Returns query results.
      *
      * @return array
      */
