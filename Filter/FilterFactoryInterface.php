@@ -12,7 +12,7 @@
 namespace Sonata\DatagridBundle\Filter;
 
 /**
- * Interface FilterFactoryInterface
+ * Interface FilterFactoryInterface.
  */
 interface FilterFactoryInterface
 {

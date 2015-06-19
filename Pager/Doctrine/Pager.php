@@ -12,8 +12,6 @@
 namespace Sonata\DatagridBundle\Pager\Doctrine;
 
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
-
 use Sonata\DatagridBundle\Pager\BasePager;
 
 /**

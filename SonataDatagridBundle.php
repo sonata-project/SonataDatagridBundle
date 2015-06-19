@@ -14,9 +14,8 @@ namespace Sonata\DatagridBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Class SonataDatagridBundle
+ * Class SonataDatagridBundle.
  */
 class SonataDatagridBundle extends Bundle
 {
-
 }

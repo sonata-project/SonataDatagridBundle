@@ -11,13 +11,11 @@
 
 namespace Sonata\DatagridBundle\ProxyQuery\Elastica;
 
-use Sonata\DatagridBundle\ProxyQuery\BaseProxyQuery;
-use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
-
 use Elastica\Search;
+use Sonata\DatagridBundle\ProxyQuery\BaseProxyQuery;
 
 /**
- * This class try to unify the query usage with Doctrine
+ * This class try to unify the query usage with Doctrine.
  */
 class ProxyQuery extends BaseProxyQuery
 {

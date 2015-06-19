@@ -11,7 +11,6 @@
 
 namespace Sonata\DatagridBundle\Tests\Pager\Doctrine;
 
-use Sonata\DatagridBundle\Pager\BasePager;
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
 
 /**
@@ -34,7 +33,7 @@ class PagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test get results method retuns query results
+     * Test get results method retuns query results.
      */
     public function testGetResults()
     {

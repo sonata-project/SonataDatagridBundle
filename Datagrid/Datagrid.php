@@ -11,26 +11,23 @@
 
 namespace Sonata\DatagridBundle\Datagrid;
 
+use Sonata\DatagridBundle\Filter\FilterInterface;
+use Sonata\DatagridBundle\Pager\PagerInterface;
+use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Symfony\Component\Form\CallbackTransformer;
-
-use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
-use Sonata\DatagridBundle\Pager\PagerInterface;
-use Sonata\DatagridBundle\Filter\FilterInterface;
 
 class Datagrid implements DatagridInterface
 {
     /**
-     * The filter instances
+     * The filter instances.
      *
      * @var array
      */
     protected $filters = array();
 
     /**
-     * Values / Datagrid options
+     * Values / Datagrid options.
      *
      * @var array
      */
@@ -67,7 +64,7 @@ class Datagrid implements DatagridInterface
     protected $results;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param ProxyQueryInterface $query
      * @param PagerInterface      $pager
@@ -210,7 +207,7 @@ class Datagrid implements DatagridInterface
     {
         $this->values[$name] = array(
             'type'  => $operator,
-            'value' => $value
+            'value' => $value,
         );
     }
 

@@ -34,7 +34,6 @@ interface DatagridInterface
     public function getResults();
 
     /**
-     * @return void
      */
     public function buildPager();
 
@@ -51,7 +50,7 @@ interface DatagridInterface
     public function getFilters();
 
     /**
-     * Reorder filters
+     * Reorder filters.
      */
     public function reorderFilters(array $keys);
 
@@ -92,7 +91,7 @@ interface DatagridInterface
     public function removeFilter($name);
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function hasActiveFilters();
 }

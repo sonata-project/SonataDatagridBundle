@@ -14,7 +14,7 @@ namespace Sonata\DatagridBundle\ProxyQuery;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * This class try to unify the query usage between different models
+ * This class try to unify the query usage between different models.
  */
 abstract class BaseProxyQuery implements ProxyQueryInterface
 {
@@ -34,12 +34,12 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     protected $sortOrder;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $firstResult;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $maxResults;
 
@@ -49,7 +49,7 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     protected $results;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param QueryBuilder $queryBuilder A query builder object
      */

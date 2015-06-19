@@ -27,7 +27,7 @@ class FilterTest_Filter extends BaseFilter
     public function getDefaultOptions()
     {
         return array(
-            'foo' => 'bar'
+            'foo' => 'bar',
         );
     }
 
@@ -40,17 +40,17 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 {
     public function testFilter()
     {
-        $filter = new FilterTest_Filter;
+        $filter = new FilterTest_Filter();
 
         $this->assertEquals('text', $filter->getFieldType());
         $this->assertEquals(array('required' => false), $filter->getFieldOptions());
         $this->assertNull($filter->getLabel());
 
         $options = array(
-            'label' => 'foo',
-            'field_type' => 'integer',
+            'label'         => 'foo',
+            'field_type'    => 'integer',
             'field_options' => array('required' => true),
-            'field_name' => 'name'
+            'field_name'    => 'name',
         );
 
         $filter->setOptions($options);
@@ -75,9 +75,9 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 
     public function testInitialize()
     {
-        $filter = new FilterTest_Filter;
+        $filter = new FilterTest_Filter();
         $filter->initialize('name', array(
-            'field_name' => 'bar'
+            'field_name' => 'bar',
         ));
 
         $this->assertEquals('name', $filter->getName());
@@ -87,7 +87,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 
     public function testLabel()
     {
-        $filter = new FilterTest_Filter;
+        $filter = new FilterTest_Filter();
         $filter->setLabel('foo');
 
         $this->assertEquals('foo', $filter->getLabel());
@@ -98,7 +98,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testExceptionOnNonDefinedFieldName()
     {
-        $filter = new FilterTest_Filter;
+        $filter = new FilterTest_Filter();
 
         $filter->getFieldName();
     }
@@ -111,7 +111,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testIsActive($expected, $value)
     {
-        $filter = new FilterTest_Filter;
+        $filter = new FilterTest_Filter();
         $filter->setValue($value);
 
         $this->assertEquals($expected, $filter->isActive());
@@ -122,9 +122,9 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         return array(
             array(false, array()),
             array(false, array('value' => null)),
-            array(false, array('value' => "")),
+            array(false, array('value' => '')),
             array(false, array('value' => false)),
-            array(true, array('value' => "active")),
+            array(true, array('value' => 'active')),
         );
     }
 }

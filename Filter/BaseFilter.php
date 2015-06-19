@@ -12,7 +12,7 @@
 namespace Sonata\DatagridBundle\Filter;
 
 /**
- * Class BaseFilter
+ * Class BaseFilter.
  */
 abstract class BaseFilter implements FilterInterface
 {
@@ -123,8 +123,6 @@ abstract class BaseFilter implements FilterInterface
 
     /**
      * @param array $options
-     *
-     * @return void
      */
     public function setOptions(array $options)
     {
@@ -141,8 +139,6 @@ abstract class BaseFilter implements FilterInterface
 
     /**
      * @param mixed $value
-     *
-     * @return void
      */
     public function setValue($value)
     {
@@ -166,13 +162,11 @@ abstract class BaseFilter implements FilterInterface
 
         return isset($values['value'])
         && false !== $values['value']
-        && "" !== $values['value'];
+        && '' !== $values['value'];
     }
 
     /**
      * @param string $condition
-     *
-     * @return void
      */
     public function setCondition($condition)
     {
