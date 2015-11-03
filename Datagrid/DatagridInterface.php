@@ -67,7 +67,7 @@ interface DatagridInterface
     public function setValue($name, $operator, $value);
 
     /**
-     * @return \Symfony\Component\Form\Form
+     * @return FormInterface
      */
     public function getForm();
 

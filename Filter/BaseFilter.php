@@ -16,12 +16,24 @@ namespace Sonata\DatagridBundle\Filter;
  */
 abstract class BaseFilter implements FilterInterface
 {
+    /**
+     * @var string
+     */
     protected $name = null;
 
+    /**
+     * @var mixed
+     */
     protected $value = null;
 
+    /**
+     * @var array
+     */
     protected $options = array();
 
+    /**
+     * @var string
+     */
     protected $condition;
 
     /**
@@ -174,7 +186,7 @@ abstract class BaseFilter implements FilterInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getCondition()
     {

@@ -20,20 +20,71 @@ use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
  */
 abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerInterface
 {
+    /**
+     * @var int
+     */
     protected $page = 1;
+
+    /**
+     * @var int
+     */
     protected $maxPerPage = 0;
+
+    /**
+     * @var int
+     */
     protected $lastPage = 1;
+
+    /**
+     * @var int
+     */
     protected $nbResults = 0;
+
+    /**
+     * @var int
+     */
     protected $cursor = 1;
+
+    /**
+     * @var array
+     */
     protected $parameters = array();
+
+    /**
+     * @var int
+     */
     protected $currentMaxLink = 1;
+
+    /**
+     * @var bool
+     */
     protected $maxRecordLimit = false;
+
+    /**
+     * @var int
+     */
     protected $maxPageLinks = 0;
 
     // used by iterator interface
+
+    /**
+     * @var array
+     */
     protected $results = null;
+
+    /**
+     * @var int
+     */
     protected $resultsCounter = 0;
+
+    /**
+     * @var ProxyQueryInterface
+     */
     protected $query = null;
+
+    /**
+     * @var string[]
+     */
     protected $countColumn = array('id');
 
     /**
