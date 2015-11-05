@@ -21,10 +21,8 @@ use Sonata\DatagridBundle\Pager\BasePager;
  */
 class Pager extends BasePager
 {
-    protected $queryBuilder = null;
-
     /**
-     * {@inheritdoc}
+     * @return int
      */
     public function computeNbResult()
     {
