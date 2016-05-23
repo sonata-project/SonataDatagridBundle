@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -73,9 +73,9 @@ class Datagrid implements DatagridInterface
      */
     public function __construct(ProxyQueryInterface $query, PagerInterface $pager, FormBuilder $formBuilder, array $values = array())
     {
-        $this->pager       = $pager;
-        $this->query       = $query;
-        $this->values      = $values;
+        $this->pager = $pager;
+        $this->query = $query;
+        $this->values = $values;
         $this->formBuilder = $formBuilder;
     }
 
@@ -206,7 +206,7 @@ class Datagrid implements DatagridInterface
     public function setValue($name, $operator, $value)
     {
         $this->values[$name] = array(
-            'type'  => $operator,
+            'type' => $operator,
             'value' => $value,
         );
     }

@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the symfony package.
- * (c) Fabien Potencier <fabien.potencier@symfony-project.com>
- * (c) Jonathan H. Wage <jonwage@gmail.com>
+ * This file is part of the Sonata Project package.
+ *
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -32,63 +32,18 @@ class ProxyQuery extends BaseProxyQuery
         $this->queryBuilder->setFirstResult($this->getFirstResult());
 
         // Sorted field and sort order
-        $sortBy    = $this->getSortBy();
+        $sortBy = $this->getSortBy();
         $sortOrder = $this->getSortOrder();
 
         if ($sortBy && $sortOrder) {
             $rootAliases = $this->queryBuilder->getRootAliases();
-            $rootAlias   = $rootAliases[0];
-            $sortBy      = sprintf('%s.%s', $rootAlias, $sortBy);
+            $rootAlias = $rootAliases[0];
+            $sortBy = sprintf('%s.%s', $rootAlias, $sortBy);
 
             $this->queryBuilder->orderBy($sortBy, $sortOrder);
         }
 
         return $this->getFixedQueryBuilder($this->queryBuilder)->getQuery()->execute($params, $hydrationMode);
-    }
-
-    /**
-     * This method alters the query to return a clean set of object with a working
-     * set of Object.
-     *
-     * @param QueryBuilder $queryBuilder
-     *
-     * @return QueryBuilder
-     */
-    private function getFixedQueryBuilder(QueryBuilder $queryBuilder)
-    {
-        $queryBuilderId = clone $queryBuilder;
-
-        // step 1 : retrieve the targeted class
-        $from  = $queryBuilderId->getDQLPart('from');
-        $class = $from[0]->getFrom();
-
-        // step 2 : retrieve the column id
-        $idName = current($queryBuilderId->getEntityManager()->getMetadataFactory()->getMetadataFor($class)->getIdentifierFieldNames());
-
-        // step 3 : retrieve the different subjects id
-        $rootAliases = $queryBuilderId->getRootAliases();
-        $rootAlias   = $rootAliases[0];
-        $select      = sprintf('%s.%s', $rootAlias, $idName);
-        $queryBuilderId->resetDQLPart('select');
-        $queryBuilderId->add('select', 'DISTINCT '.$select);
-        $queryBuilderId = $this->preserveSqlOrdering($queryBuilderId);
-
-        $results    = $queryBuilderId->getQuery()->execute(array(), Query::HYDRATE_ARRAY);
-
-        $idx        = array();
-        $connection = $queryBuilder->getEntityManager()->getConnection();
-        foreach ($results as $id) {
-            $idx[] = $connection->quote($id[$idName]);
-        }
-
-        // step 4 : alter the query to match the targeted ids
-        if (count($idx) > 0) {
-            $queryBuilder->andWhere(sprintf('%s IN (%s)', $select, implode(',', $idx)));
-            $queryBuilder->setMaxResults(null);
-            $queryBuilder->setFirstResult(null);
-        }
-
-        return $queryBuilder;
     }
 
     /**
@@ -129,6 +84,51 @@ class ProxyQuery extends BaseProxyQuery
                 }
             }
             $queryBuilder->addSelect(implode(', ', $sqlOrderColumns));
+        }
+
+        return $queryBuilder;
+    }
+
+    /**
+     * This method alters the query to return a clean set of object with a working
+     * set of Object.
+     *
+     * @param QueryBuilder $queryBuilder
+     *
+     * @return QueryBuilder
+     */
+    private function getFixedQueryBuilder(QueryBuilder $queryBuilder)
+    {
+        $queryBuilderId = clone $queryBuilder;
+
+        // step 1 : retrieve the targeted class
+        $from = $queryBuilderId->getDQLPart('from');
+        $class = $from[0]->getFrom();
+
+        // step 2 : retrieve the column id
+        $idName = current($queryBuilderId->getEntityManager()->getMetadataFactory()->getMetadataFor($class)->getIdentifierFieldNames());
+
+        // step 3 : retrieve the different subjects id
+        $rootAliases = $queryBuilderId->getRootAliases();
+        $rootAlias = $rootAliases[0];
+        $select = sprintf('%s.%s', $rootAlias, $idName);
+        $queryBuilderId->resetDQLPart('select');
+        $queryBuilderId->add('select', 'DISTINCT '.$select);
+        $queryBuilderId = $this->preserveSqlOrdering($queryBuilderId);
+
+        $results = $queryBuilderId->getQuery()->execute(array(), Query::HYDRATE_ARRAY);
+
+        $idx = array();
+        $connection = $queryBuilder->getEntityManager()->getConnection();
+        foreach ($results as $id) {
+            $idx[] = $connection->quote($id[$idName]);
+        }
+
+        // step 4 : alter the query to match the targeted ids
+        if (count($idx) > 0) {
+            $queryBuilder->andWhere(sprintf('%s IN (%s)', $select, implode(',', $idx)));
+            $queryBuilder->setMaxResults(null);
+            $queryBuilder->setFirstResult(null);
         }
 
         return $queryBuilder;

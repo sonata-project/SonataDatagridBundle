@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -47,10 +47,10 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($filter->getLabel());
 
         $options = array(
-            'label'         => 'foo',
-            'field_type'    => 'integer',
+            'label' => 'foo',
+            'field_type' => 'integer',
             'field_options' => array('required' => true),
-            'field_name'    => 'name',
+            'field_name' => 'name',
         );
 
         $filter->setOptions($options);

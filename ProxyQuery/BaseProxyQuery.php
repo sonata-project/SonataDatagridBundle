@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the symfony package.
- * (c) Fabien Potencier <fabien.potencier@symfony-project.com>
- * (c) Jonathan H. Wage <jonwage@gmail.com>
+ * This file is part of the Sonata Project package.
+ *
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -56,6 +56,22 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     public function __construct(QueryBuilder $queryBuilder)
     {
         $this->queryBuilder = $queryBuilder;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __clone()
+    {
+        $this->queryBuilder = clone $this->queryBuilder;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __call($name, $args)
+    {
+        return call_user_func_array(array($this->queryBuilder, $name), $args);
     }
 
     /**
@@ -144,21 +160,5 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     public function getResults()
     {
         return $this->results;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __clone()
-    {
-        $this->queryBuilder = clone $this->queryBuilder;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __call($name, $args)
-    {
-        return call_user_func_array(array($this->queryBuilder, $name), $args);
     }
 }
