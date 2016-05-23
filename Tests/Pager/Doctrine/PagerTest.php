@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Sonata package.
+ * This file is part of the Sonata Project package.
  *
  * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
@@ -39,13 +39,13 @@ class PagerTest extends \PHPUnit_Framework_TestCase
     {
         $query = $this->getMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
 
-        $object1      = new \stdClass();
+        $object1 = new \stdClass();
         $object1->foo = 'bar1';
 
-        $object2      = new \stdClass();
+        $object2 = new \stdClass();
         $object2->foo = 'bar2';
 
-        $object3      = new \stdClass();
+        $object3 = new \stdClass();
         $object3->foo = 'bar3';
 
         $expectedObjects = array($object1, $object2, $object3);
