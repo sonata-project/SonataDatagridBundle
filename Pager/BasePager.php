@@ -1,8 +1,9 @@
 <?php
 
 /*
- * This file is part of the symfony package.
- * (c) Fabien Potencier <fabien.potencier@symfony-project.com>
+ * This file is part of the Sonata Project package.
+ *
+ * (c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -140,7 +141,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
             $nbLinks = $this->getMaxPageLinks();
         }
         $links = array();
-        $tmp   = $this->page - floor($nbLinks / 2);
+        $tmp = $this->page - floor($nbLinks / 2);
         $check = $this->lastPage - $nbLinks + 1;
         $limit = $check > 0 ? $check : 1;
         $begin = $tmp > 0 ? ($tmp > $limit ? $limit : $tmp) : 1;
@@ -395,7 +396,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
         } else {
             if ($max == 0) {
                 $this->maxPerPage = 0;
-                $this->page       = 0;
+                $this->page = 0;
             } else {
                 $this->maxPerPage = 1;
                 if ($this->page == 0) {
@@ -506,7 +507,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
      */
     protected function initializeIterator()
     {
-        $this->results        = $this->getResults();
+        $this->results = $this->getResults();
         $this->resultsCounter = count($this->results);
     }
 
@@ -515,7 +516,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
      */
     protected function resetIterator()
     {
-        $this->results        = null;
+        $this->results = null;
         $this->resultsCounter = 0;
     }
 
