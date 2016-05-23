@@ -1,23 +1,28 @@
-SonataDatagridBundle
-====================
+# Sonata Datagrid Bundle
 
-[![Build Status](https://secure.travis-ci.org/sonata-project/SonataDatagridBundle.png?branch=master)](http://travis-ci.org/sonata-project/SonataDatagridBundle)
+Symfony SonataDatagridBundle
 
-This bundle provides base class to generate Datagrid.
+[![Latest Stable Version](https://poser.pugx.org/sonata-project/datagrid-bundle/v/stable)](https://packagist.org/packages/sonata-project/datagrid-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/sonata-project/datagrid-bundle/v/unstable)](https://packagist.org/packages/sonata-project/datagrid-bundle)
+[![License](https://poser.pugx.org/sonata-project/datagrid-bundle/license)](https://packagist.org/packages/sonata-project/datagrid-bundle)
 
-The online documentation of the bundle is in https://sonata-project.org/bundles/datagrid
+[![Total Downloads](https://poser.pugx.org/sonata-project/datagrid-bundle/downloads)](https://packagist.org/packages/sonata-project/datagrid-bundle)
+[![Monthly Downloads](https://poser.pugx.org/sonata-project/datagrid-bundle/d/monthly)](https://packagist.org/packages/sonata-project/datagrid-bundle)
+[![Daily Downloads](https://poser.pugx.org/sonata-project/datagrid-bundle/d/daily)](https://packagist.org/packages/sonata-project/datagrid-bundle)
 
-For contribution to the documentation you cand find it on [Resources/doc](https://github.com/sonata-project/SonataDatagridBundle/tree/master/Resources/doc).
+[![Build Status](https://travis-ci.org/sonata-project/SonataDatagridBundle.svg?branch=master)](https://travis-ci.org/sonata-project/SonataDatagridBundle)
 
-**Warning**: documentation files are not rendering correctly in Github (reStructuredText format)
-and some content might be broken or hidden, make sure to read raw files.
+## Documentation
 
-**Google Groups**: For questions and proposals you can post on these google groups
+Check out the documentation on the [official website](https://sonata-project.org/bundles/datagrid).
 
-* [Sonata Users](https://groups.google.com/group/sonata-users): For questions on how to use Sonata bundles on your project
-* [Sonata Devs](https://groups.google.com/group/sonata-devs): For questions regarding the development of Sonata bundles
+## Support
 
-License
--------
+For general support and questions, please use [StackOverflow](http://stackoverflow.com/questions/tagged/sonata).
 
-This bundle is available under the [MIT license](Resources/meta/LICENSE).
+If you think you find a bug or you have a feature idea to propose, feel free to open a issue
+**after looking** at the [contributing guide](CONTRIBUTING.md).
+
+## License
+
+This package is available under the [MIT license](LICENSE).
