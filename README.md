@@ -10,7 +10,9 @@ Symfony SonataDatagridBundle
 [![Monthly Downloads](https://poser.pugx.org/sonata-project/datagrid-bundle/d/monthly)](https://packagist.org/packages/sonata-project/datagrid-bundle)
 [![Daily Downloads](https://poser.pugx.org/sonata-project/datagrid-bundle/d/daily)](https://packagist.org/packages/sonata-project/datagrid-bundle)
 
-[![Build Status](https://travis-ci.org/sonata-project/SonataDatagridBundle.svg?branch=2.x)](https://travis-ci.org/sonata-project/SonataDatagridBundle)
+2.x status: [![Build Status](https://travis-ci.org/sonata-project/SonataDatagridBundle.svg?branch=2.x)](https://travis-ci.org/sonata-project/SonataDatagridBundle)
+
+master status: [![Build Status](https://travis-ci.org/sonata-project/SonataDatagridBundle.svg?branch=master)](https://travis-ci.org/sonata-project/SonataDatagridBundle)
 
 ## Documentation
 
