@@ -61,6 +61,22 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     /**
      * {@inheritdoc}
      */
+    public function __clone()
+    {
+        $this->queryBuilder = clone $this->queryBuilder;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __call($name, $args)
+    {
+        return call_user_func_array(array($this->queryBuilder, $name), $args);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function setSortBy($sortBy)
     {
         $this->sortBy = $sortBy;
@@ -144,21 +160,5 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     public function getResults()
     {
         return $this->results;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __clone()
-    {
-        $this->queryBuilder = clone $this->queryBuilder;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __call($name, $args)
-    {
-        return call_user_func_array(array($this->queryBuilder, $name), $args);
     }
 }
