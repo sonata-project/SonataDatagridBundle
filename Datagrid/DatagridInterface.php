@@ -32,8 +32,6 @@ interface DatagridInterface
      */
     public function getResults();
 
-    /**
-     */
     public function buildPager();
 
     /**

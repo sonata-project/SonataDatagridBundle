@@ -17,20 +17,20 @@ namespace Sonata\DatagridBundle\ProxyQuery;
 interface ProxyQueryInterface
 {
     /**
-     * @param array $params
-     * @param null  $hydrationMode
-     *
-     * @return mixed
-     */
-    public function execute(array $params = array(), $hydrationMode = null);
-
-    /**
      * @param string $name
      * @param array  $args
      *
      * @return mixed
      */
     public function __call($name, $args);
+
+    /**
+     * @param array $params
+     * @param null  $hydrationMode
+     *
+     * @return mixed
+     */
+    public function execute(array $params = array(), $hydrationMode = null);
 
     /**
      * @param array $sortBy
