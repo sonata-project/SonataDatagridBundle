@@ -27,7 +27,13 @@
         "sllh/php-cs-fixer-styleci-bridge": "^2.0"
     },
     "autoload": {
-        "psr-4": { "Sonata\\DatagridBundle\\": "" }
+        "psr-4": { "Sonata\\DatagridBundle\\": "" },
+        "exclude-from-classmap": [
+            "Tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": { "Sonata\\DatagridBundle\\Tests\\": "Tests/" }
     },
     "extra": {
         "branch-alias": {
