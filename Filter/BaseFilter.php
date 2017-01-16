@@ -11,9 +11,6 @@
 
 namespace Sonata\DatagridBundle\Filter;
 
-/**
- * Class BaseFilter.
- */
 abstract class BaseFilter implements FilterInterface
 {
     /**
