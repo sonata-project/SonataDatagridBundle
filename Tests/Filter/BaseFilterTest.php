@@ -94,7 +94,7 @@ class FilterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException RunTimeException
+     * @expectedException \RunTimeException
      */
     public function testExceptionOnNonDefinedFieldName()
     {
