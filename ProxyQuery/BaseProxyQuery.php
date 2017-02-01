@@ -49,8 +49,6 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     protected $results;
 
     /**
-     * Constructor.
-     *
      * @param QueryBuilder $queryBuilder A query builder object
      */
     public function __construct(QueryBuilder $queryBuilder)
