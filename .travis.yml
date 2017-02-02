@@ -49,3 +49,33 @@ matrix:
       env: SYMFONY=2.7.*
     - php: '7.1'
       env: SYMFONY=2.8.*
+    - php: '7.1'
+      env: SYMFONY=3.1.*
+    - php: '7.1'
+      env: SYMFONY=3.2.*
+    - php: '7.1'
+      env: SYMFONY=dev-master@dev
+    - php: '7.1'
+      env: SYMFONY_DEPRECATIONS_HELPER=0
+  allow_failures:
+    - php: nightly
+    - php: hhvm
+    - env: SYMFONY_DEPRECATIONS_HELPER=0
+    - env: SYMFONY=dev-master@dev
+
+before_install:
+  - git remote add upstream ${UPSTREAM_URL} && git fetch --all
+  - if [[ -x .travis/check_relevant_${TARGET}.sh && "$TRAVIS_PULL_REQUEST" != "false" ]]; then export RELEVANT=$(.travis/check_relevant_${TARGET}.sh); fi;
+  - if [[ ! -z ${RELEVANT} ]];then exit 0; fi;
+  - if [ -x .travis/before_install_${TARGET}.sh ]; then .travis/before_install_${TARGET}.sh; fi;
+
+install:
+  - if [ -x .travis/install_${TARGET}.sh ]; then .travis/install_${TARGET}.sh; fi;
+
+before_script:
+  - if [ -x .travis/before_script_${TARGET}.sh ]; then .travis/before_script_${TARGET}.sh; fi;
+
+script: make $TARGET
+
+after_success:
+  - if [ -x .travis/after_success_${TARGET}.sh ]; then .travis/after_success_${TARGET}.sh; fi;
