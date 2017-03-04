@@ -11,7 +11,7 @@
 
 namespace Sonata\DatagridBundle\Pager;
 
-interface PagerInterface extends \Countable
+interface PagerInterface extends \Iterator, \Countable
 {
     /**
      * Initialize the Pager.
@@ -54,9 +54,37 @@ interface PagerInterface extends \Countable
     public function getResults();
 
     /**
-     * Returns the number of results.
+     * Returns the first page number.
      *
      * @return int
      */
-    public function getCount();
+    public function getFirstPage();
+
+    /**
+     * Returns the last page number.
+     *
+     * @return int
+     */
+    public function getLastPage();
+
+    /**
+     * Returns the current page.
+     *
+     * @return int
+     */
+    public function getPage();
+
+    /**
+     * Returns the next page.
+     *
+     * @return int
+     */
+    public function getNextPage();
+
+    /**
+     * Returns the previous page.
+     *
+     * @return int
+     */
+    public function getPreviousPage();
 }

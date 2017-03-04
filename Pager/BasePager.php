@@ -19,7 +19,7 @@ use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
  * @author Fabien Potencier <fabien.potencier@symfony-project.com>
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
-abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerInterface
+abstract class BasePager implements \Serializable, PagerInterface
 {
     /**
      * @var int
@@ -298,9 +298,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
     }
 
     /**
-     * Returns the last page number.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getLastPage()
     {
@@ -308,9 +306,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
     }
 
     /**
-     * Returns the current page.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getPage()
     {
@@ -318,9 +314,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
     }
 
     /**
-     * Returns the next page.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getNextPage()
     {
@@ -328,9 +322,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
     }
 
     /**
-     * Returns the previous page.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getPreviousPage()
     {
