@@ -12,11 +12,12 @@
 namespace Sonata\DatagridBundle\Tests\Pager\Doctrine;
 
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
+use Sonata\DatagridBundle\Tests\Helpers\PHPUnit_Framework_TestCase;
 
 /**
  * @author Romain Mouillard <romain.mouillard@gmail.com>
  */
-class PagerTest extends \PHPUnit_Framework_TestCase
+class PagerTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Pager
@@ -37,7 +38,7 @@ class PagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetResults()
     {
-        $query = $this->getMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
+        $query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
 
         $object1 = new \stdClass();
         $object1->foo = 'bar1';
