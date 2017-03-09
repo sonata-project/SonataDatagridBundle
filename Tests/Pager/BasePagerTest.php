@@ -12,11 +12,12 @@
 namespace Sonata\DatagridBundle\Tests\Pager;
 
 use Sonata\DatagridBundle\Pager\BasePager;
+use Sonata\DatagridBundle\Tests\Helpers\PHPUnit_Framework_TestCase;
 
 /**
  * @author Andrej Hudec <pulzarraider@gmail.com>
  */
-class BasePagerTest extends \PHPUnit_Framework_TestCase
+class BasePagerTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var BasePager
@@ -137,7 +138,7 @@ class BasePagerTest extends \PHPUnit_Framework_TestCase
 
     public function testGetQuery()
     {
-        $query = $this->getMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
+        $query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
 
         $this->pager->setQuery($query);
         $this->assertEquals($query, $this->pager->getQuery());
@@ -359,7 +360,7 @@ class BasePagerTest extends \PHPUnit_Framework_TestCase
 
         $this->callMethod($this->pager, 'setNbResults', array(3));
 
-        $query = $this->getMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
+        $query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
 
         $query->expects($this->any())
             ->method('setFirstResult')
@@ -490,7 +491,7 @@ class BasePagerTest extends \PHPUnit_Framework_TestCase
 
         $this->callMethod($this->pager, 'setNbResults', array(3));
 
-        $query = $this->getMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
+        $query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
 
         $query->expects($this->any())
             ->method('setFirstResult')
@@ -551,7 +552,7 @@ class BasePagerTest extends \PHPUnit_Framework_TestCase
 
         $this->callMethod($this->pager, 'setNbResults', array(3));
 
-        $query = $this->getMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
+        $query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
 
         $query->expects($this->any())
             ->method('setFirstResult')
