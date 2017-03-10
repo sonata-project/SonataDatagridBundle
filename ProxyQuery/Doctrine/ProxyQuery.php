@@ -16,9 +16,7 @@ use Doctrine\ORM\QueryBuilder;
 use Sonata\DatagridBundle\ProxyQuery\BaseProxyQuery;
 
 /**
- * Class ProxyQuery.
- *
- * This is the Doctrine proxy query class
+ * This is the Doctrine proxy query class.
  */
 class ProxyQuery extends BaseProxyQuery
 {
