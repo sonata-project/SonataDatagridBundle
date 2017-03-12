@@ -64,8 +64,6 @@ class Datagrid implements DatagridInterface
     protected $results;
 
     /**
-     * Constructor.
-     *
      * @param ProxyQueryInterface $query
      * @param PagerInterface      $pager
      * @param FormBuilder         $formBuilder

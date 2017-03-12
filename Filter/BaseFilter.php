@@ -11,9 +11,6 @@
 
 namespace Sonata\DatagridBundle\Filter;
 
-/**
- * Class BaseFilter.
- */
 abstract class BaseFilter implements FilterInterface
 {
     /**
@@ -127,7 +124,7 @@ abstract class BaseFilter implements FilterInterface
         $fieldName = $this->getOption('field_name');
 
         if (!$fieldName) {
-            throw new \RunTimeException(sprintf('The option `field_name` must be set for field : `%s`', $this->getName()));
+            throw new \RuntimeException(sprintf('The option `field_name` must be set for field : `%s`', $this->getName()));
         }
 
         return $fieldName;

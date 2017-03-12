@@ -89,8 +89,6 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
     protected $countColumn = array('id');
 
     /**
-     * Constructor.
-     *
      * @param int $maxPerPage Number of records to display per page
      */
     public function __construct($maxPerPage = 10)
