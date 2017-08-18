@@ -18,128 +18,128 @@ interface PagerInterface extends \Iterator, \Countable, \Serializable
     /**
      * Initialize the Pager.
      */
-    public function init();
+    public function init(): void;
 
     /**
      * Returns the maximum number of results per page.
      *
      * @return int
      */
-    public function getMaxPerPage();
+    public function getMaxPerPage(): int;
 
     /**
      * Sets the maximum number of results per page.
      *
      * @param int $max
      */
-    public function setMaxPerPage($max);
+    public function setMaxPerPage(int $max): void;
 
     /**
      * Sets the current page.
      *
      * @param int $page
      */
-    public function setPage($page);
+    public function setPage(int $page): void;
 
     /**
      * Set query.
      *
-     * @param mixed $query
+     * @param ProxyQueryInterface $query
      */
-    public function setQuery($query);
+    public function setQuery(ProxyQueryInterface $query): void;
 
     /**
      * Returns an array of results on the given page.
      *
-     * @return array
+     * @return array|null
      */
-    public function getResults();
+    public function getResults(): ?array;
 
     /**
      * Returns the first page number.
      *
      * @return int
      */
-    public function getFirstPage();
+    public function getFirstPage(): int;
 
     /**
      * Returns the last page number.
      *
      * @return int
      */
-    public function getLastPage();
+    public function getLastPage(): int;
 
     /**
      * Returns the current page.
      *
      * @return int
      */
-    public function getPage();
+    public function getPage(): int;
 
     /**
      * Returns the next page.
      *
      * @return int
      */
-    public function getNextPage();
+    public function getNextPage(): int;
 
     /**
      * Returns the previous page.
      *
      * @return int
      */
-    public function getPreviousPage();
+    public function getPreviousPage(): int;
 
     /**
      * Returns the current pager's max link.
      *
      * @return int
      */
-    public function getCurrentMaxLink();
+    public function getCurrentMaxLink(): int;
 
     /**
      * Returns the current pager's max record limit.
      *
      * @return int
      */
-    public function getMaxRecordLimit();
+    public function getMaxRecordLimit(): int;
 
     /**
      * Sets the current pager's max record limit.
      *
      * @param int $limit
      */
-    public function setMaxRecordLimit($limit);
+    public function setMaxRecordLimit(int $limit): void;
 
     /**
      * Returns an array of page numbers to use in pagination links.
      *
-     * @param int $nbLinks The maximum number of page numbers to return
+     * @param int|null $nbLinks The maximum number of page numbers to return
      *
      * @return array
      */
-    public function getLinks($nbLinks = null);
+    public function getLinks(?int $nbLinks = null): array;
 
     /**
      * Returns true if the current query requires pagination.
      *
      * @return bool
      */
-    public function haveToPaginate();
+    public function haveToPaginate(): bool;
 
     /**
      * Returns the current cursor.
      *
      * @return int
      */
-    public function getCursor();
+    public function getCursor(): int;
 
     /**
      * Sets the current cursor.
      *
      * @param int $pos
      */
-    public function setCursor($pos);
+    public function setCursor(int $pos): void;
 
     /**
      * Returns an object by cursor position.
@@ -148,7 +148,7 @@ interface PagerInterface extends \Iterator, \Countable, \Serializable
      *
      * @return mixed
      */
-    public function getObjectByCursor($pos);
+    public function getObjectByCursor(int $pos);
 
     /**
      * Returns the current object.
@@ -176,56 +176,56 @@ interface PagerInterface extends \Iterator, \Countable, \Serializable
      *
      * @return int
      */
-    public function getFirstIndice();
+    public function getFirstIndice(): int;
 
     /**
      * Returns the last index on the current page.
      *
      * @return int
      */
-    public function getLastIndice();
+    public function getLastIndice(): int;
 
     /**
      * Returns the number of results.
      *
      * @return int
      */
-    public function getNbResults();
+    public function getNbResults(): int;
 
     /**
      * Returns the maximum number of page numbers.
      *
      * @return int
      */
-    public function getMaxPageLinks();
+    public function getMaxPageLinks(): int;
 
     /**
      * Sets the maximum number of page numbers.
      *
      * @param int $maxPageLinks
      */
-    public function setMaxPageLinks($maxPageLinks);
+    public function setMaxPageLinks(int $maxPageLinks): void;
 
     /**
      * Returns true if on the first page.
      *
      * @return bool
      */
-    public function isFirstPage();
+    public function isFirstPage(): bool;
 
     /**
      * Returns true if on the last page.
      *
      * @return bool
      */
-    public function isLastPage();
+    public function isLastPage(): bool;
 
     /**
      * Returns the current pager's parameter holder.
      *
      * @return array
      */
-    public function getParameters();
+    public function getParameters(): array;
 
     /**
      * Returns a parameter.
@@ -235,7 +235,7 @@ interface PagerInterface extends \Iterator, \Countable, \Serializable
      *
      * @return mixed
      */
-    public function getParameter($name, $default = null);
+    public function getParameter(string $name, $default = null);
 
     /**
      * Checks whether a parameter has been set.
@@ -244,7 +244,7 @@ interface PagerInterface extends \Iterator, \Countable, \Serializable
      *
      * @return bool
      */
-    public function hasParameter($name);
+    public function hasParameter(string $name): bool;
 
     /**
      * Sets a parameter.
@@ -252,22 +252,22 @@ interface PagerInterface extends \Iterator, \Countable, \Serializable
      * @param string $name
      * @param mixed  $value
      */
-    public function setParameter($name, $value);
+    public function setParameter(string $name, $value): void;
 
     /**
      * @return array
      */
-    public function getCountColumn();
+    public function getCountColumn(): array;
 
     /**
      * @param array $countColumn
      *
      * @return array
      */
-    public function setCountColumn(array $countColumn);
+    public function setCountColumn(array $countColumn): array;
 
     /**
-     * @return ProxyQueryInterface
+     * @return ProxyQueryInterface|null
      */
-    public function getQuery();
+    public function getQuery(): ?ProxyQueryInterface;
 }

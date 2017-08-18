@@ -377,14 +377,17 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
                 switch ($id) {
                     case 0:
                         return array($object1);
+
                         break;
 
                     case 1:
                         return array($object2);
+
                         break;
 
                     case 2:
                         return array($object3);
+
                         break;
                 }
 
@@ -508,14 +511,17 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
                 switch ($id) {
                     case 0:
                         return array($object1);
+
                         break;
 
                     case 1:
                         return array($object2);
+
                         break;
 
                     case 2:
                         return array($object3);
+
                         break;
                 }
 
@@ -569,14 +575,17 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
                 switch ($id) {
                     case 0:
                         return array($object1);
+
                         break;
 
                     case 1:
                         return array($object2);
+
                         break;
 
                     case 2:
                         return array($object3);
+
                         break;
                 }
 

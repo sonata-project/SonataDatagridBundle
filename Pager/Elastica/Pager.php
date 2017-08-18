@@ -23,7 +23,7 @@ final class Pager extends BasePager
     /**
      * @return int
      */
-    public function computeNbResult()
+    public function computeNbResult(): int
     {
         $countQuery = clone $this->getQuery();
         $countQuery->execute();
@@ -34,7 +34,7 @@ final class Pager extends BasePager
     /**
      * {@inheritdoc}
      */
-    public function getResults()
+    public function getResults(): ?array
     {
         return $this->getQuery()->execute();
     }
@@ -42,7 +42,7 @@ final class Pager extends BasePager
     /**
      * {@inheritdoc}
      */
-    public function init()
+    public function init(): void
     {
         $this->resetIterator();
 

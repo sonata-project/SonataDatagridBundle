@@ -99,7 +99,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getCurrentMaxLink()
+    public function getCurrentMaxLink(): int
     {
         return $this->currentMaxLink;
     }
@@ -107,7 +107,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getMaxRecordLimit()
+    public function getMaxRecordLimit(): int
     {
         return $this->maxRecordLimit;
     }
@@ -115,7 +115,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function setMaxRecordLimit($limit)
+    public function setMaxRecordLimit(int $limit): void
     {
         $this->maxRecordLimit = $limit;
     }
@@ -123,7 +123,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getLinks($nbLinks = null)
+    public function getLinks(?int $nbLinks = null): array
     {
         if ($nbLinks == null) {
             $nbLinks = $this->getMaxPageLinks();
@@ -147,7 +147,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function haveToPaginate()
+    public function haveToPaginate(): bool
     {
         return $this->getMaxPerPage() && $this->getNbResults() > $this->getMaxPerPage();
     }
@@ -155,7 +155,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getCursor()
+    public function getCursor(): int
     {
         return $this->cursor;
     }
@@ -163,7 +163,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function setCursor($pos)
+    public function setCursor(int $pos): void
     {
         if ($pos < 1) {
             $this->cursor = 1;
@@ -179,7 +179,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getObjectByCursor($pos)
+    public function getObjectByCursor(int $pos)
     {
         $this->setCursor($pos);
 
@@ -221,7 +221,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getFirstIndice()
+    public function getFirstIndice(): int
     {
         if ($this->page == 0) {
             return 1;
@@ -233,7 +233,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getLastIndice()
+    public function getLastIndice(): int
     {
         if ($this->page == 0) {
             return $this->nbResults;
@@ -248,7 +248,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         return $this->nbResults;
     }
@@ -256,7 +256,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getFirstPage()
+    public function getFirstPage(): int
     {
         return 1;
     }
@@ -264,7 +264,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getLastPage()
+    public function getLastPage(): int
     {
         return $this->lastPage;
     }
@@ -272,7 +272,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getPage()
+    public function getPage(): int
     {
         return $this->page;
     }
@@ -280,7 +280,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getNextPage()
+    public function getNextPage(): int
     {
         return min($this->getPage() + 1, $this->getLastPage());
     }
@@ -288,7 +288,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getPreviousPage()
+    public function getPreviousPage(): int
     {
         return max($this->getPage() - 1, $this->getFirstPage());
     }
@@ -296,7 +296,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function setPage($page)
+    public function setPage(int $page): void
     {
         $this->page = intval($page);
 
@@ -309,7 +309,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getMaxPerPage()
+    public function getMaxPerPage(): int
     {
         return $this->maxPerPage;
     }
@@ -317,7 +317,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function setMaxPerPage($max)
+    public function setMaxPerPage(int $max): void
     {
         if ($max > 0) {
             $this->maxPerPage = $max;
@@ -340,7 +340,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getMaxPageLinks()
+    public function getMaxPageLinks(): int
     {
         return $this->maxPageLinks;
     }
@@ -348,7 +348,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function setMaxPageLinks($maxPageLinks)
+    public function setMaxPageLinks(int $maxPageLinks): void
     {
         $this->maxPageLinks = $maxPageLinks;
     }
@@ -356,7 +356,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function isFirstPage()
+    public function isFirstPage(): bool
     {
         return 1 == $this->page;
     }
@@ -364,7 +364,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function isLastPage()
+    public function isLastPage(): bool
     {
         return $this->page == $this->lastPage;
     }
@@ -372,7 +372,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getParameters()
+    public function getParameters(): array
     {
         return $this->parameters;
     }
@@ -380,7 +380,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getParameter($name, $default = null)
+    public function getParameter(string $name, $default = null)
     {
         return isset($this->parameters[$name]) ? $this->parameters[$name] : $default;
     }
@@ -388,7 +388,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function hasParameter($name)
+    public function hasParameter(string $name): bool
     {
         return isset($this->parameters[$name]);
     }
@@ -396,7 +396,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function setParameter($name, $value)
+    public function setParameter(string $name, $value): void
     {
         $this->parameters[$name] = $value;
     }
@@ -499,7 +499,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getCountColumn()
+    public function getCountColumn(): array
     {
         return $this->countColumn;
     }
@@ -507,7 +507,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function setCountColumn(array $countColumn)
+    public function setCountColumn(array $countColumn): array
     {
         return $this->countColumn = $countColumn;
     }
@@ -515,7 +515,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function setQuery($query)
+    public function setQuery(ProxyQueryInterface $query): void
     {
         $this->query = $query;
     }
@@ -523,7 +523,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getQuery()
+    public function getQuery(): ?ProxyQueryInterface
     {
         return $this->query;
     }
@@ -533,7 +533,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      *
      * @param int $nb
      */
-    protected function setNbResults($nb)
+    protected function setNbResults(int $nb): void
     {
         $this->nbResults = $nb;
     }
@@ -543,7 +543,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      *
      * @param int $page
      */
-    protected function setLastPage($page)
+    protected function setLastPage(int $page): void
     {
         $this->lastPage = $page;
 
@@ -557,7 +557,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      *
      * @return bool
      */
-    protected function isIteratorInitialized()
+    protected function isIteratorInitialized(): bool
     {
         return null !== $this->results;
     }
@@ -565,7 +565,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * Loads data into properties used for iteration.
      */
-    protected function initializeIterator()
+    protected function initializeIterator(): void
     {
         $this->results = $this->getResults();
         $this->resultsCounter = count($this->results);
@@ -574,7 +574,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * Empties properties used for iteration.
      */
-    protected function resetIterator()
+    protected function resetIterator(): void
     {
         $this->results = null;
         $this->resultsCounter = 0;
@@ -587,7 +587,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      *
      * @return object
      */
-    protected function retrieveObject($offset)
+    protected function retrieveObject(int $offset)
     {
         $queryForRetrieve = clone $this->getQuery();
         $queryForRetrieve

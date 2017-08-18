@@ -80,7 +80,7 @@ final class Datagrid implements DatagridInterface
     /**
      * {@inheritdoc}
      */
-    public function getPager()
+    public function getPager(): PagerInterface
     {
         return $this->pager;
     }
@@ -88,7 +88,7 @@ final class Datagrid implements DatagridInterface
     /**
      * {@inheritdoc}
      */
-    public function getResults()
+    public function getResults(): ?array
     {
         $this->buildPager();
 
@@ -102,7 +102,7 @@ final class Datagrid implements DatagridInterface
     /**
      * {@inheritdoc}
      */
-    public function buildPager()
+    public function buildPager(): void
     {
         if ($this->bound) {
             return;
@@ -145,7 +145,7 @@ final class Datagrid implements DatagridInterface
     /**
      * {@inheritdoc}
      */
-    public function addFilter(FilterInterface $filter)
+    public function addFilter(FilterInterface $filter): void
     {
         $this->filters[$filter->getName()] = $filter;
     }
@@ -153,7 +153,7 @@ final class Datagrid implements DatagridInterface
     /**
      * {@inheritdoc}
      */
-    public function hasFilter($name)
+    public function hasFilter(string $name): bool
     {
         return isset($this->filters[$name]);
     }
@@ -161,7 +161,7 @@ final class Datagrid implements DatagridInterface
     /**
      * {@inheritdoc}
      */
-    public function removeFilter($name)
+    public function removeFilter(string $name): void
     {
         unset($this->filters[$name]);
     }
@@ -169,7 +169,7 @@ final class Datagrid implements DatagridInterface
     /**
      * {@inheritdoc}
      */
-    public function getFilter($name)
+    public function getFilter(string $name): ?FilterInterface
     {
         return $this->hasFilter($name) ? $this->filters[$name] : null;
     }
@@ -177,7 +177,7 @@ final class Datagrid implements DatagridInterface
     /**
      * {@inheritdoc}
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return $this->filters;
     }
@@ -185,7 +185,7 @@ final class Datagrid implements DatagridInterface
     /**
      * {@inheritdoc}
      */
-    public function reorderFilters(array $keys)
+    public function reorderFilters(array $keys): void
     {
         $this->filters = array_merge(array_flip($keys), $this->filters);
     }
@@ -193,7 +193,7 @@ final class Datagrid implements DatagridInterface
     /**
      * {@inheritdoc}
      */
-    public function getValues()
+    public function getValues(): array
     {
         return $this->values;
     }
@@ -201,7 +201,7 @@ final class Datagrid implements DatagridInterface
     /**
      * {@inheritdoc}
      */
-    public function setValue($name, $operator, $value)
+    public function setValue(string $name, string $operator, $value): void
     {
         $this->values[$name] = array(
             'type' => $operator,
@@ -212,7 +212,7 @@ final class Datagrid implements DatagridInterface
     /**
      * {@inheritdoc}
      */
-    public function hasActiveFilters()
+    public function hasActiveFilters(): bool
     {
         foreach ($this->filters as $name => $filter) {
             if ($filter->isActive()) {
@@ -226,7 +226,7 @@ final class Datagrid implements DatagridInterface
     /**
      * {@inheritdoc}
      */
-    public function getQuery()
+    public function getQuery(): ProxyQueryInterface
     {
         return $this->query;
     }
@@ -234,7 +234,7 @@ final class Datagrid implements DatagridInterface
     /**
      * {@inheritdoc}
      */
-    public function getForm()
+    public function getForm(): FormInterface
     {
         $this->buildPager();
 

@@ -22,7 +22,7 @@ final class ProxyQuery extends BaseProxyQuery
     /**
      * {@inheritdoc}
      */
-    public function execute(array $params = array(), $hydrationMode = null)
+    public function execute(array $params = array(), ?int $hydrationMode = null)
     {
         $query = $this->queryBuilder->getQuery();
 

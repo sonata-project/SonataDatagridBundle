@@ -26,7 +26,7 @@ class PagerTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->pager = $this->getMockForAbstractClass('Sonata\DatagridBundle\Pager\Doctrine\Pager');
+        $this->pager = new Pager();
 
         if (!class_exists('Doctrine\ORM\Query')) {
             $this->markTestSkipped("Doctrine ORM doesn't seem to be installed");

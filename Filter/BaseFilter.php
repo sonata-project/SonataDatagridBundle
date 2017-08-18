@@ -36,7 +36,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function initialize($name, array $options = array())
+    public function initialize(string $name, array $options = array()): void
     {
         $this->name = $name;
         $this->setOptions($options);
@@ -45,7 +45,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -53,7 +53,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function getFormName()
+    public function getFormName(): string
     {
         /* Symfony default form class sadly can't handle
            form element with dots in its name (when data
@@ -67,7 +67,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function getOption($name, $default = null)
+    public function getOption(string $name, $default = null)
     {
         if (array_key_exists($name, $this->options)) {
             return $this->options[$name];
@@ -79,7 +79,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function setOption($name, $value)
+    public function setOption(string $name, $value): void
     {
         $this->options[$name] = $value;
     }
@@ -87,7 +87,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function getFieldType()
+    public function getFieldType(): string
     {
         return $this->getOption('field_type', 'text');
     }
@@ -95,7 +95,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function getFieldOptions()
+    public function getFieldOptions(): array
     {
         return $this->getOption('field_options', array('required' => false));
     }
@@ -103,7 +103,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function getLabel()
+    public function getLabel(): ?string
     {
         return $this->getOption('label');
     }
@@ -111,7 +111,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function setLabel($label)
+    public function setLabel(string $label): void
     {
         $this->setOption('label', $label);
     }
@@ -119,7 +119,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function getFieldName()
+    public function getFieldName(): string
     {
         $fieldName = $this->getOption('field_name');
 
@@ -133,7 +133,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * @param array $options
      */
-    public function setOptions(array $options)
+    public function setOptions(array $options): void
     {
         $this->options = array_merge($this->getDefaultOptions(), $options);
     }
@@ -141,7 +141,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * @return array
      */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->options;
     }
@@ -149,7 +149,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * @param mixed $value
      */
-    public function setValue($value)
+    public function setValue($value): void
     {
         $this->value = $value;
     }
@@ -165,7 +165,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function isActive()
+    public function isActive(): bool
     {
         $values = $this->getValue();
 
@@ -177,7 +177,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * @param string $condition
      */
-    public function setCondition($condition)
+    public function setCondition(string $condition): void
     {
         $this->condition = $condition;
     }
@@ -185,7 +185,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function getCondition()
+    public function getCondition(): string
     {
         return $this->condition;
     }
@@ -193,7 +193,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function getTranslationDomain()
+    public function getTranslationDomain(): string
     {
         return $this->getOption('translation_domain');
     }
