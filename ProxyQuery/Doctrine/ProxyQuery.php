@@ -73,7 +73,7 @@ class ProxyQuery extends BaseProxyQuery
         }
 
         // For any orderBy clause defined directly in the dqlParts
-        $dqlParts = $queryBuilder->getDqlParts();
+        $dqlParts = $queryBuilder->getDQLParts();
         if ($dqlParts['orderBy'] && count($dqlParts['orderBy'])) {
             $sqlOrderColumns = array();
             foreach ($dqlParts['orderBy'] as $part) {
