@@ -97,9 +97,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns the current pager's max link.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getCurrentMaxLink()
     {
@@ -107,9 +105,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns the current pager's max record limit.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getMaxRecordLimit()
     {
@@ -117,9 +113,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Sets the current pager's max record limit.
-     *
-     * @param int $limit
+     * {@inheritdoc}
      */
     public function setMaxRecordLimit($limit)
     {
@@ -127,11 +121,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns an array of page numbers to use in pagination links.
-     *
-     * @param int $nbLinks The maximum number of page numbers to return
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getLinks($nbLinks = null)
     {
@@ -155,9 +145,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns true if the current query requires pagination.
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function haveToPaginate()
     {
@@ -165,9 +153,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns the current cursor.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getCursor()
     {
@@ -175,9 +161,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Sets the current cursor.
-     *
-     * @param int $pos
+     * {@inheritdoc}
      */
     public function setCursor($pos)
     {
@@ -193,11 +177,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns an object by cursor position.
-     *
-     * @param int $pos
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
     public function getObjectByCursor($pos)
     {
@@ -207,9 +187,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns the current object.
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
     public function getCurrent()
     {
@@ -217,9 +195,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns the next object.
-     *
-     * @return mixed|null
+     * {@inheritdoc}
      */
     public function getNext()
     {
@@ -231,9 +207,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns the previous object.
-     *
-     * @return mixed|null
+     * {@inheritdoc}
      */
     public function getPrevious()
     {
@@ -245,9 +219,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns the first index on the current page.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getFirstIndice()
     {
@@ -259,9 +231,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns the last index on the current page.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getLastIndice()
     {
@@ -276,9 +246,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns the number of results.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getNbResults()
     {
@@ -286,9 +254,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns the first page number.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getFirstPage()
     {
@@ -372,9 +338,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns the maximum number of page numbers.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getMaxPageLinks()
     {
@@ -382,9 +346,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Sets the maximum number of page numbers.
-     *
-     * @param int $maxPageLinks
+     * {@inheritdoc}
      */
     public function setMaxPageLinks($maxPageLinks)
     {
@@ -392,9 +354,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns true if on the first page.
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isFirstPage()
     {
@@ -402,9 +362,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns true if on the last page.
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isLastPage()
     {
@@ -412,9 +370,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns the current pager's parameter holder.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getParameters()
     {
@@ -422,12 +378,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Returns a parameter.
-     *
-     * @param string $name
-     * @param mixed  $default
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
     public function getParameter($name, $default = null)
     {
@@ -435,11 +386,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Checks whether a parameter has been set.
-     *
-     * @param string $name
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function hasParameter($name)
     {
@@ -447,10 +394,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * Sets a parameter.
-     *
-     * @param string $name
-     * @param mixed  $value
+     * {@inheritdoc}
      */
     public function setParameter($name, $value)
     {
@@ -553,7 +497,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function getCountColumn()
     {
@@ -561,9 +505,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * @param array $countColumn
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function setCountColumn(array $countColumn)
     {
@@ -579,7 +521,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * @return ProxyQueryInterface
+     * {@inheritdoc}
      */
     public function getQuery()
     {

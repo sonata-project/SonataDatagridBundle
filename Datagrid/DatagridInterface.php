@@ -48,6 +48,8 @@ interface DatagridInterface
 
     /**
      * Reorder filters.
+     *
+     * @param array $keys
      */
     public function reorderFilters(array $keys);
 
