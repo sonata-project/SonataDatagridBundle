@@ -71,7 +71,7 @@ class DatagridTest extends PHPUnit_Framework_TestCase
                     return $formTypes[$name];
                 }
 
-                return;
+                return null;
             }));
 
         // php 5.3 BC
