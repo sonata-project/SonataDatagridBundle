@@ -19,7 +19,7 @@ use Sonata\DatagridBundle\Pager\BasePager;
  *
  * @author Jonathan H. Wage <jonwage@gmail.com>
  */
-class Pager extends BasePager
+final class Pager extends BasePager
 {
     /**
      * @return int

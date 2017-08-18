@@ -17,51 +17,51 @@ use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormInterface;
 
-class Datagrid implements DatagridInterface
+final class Datagrid implements DatagridInterface
 {
     /**
      * The filter instances.
      *
      * @var array
      */
-    protected $filters = array();
+    private $filters = array();
 
     /**
      * Values / Datagrid options.
      *
      * @var array
      */
-    protected $values;
+    private $values;
 
     /**
      * @var PagerInterface
      */
-    protected $pager;
+    private $pager;
 
     /**
      * @var bool
      */
-    protected $bound = false;
+    private $bound = false;
 
     /**
      * @var ProxyQueryInterface
      */
-    protected $query;
+    private $query;
 
     /**
      * @var FormBuilder
      */
-    protected $formBuilder;
+    private $formBuilder;
 
     /**
      * @var FormInterface
      */
-    protected $form;
+    private $form;
 
     /**
      * @var array|null
      */
-    protected $results;
+    private $results;
 
     /**
      * @param ProxyQueryInterface $query

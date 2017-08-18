@@ -17,7 +17,7 @@ use Sonata\DatagridBundle\ProxyQuery\BaseProxyQuery;
 /**
  * This class try to unify the query usage with Doctrine.
  */
-class ProxyQuery extends BaseProxyQuery
+final class ProxyQuery extends BaseProxyQuery
 {
     /**
      * {@inheritdoc}
