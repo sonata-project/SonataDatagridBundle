@@ -144,7 +144,7 @@ abstract class BasePager implements \Serializable, PagerInterface
         $limit = $check > 0 ? $check : 1;
         $begin = $tmp > 0 ? ($tmp > $limit ? $limit : $tmp) : 1;
 
-        $i = (int) $begin;
+        $i = $begin;
         while ($i < $begin + $nbLinks && $i <= $this->lastPage) {
             $links[] = $i++;
         }
