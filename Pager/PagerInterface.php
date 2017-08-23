@@ -13,7 +13,7 @@ namespace Sonata\DatagridBundle\Pager;
 
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
-interface PagerInterface extends \Iterator, \Countable
+interface PagerInterface extends \Iterator, \Countable, \Serializable
 {
     /**
      * Initialize the Pager.
@@ -253,16 +253,6 @@ interface PagerInterface extends \Iterator, \Countable
      * @param mixed  $value
      */
     public function setParameter($name, $value);
-
-    /**
-     * {@inheritdoc}
-     */
-    public function serialize();
-
-    /**
-     * {@inheritdoc}
-     */
-    public function unserialize($serialized);
 
     /**
      * @return array
