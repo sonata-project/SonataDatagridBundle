@@ -16,22 +16,22 @@ abstract class BaseFilter implements FilterInterface
     /**
      * @var string
      */
-    protected $name = null;
+    private $name = null;
 
     /**
      * @var mixed
      */
-    protected $value = null;
+    private $value = null;
 
     /**
      * @var array
      */
-    protected $options = array();
+    private $options = array();
 
     /**
      * @var string
      */
-    protected $condition;
+    private $condition;
 
     /**
      * {@inheritdoc}

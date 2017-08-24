@@ -24,69 +24,69 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * @var int
      */
-    protected $page = 1;
+    private $page = 1;
 
     /**
      * @var int
      */
-    protected $maxPerPage = 0;
+    private $maxPerPage = 0;
 
     /**
      * @var int
      */
-    protected $lastPage = 1;
+    private $lastPage = 1;
 
     /**
      * @var int
      */
-    protected $nbResults = 0;
+    private $nbResults = 0;
 
     /**
      * @var int
      */
-    protected $cursor = 1;
+    private $cursor = 1;
 
     /**
      * @var array
      */
-    protected $parameters = array();
+    private $parameters = array();
 
     /**
      * @var int
      */
-    protected $currentMaxLink = 1;
+    private $currentMaxLink = 1;
 
     /**
      * @var bool
      */
-    protected $maxRecordLimit = false;
+    private $maxRecordLimit = false;
 
     /**
      * @var int
      */
-    protected $maxPageLinks = 0;
+    private $maxPageLinks = 0;
 
     // used by iterator interface
 
     /**
      * @var array
      */
-    protected $results = null;
+    private $results = null;
 
     /**
      * @var int
      */
-    protected $resultsCounter = 0;
+    private $resultsCounter = 0;
 
     /**
      * @var ProxyQueryInterface
      */
-    protected $query = null;
+    private $query = null;
 
     /**
      * @var string[]
      */
-    protected $countColumn = array('id');
+    private $countColumn = array('id');
 
     /**
      * @param int $maxPerPage Number of records to display per page
@@ -533,7 +533,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      *
      * @param int $nb
      */
-    protected function setNbResults(int $nb): void
+    final protected function setNbResults(int $nb): void
     {
         $this->nbResults = $nb;
     }
@@ -543,7 +543,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      *
      * @param int $page
      */
-    protected function setLastPage(int $page): void
+    final protected function setLastPage(int $page): void
     {
         $this->lastPage = $page;
 
@@ -553,11 +553,20 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
+     * Empties properties used for iteration.
+     */
+    final protected function resetIterator(): void
+    {
+        $this->results = null;
+        $this->resultsCounter = 0;
+    }
+
+    /**
      * Returns true if the properties used for iteration have been initialized.
      *
      * @return bool
      */
-    protected function isIteratorInitialized(): bool
+    private function isIteratorInitialized(): bool
     {
         return null !== $this->results;
     }
@@ -565,19 +574,10 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * Loads data into properties used for iteration.
      */
-    protected function initializeIterator(): void
+    private function initializeIterator(): void
     {
         $this->results = $this->getResults();
         $this->resultsCounter = count($this->results);
-    }
-
-    /**
-     * Empties properties used for iteration.
-     */
-    protected function resetIterator(): void
-    {
-        $this->results = null;
-        $this->resultsCounter = 0;
     }
 
     /**
@@ -587,7 +587,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      *
      * @return object
      */
-    protected function retrieveObject(int $offset)
+    private function retrieveObject(int $offset)
     {
         $queryForRetrieve = clone $this->getQuery();
         $queryForRetrieve

@@ -26,27 +26,27 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     /**
      * @var array
      */
-    protected $sortBy;
-
-    /**
-     * @var array
-     */
-    protected $sortOrder;
-
-    /**
-     * @var int
-     */
-    protected $firstResult;
-
-    /**
-     * @var int
-     */
-    protected $maxResults;
-
-    /**
-     * @var array
-     */
     protected $results;
+
+    /**
+     * @var array
+     */
+    private $sortBy;
+
+    /**
+     * @var array
+     */
+    private $sortOrder;
+
+    /**
+     * @var int
+     */
+    private $firstResult;
+
+    /**
+     * @var int
+     */
+    private $maxResults;
 
     /**
      * @param QueryBuilder $queryBuilder A query builder object
