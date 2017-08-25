@@ -16,22 +16,22 @@ use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
 class FilterTest_Filter extends BaseFilter
 {
-    public function filter(ProxyQueryInterface $queryBuilder, $alias, $field, $value)
+    public function filter(ProxyQueryInterface $queryBuilder, string  $alias, string $field, string $value): void
     {
     }
 
-    public function apply($query, $value)
+    public function apply($query, $value): void
     {
     }
 
-    public function getDefaultOptions()
+    public function getDefaultOptions(): array
     {
         return array(
             'foo' => 'bar',
         );
     }
 
-    public function getRenderSettings()
+    public function getRenderSettings(): array
     {
     }
 }

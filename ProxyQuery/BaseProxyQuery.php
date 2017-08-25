@@ -26,27 +26,27 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     /**
      * @var array
      */
-    protected $sortBy;
-
-    /**
-     * @var array
-     */
-    protected $sortOrder;
-
-    /**
-     * @var int
-     */
-    protected $firstResult;
-
-    /**
-     * @var int
-     */
-    protected $maxResults;
-
-    /**
-     * @var array
-     */
     protected $results;
+
+    /**
+     * @var array
+     */
+    private $sortBy;
+
+    /**
+     * @var array
+     */
+    private $sortOrder;
+
+    /**
+     * @var int
+     */
+    private $firstResult;
+
+    /**
+     * @var int
+     */
+    private $maxResults;
 
     /**
      * @param QueryBuilder $queryBuilder A query builder object
@@ -75,7 +75,7 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     /**
      * {@inheritdoc}
      */
-    public function setSortBy($sortBy)
+    public function setSortBy($sortBy): ProxyQueryInterface
     {
         $this->sortBy = $sortBy;
 
@@ -93,7 +93,7 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     /**
      * {@inheritdoc}
      */
-    public function setSortOrder($sortOrder)
+    public function setSortOrder($sortOrder): ProxyQueryInterface
     {
         $this->sortOrder = $sortOrder;
 
@@ -111,7 +111,7 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     /**
      * {@inheritdoc}
      */
-    public function setFirstResult($firstResult)
+    public function setFirstResult(int $firstResult): ProxyQueryInterface
     {
         $this->firstResult = $firstResult;
 
@@ -129,7 +129,7 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     /**
      * {@inheritdoc}
      */
-    public function setMaxResults($maxResults)
+    public function setMaxResults(int $maxResults): ProxyQueryInterface
     {
         $this->maxResults = $maxResults;
 
@@ -155,7 +155,7 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     /**
      * {@inheritdoc}
      */
-    public function getResults()
+    public function getResults(): array
     {
         return $this->results;
     }

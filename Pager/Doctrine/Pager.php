@@ -19,12 +19,12 @@ use Sonata\DatagridBundle\Pager\BasePager;
  *
  * @author Jonathan H. Wage <jonwage@gmail.com>
  */
-class Pager extends BasePager
+final class Pager extends BasePager
 {
     /**
      * @return int
      */
-    public function computeNbResult()
+    public function computeNbResult(): int
     {
         $countQuery = clone $this->getQuery();
 
@@ -48,7 +48,7 @@ class Pager extends BasePager
     /**
      * {@inheritdoc}
      */
-    public function getResults($hydrationMode = Query::HYDRATE_OBJECT)
+    public function getResults($hydrationMode = Query::HYDRATE_OBJECT): ?array
     {
         return $this->getQuery()->execute(array(), $hydrationMode);
     }
@@ -56,7 +56,7 @@ class Pager extends BasePager
     /**
      * {@inheritdoc}
      */
-    public function init()
+    public function init(): void
     {
         $this->resetIterator();
 

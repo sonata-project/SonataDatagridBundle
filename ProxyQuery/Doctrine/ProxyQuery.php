@@ -18,12 +18,12 @@ use Sonata\DatagridBundle\ProxyQuery\BaseProxyQuery;
 /**
  * This is the Doctrine proxy query class.
  */
-class ProxyQuery extends BaseProxyQuery
+final class ProxyQuery extends BaseProxyQuery
 {
     /**
      * {@inheritdoc}
      */
-    public function execute(array $params = array(), $hydrationMode = null)
+    public function execute(array $params = array(), ?int $hydrationMode = null)
     {
         // Limit & offset
         $this->queryBuilder->setMaxResults($this->getMaxResults());
@@ -51,7 +51,7 @@ class ProxyQuery extends BaseProxyQuery
      *
      * @return QueryBuilder
      */
-    public function preserveSqlOrdering(QueryBuilder $queryBuilder)
+    public function preserveSqlOrdering(QueryBuilder $queryBuilder): QueryBuilder
     {
         $rootAliases = $queryBuilder->getRootAliases();
         $rootAlias = $rootAliases[0];
@@ -73,7 +73,7 @@ class ProxyQuery extends BaseProxyQuery
         }
 
         // For any orderBy clause defined directly in the dqlParts
-        $dqlParts = $queryBuilder->getDqlParts();
+        $dqlParts = $queryBuilder->getDQLParts();
         if ($dqlParts['orderBy'] && count($dqlParts['orderBy'])) {
             $sqlOrderColumns = array();
             foreach ($dqlParts['orderBy'] as $part) {
@@ -95,7 +95,7 @@ class ProxyQuery extends BaseProxyQuery
      *
      * @return QueryBuilder
      */
-    private function getFixedQueryBuilder(QueryBuilder $queryBuilder)
+    private function getFixedQueryBuilder(QueryBuilder $queryBuilder): QueryBuilder
     {
         $queryBuilderId = clone $queryBuilder;
 

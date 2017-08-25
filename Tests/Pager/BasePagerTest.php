@@ -391,7 +391,7 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
                         break;
                 }
 
-                return;
+                return null;
             }));
 
         $this->pager->setQuery($query);
@@ -525,7 +525,7 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
                         break;
                 }
 
-                return;
+                return null;
             }));
 
         $this->pager->setQuery($query);
@@ -589,7 +589,7 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
                         break;
                 }
 
-                return;
+                return null;
             }));
 
         $this->pager->setQuery($query);

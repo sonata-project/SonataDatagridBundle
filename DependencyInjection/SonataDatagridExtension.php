@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * @author Vincent Composieux <vincent.composieux@gmail.com>
  */
-class SonataDatagridExtension extends Extension
+final class SonataDatagridExtension extends Extension
 {
     /**
      * Loads the configuration.

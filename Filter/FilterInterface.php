@@ -30,108 +30,108 @@ interface FilterInterface
      * @param string              $field
      * @param string              $value
      */
-    public function filter(ProxyQueryInterface $queryBuilder, $alias, $field, $value);
+    public function filter(ProxyQueryInterface $queryBuilder, string  $alias, string $field, string $value): void;
 
     /**
      * @param mixed $query
      * @param mixed $value
      */
-    public function apply($query, $value);
+    public function apply($query, $value): void;
 
     /**
      * Returns the filter name.
      *
-     * @return string
+     * @return string|null
      */
-    public function getName();
+    public function getName(): ?string;
 
     /**
      * Returns the filter form name.
      *
      * @return string
      */
-    public function getFormName();
+    public function getFormName(): string;
 
     /**
      * Returns the label name.
      *
-     * @return string
+     * @return string|null
      */
-    public function getLabel();
+    public function getLabel(): ?string;
 
     /**
      * @param string $label
      */
-    public function setLabel($label);
+    public function setLabel(string $label): void;
 
     /**
      * @return array
      */
-    public function getDefaultOptions();
+    public function getDefaultOptions(): array;
 
     /**
      * @param string $name
-     * @param null   $default
+     * @param mixed  $default
      *
      * @return mixed
      */
-    public function getOption($name, $default = null);
+    public function getOption(string $name, $default = null);
 
     /**
      * @param string $name
      * @param mixed  $value
      */
-    public function setOption($name, $value);
+    public function setOption(string $name, $value): void;
 
     /**
      * @param string $name
      * @param array  $options
      */
-    public function initialize($name, array $options = array());
+    public function initialize(string $name, array $options = array()): void;
 
     /**
      * @return string
      */
-    public function getFieldName();
+    public function getFieldName(): string;
 
     /**
      * @return array
      */
-    public function getFieldOptions();
+    public function getFieldOptions(): array;
 
     /**
      * @return string
      */
-    public function getFieldType();
+    public function getFieldType(): string;
 
     /**
      * Returns the main widget used to render the filter.
      *
      * @return array
      */
-    public function getRenderSettings();
+    public function getRenderSettings(): array;
 
     /**
      * Returns true if filter is active.
      *
      * @return bool
      */
-    public function isActive();
+    public function isActive(): bool;
 
     /**
      * Set the condition to use with the left side of the query : OR or AND.
      *
      * @param string $condition
      */
-    public function setCondition($condition);
+    public function setCondition(string $condition): void;
 
     /**
      * @return string
      */
-    public function getCondition();
+    public function getCondition(): string;
 
     /**
      * @return string
      */
-    public function getTranslationDomain();
+    public function getTranslationDomain(): string;
 }

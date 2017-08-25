@@ -14,81 +14,82 @@ namespace Sonata\DatagridBundle\Datagrid;
 use Sonata\DatagridBundle\Filter\FilterInterface;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
+use Symfony\Component\Form\FormInterface;
 
 interface DatagridInterface
 {
     /**
      * @return PagerInterface
      */
-    public function getPager();
+    public function getPager(): PagerInterface;
 
     /**
      * @return ProxyQueryInterface
      */
-    public function getQuery();
+    public function getQuery(): ProxyQueryInterface;
 
     /**
-     * @return array
+     * @return array|null
      */
-    public function getResults();
+    public function getResults(): ?array;
 
-    public function buildPager();
+    public function buildPager(): void;
 
     /**
      * @param FilterInterface $filter
-     *
-     * @return FilterInterface
      */
-    public function addFilter(FilterInterface $filter);
+    public function addFilter(FilterInterface $filter): void;
 
     /**
      * @return array
      */
-    public function getFilters();
+    public function getFilters(): array;
 
     /**
      * Reorder filters.
+     *
+     * @param array $keys
      */
-    public function reorderFilters(array $keys);
+    public function reorderFilters(array $keys): void;
 
     /**
      * @return array
      */
-    public function getValues();
+    public function getValues(): array;
 
     /**
      * @param string $name
      * @param string $operator
      * @param mixed  $value
      */
-    public function setValue($name, $operator, $value);
+    public function setValue(string $name, string $operator, $value): void;
 
     /**
      * @return FormInterface
      */
-    public function getForm();
+    public function getForm(): FormInterface;
 
     /**
      * @param string $name
      *
-     * @return FilterInterface
+     * @return FilterInterface|null
      */
-    public function getFilter($name);
+    public function getFilter(string $name): ?FilterInterface;
 
     /**
      * @param string $name
      *
      * @return bool
      */
-    public function hasFilter($name);
+    public function hasFilter(string $name): bool;
 
     /**
      * @param string $name
      */
-    public function removeFilter($name);
+    public function removeFilter(string $name): void;
 
     /**
      * @return bool
      */
-    public function hasActiveFilters();
+    public function hasActiveFilters(): bool;
 }
