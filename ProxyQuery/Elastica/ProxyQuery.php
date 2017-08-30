@@ -34,7 +34,7 @@ class ProxyQuery extends BaseProxyQuery
             $query->setSort(array($sortBy => array('order' => $sortOrder)));
         }
 
-        // Limit & offset
+        // Limit & offset.
         $this->results = $this->queryBuilder->getRepository()->createPaginatorAdapter($query, array(
             Search::OPTION_SIZE => $this->getMaxResults(),
             Search::OPTION_FROM => $this->getFirstResult(),
