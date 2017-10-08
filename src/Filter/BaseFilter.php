@@ -26,7 +26,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * @var string
@@ -36,7 +36,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function initialize($name, array $options = array())
+    public function initialize($name, array $options = [])
     {
         $this->name = $name;
         $this->setOptions($options);
@@ -97,7 +97,7 @@ abstract class BaseFilter implements FilterInterface
      */
     public function getFieldOptions()
     {
-        return $this->getOption('field_options', array('required' => false));
+        return $this->getOption('field_options', ['required' => false]);
     }
 
     /**
