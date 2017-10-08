@@ -49,7 +49,7 @@ class PagerTest extends PHPUnit_Framework_TestCase
         $object3 = new \stdClass();
         $object3->foo = 'bar3';
 
-        $expectedObjects = array($object1, $object2, $object3);
+        $expectedObjects = [$object1, $object2, $object3];
 
         $query->expects($this->any())
             ->method('execute')

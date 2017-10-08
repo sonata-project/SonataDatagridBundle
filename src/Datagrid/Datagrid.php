@@ -24,7 +24,7 @@ class Datagrid implements DatagridInterface
      *
      * @var array
      */
-    protected $filters = array();
+    protected $filters = [];
 
     /**
      * Values / Datagrid options.
@@ -69,7 +69,7 @@ class Datagrid implements DatagridInterface
      * @param FormBuilder         $formBuilder
      * @param array               $values
      */
-    public function __construct(ProxyQueryInterface $query, PagerInterface $pager, FormBuilder $formBuilder, array $values = array())
+    public function __construct(ProxyQueryInterface $query, PagerInterface $pager, FormBuilder $formBuilder, array $values = [])
     {
         $this->pager = $pager;
         $this->query = $query;
@@ -203,10 +203,10 @@ class Datagrid implements DatagridInterface
      */
     public function setValue($name, $operator, $value)
     {
-        $this->values[$name] = array(
+        $this->values[$name] = [
             'type' => $operator,
             'value' => $value,
-        );
+        ];
     }
 
     /**

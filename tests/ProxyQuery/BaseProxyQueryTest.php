@@ -34,7 +34,7 @@ class BaseProxyQueryTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue('foobar'));
 
         $proxyQuery = $this->getMockBuilder('Sonata\DatagridBundle\ProxyQuery\BaseProxyQuery')
-            ->setConstructorArgs(array($queryBuilder))
+            ->setConstructorArgs([$queryBuilder])
             ->getMockForAbstractClass();
 
         $this->assertEquals('foobar', $proxyQuery->getType());
