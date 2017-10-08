@@ -30,7 +30,7 @@ interface ProxyQueryInterface
      *
      * @return mixed
      */
-    public function execute(array $params = array(), $hydrationMode = null);
+    public function execute(array $params = [], $hydrationMode = null);
 
     /**
      * @param array $sortBy
