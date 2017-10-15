@@ -26,9 +26,9 @@ class FilterTest_Filter extends BaseFilter
 
     public function getDefaultOptions(): array
     {
-        return array(
+        return [
             'foo' => 'bar',
-        );
+        ];
     }
 
     public function getRenderSettings(): array
@@ -43,15 +43,15 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $filter = new FilterTest_Filter();
 
         $this->assertEquals('text', $filter->getFieldType());
-        $this->assertEquals(array('required' => false), $filter->getFieldOptions());
+        $this->assertEquals(['required' => false], $filter->getFieldOptions());
         $this->assertNull($filter->getLabel());
 
-        $options = array(
+        $options = [
             'label' => 'foo',
             'field_type' => 'integer',
-            'field_options' => array('required' => true),
+            'field_options' => ['required' => true],
             'field_name' => 'name',
-        );
+        ];
 
         $filter->setOptions($options);
 
@@ -76,9 +76,9 @@ class FilterTest extends \PHPUnit_Framework_TestCase
     public function testInitialize()
     {
         $filter = new FilterTest_Filter();
-        $filter->initialize('name', array(
+        $filter->initialize('name', [
             'field_name' => 'bar',
-        ));
+        ]);
 
         $this->assertEquals('name', $filter->getName());
         $this->assertEquals('bar', $filter->getOption('field_name'));
@@ -119,12 +119,12 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 
     public function isActiveData()
     {
-        return array(
-            array(false, array()),
-            array(false, array('value' => null)),
-            array(false, array('value' => '')),
-            array(false, array('value' => false)),
-            array(true, array('value' => 'active')),
-        );
+        return [
+            [false, []],
+            [false, ['value' => null]],
+            [false, ['value' => '']],
+            [false, ['value' => false]],
+            [true, ['value' => 'active']],
+        ];
     }
 }

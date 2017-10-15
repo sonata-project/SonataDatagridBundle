@@ -49,7 +49,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * @var array
      */
-    private $parameters = array();
+    private $parameters = [];
 
     /**
      * @var int
@@ -86,7 +86,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * @var string[]
      */
-    private $countColumn = array('id');
+    private $countColumn = ['id'];
 
     /**
      * @param int $maxPerPage Number of records to display per page
@@ -128,7 +128,7 @@ abstract class BasePager implements \Serializable, PagerInterface
         if ($nbLinks == null) {
             $nbLinks = $this->getMaxPageLinks();
         }
-        $links = array();
+        $links = [];
         $tmp = $this->page - floor($nbLinks / 2);
         $check = $this->lastPage - $nbLinks + 1;
         $limit = $check > 0 ? $check : 1;

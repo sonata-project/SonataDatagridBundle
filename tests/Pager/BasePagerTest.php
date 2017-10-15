@@ -49,16 +49,16 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
 
     public function getGetMaxPerPage1Tests()
     {
-        return array(
-            array(123, 1, 123, 1),
-            array(123, 321, 123, 321),
-            array(1, 1, 1, 0),
-            array(0, 0, 0, 0),
-            array(1, 1, -1, 1),
-            array(1, 1, -1, 0),
-            array(1, 1, -1, -1),
-            array(0, 0, 0, null),
-        );
+        return [
+            [123, 1, 123, 1],
+            [123, 321, 123, 321],
+            [1, 1, 1, 0],
+            [0, 0, 0, 0],
+            [1, 1, -1, 1],
+            [1, 1, -1, 0],
+            [1, 1, -1, -1],
+            [0, 0, 0, null],
+        ];
     }
 
     public function testGetMaxPerPage2()
@@ -101,7 +101,7 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
         $this->pager->getLinks();
         $this->assertEquals(1, $this->pager->getCurrentMaxLink());
 
-        $this->callMethod($this->pager, 'setLastPage', array(20));
+        $this->callMethod($this->pager, 'setLastPage', [20]);
         $this->pager->getLinks(10);
         $this->assertEquals(10, $this->pager->getCurrentMaxLink());
 
@@ -122,7 +122,7 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(0, $this->pager->getNbResults());
 
-        $this->callMethod($this->pager, 'setNbResults', array(100));
+        $this->callMethod($this->pager, 'setNbResults', [100]);
 
         $this->assertEquals(100, $this->pager->getNbResults());
     }
@@ -131,7 +131,7 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(0, $this->pager->count());
 
-        $this->callMethod($this->pager, 'setNbResults', array(100));
+        $this->callMethod($this->pager, 'setNbResults', [100]);
 
         $this->assertEquals(100, $this->pager->count());
     }
@@ -146,10 +146,10 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
 
     public function testGetCountColumn()
     {
-        $this->assertEquals(array('id'), $this->pager->getCountColumn());
+        $this->assertEquals(['id'], $this->pager->getCountColumn());
 
-        $this->pager->setCountColumn(array('foo'));
-        $this->assertEquals(array('foo'), $this->pager->getCountColumn());
+        $this->pager->setCountColumn(['foo']);
+        $this->assertEquals(['foo'], $this->pager->getCountColumn());
     }
 
     public function testParameters()
@@ -157,28 +157,28 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(null, $this->pager->getParameter('foo', null));
         $this->assertEquals('bar', $this->pager->getParameter('foo', 'bar'));
         $this->assertFalse($this->pager->hasParameter('foo'));
-        $this->assertEquals(array(), $this->pager->getParameters());
+        $this->assertEquals([], $this->pager->getParameters());
 
         $this->pager->setParameter('foo', 'foo_value');
 
         $this->assertTrue($this->pager->hasParameter('foo'));
         $this->assertEquals('foo_value', $this->pager->getParameter('foo', null));
         $this->assertEquals('foo_value', $this->pager->getParameter('foo', 'bar'));
-        $this->assertEquals(array('foo' => 'foo_value'), $this->pager->getParameters());
+        $this->assertEquals(['foo' => 'foo_value'], $this->pager->getParameters());
 
         $this->pager->setParameter('foo', 'baz');
 
         $this->assertTrue($this->pager->hasParameter('foo'));
         $this->assertEquals('baz', $this->pager->getParameter('foo', null));
         $this->assertEquals('baz', $this->pager->getParameter('foo', 'bar'));
-        $this->assertEquals(array('foo' => 'baz'), $this->pager->getParameters());
+        $this->assertEquals(['foo' => 'baz'], $this->pager->getParameters());
 
         $this->pager->setParameter('foo2', 'foo2_value');
 
         $this->assertTrue($this->pager->hasParameter('foo2'));
         $this->assertEquals('foo2_value', $this->pager->getParameter('foo2', null));
         $this->assertEquals('foo2_value', $this->pager->getParameter('foo2', 'bar'));
-        $this->assertEquals(array('foo' => 'baz', 'foo2' => 'foo2_value'), $this->pager->getParameters());
+        $this->assertEquals(['foo' => 'baz', 'foo2' => 'foo2_value'], $this->pager->getParameters());
     }
 
     public function testGetMaxPageLinks()
@@ -203,14 +203,14 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $this->pager->getLastPage());
 
         $this->pager->setPage(10);
-        $this->callMethod($this->pager, 'setLastPage', array(50));
+        $this->callMethod($this->pager, 'setLastPage', [50]);
         $this->assertEquals(50, $this->pager->getLastPage());
         $this->assertFalse($this->pager->isLastPage());
 
         $this->pager->setPage(50);
         $this->assertTrue($this->pager->isLastPage());
 
-        $this->callMethod($this->pager, 'setLastPage', array(20));
+        $this->callMethod($this->pager, 'setLastPage', [20]);
         $this->assertEquals(20, $this->pager->getPage());
         $this->assertEquals(20, $this->pager->getLastPage());
         $this->assertTrue($this->pager->isLastPage());
@@ -218,33 +218,33 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
 
     public function testGetLinks()
     {
-        $this->assertEquals(array(), $this->pager->getLinks());
+        $this->assertEquals([], $this->pager->getLinks());
 
         $this->pager->setPage(1);
         $this->pager->setMaxPageLinks(1);
-        $this->assertEquals(array(1), $this->pager->getLinks());
-        $this->assertEquals(array(1), $this->pager->getLinks(10));
+        $this->assertEquals([1], $this->pager->getLinks());
+        $this->assertEquals([1], $this->pager->getLinks(10));
 
         $this->pager->setPage(1);
         $this->pager->setMaxPageLinks(7);
-        $this->callMethod($this->pager, 'setLastPage', array(50));
+        $this->callMethod($this->pager, 'setLastPage', [50]);
         $this->assertEquals(7, count($this->pager->getLinks()));
-        $this->assertEquals(array(1, 2, 3, 4, 5, 6, 7), $this->pager->getLinks());
+        $this->assertEquals([1, 2, 3, 4, 5, 6, 7], $this->pager->getLinks());
 
         $this->pager->setPage(10);
         $this->pager->setMaxPageLinks(12);
         $this->assertEquals(5, count($this->pager->getLinks(5)));
-        $this->assertEquals(array(8, 9, 10, 11, 12), $this->pager->getLinks(5));
+        $this->assertEquals([8, 9, 10, 11, 12], $this->pager->getLinks(5));
 
         $this->pager->setPage(10);
         $this->pager->setMaxPageLinks(6);
         $this->assertEquals(6, count($this->pager->getLinks()));
-        $this->assertEquals(array(7, 8, 9, 10, 11, 12), $this->pager->getLinks());
+        $this->assertEquals([7, 8, 9, 10, 11, 12], $this->pager->getLinks());
 
         $this->pager->setPage(50);
         $this->pager->setMaxPageLinks(6);
         $this->assertEquals(6, count($this->pager->getLinks()));
-        $this->assertEquals(array(45, 46, 47, 48, 49, 50), $this->pager->getLinks());
+        $this->assertEquals([45, 46, 47, 48, 49, 50], $this->pager->getLinks());
     }
 
     public function testHaveToPaginate()
@@ -254,7 +254,7 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
         $this->pager->setMaxPerPage(10);
         $this->assertFalse($this->pager->haveToPaginate());
 
-        $this->callMethod($this->pager, 'setNbResults', array(100));
+        $this->callMethod($this->pager, 'setNbResults', [100]);
         $this->assertTrue($this->pager->haveToPaginate());
     }
 
@@ -271,14 +271,14 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
         $object3 = new \stdClass();
         $object3->foo = 'bar3';
 
-        $expectedObjects = array($object1, $object2, $object3);
+        $expectedObjects = [$object1, $object2, $object3];
 
         $this->pager->expects($this->any())
             ->method('getResults')
             ->will($this->returnValue($expectedObjects));
 
         $counter = 0;
-        $values = array();
+        $values = [];
         foreach ($this->pager as $key => $value) {
             $values[$key] = $value;
             ++$counter;
@@ -303,7 +303,7 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
     {
         $this->pager->expects($this->any())
             ->method('getResults')
-            ->will($this->returnValue(array()));
+            ->will($this->returnValue([]));
 
         $this->assertFalse($this->pager->next());
     }
@@ -312,7 +312,7 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
     {
         $this->pager->expects($this->any())
             ->method('getResults')
-            ->will($this->returnValue(array(123 => new \stdClass())));
+            ->will($this->returnValue([123 => new \stdClass()]));
 
         $this->assertEquals(123, $this->pager->key());
     }
@@ -323,7 +323,7 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
 
         $this->pager->expects($this->any())
             ->method('getResults')
-            ->will($this->returnValue(array($object)));
+            ->will($this->returnValue([$object]));
 
         $this->assertEquals($object, $this->pager->current());
     }
@@ -338,7 +338,7 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
         $this->pager->setCursor(300);
         $this->assertEquals(0, $this->pager->getCursor());
 
-        $this->callMethod($this->pager, 'setNbResults', array(100));
+        $this->callMethod($this->pager, 'setNbResults', [100]);
 
         $this->pager->setCursor(5);
         $this->assertEquals(5, $this->pager->getCursor());
@@ -358,7 +358,7 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
         $object3 = new \stdClass();
         $object3->foo = 'bar3';
 
-        $this->callMethod($this->pager, 'setNbResults', array(3));
+        $this->callMethod($this->pager, 'setNbResults', [3]);
 
         $query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
 
@@ -376,17 +376,17 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
             ->will($this->returnCallback(function () use (&$id, $object1, $object2, $object3) {
                 switch ($id) {
                     case 0:
-                        return array($object1);
+                        return [$object1];
 
                         break;
 
                     case 1:
-                        return array($object2);
+                        return [$object2];
 
                         break;
 
                     case 2:
-                        return array($object3);
+                        return [$object3];
 
                         break;
                 }
@@ -422,7 +422,7 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $this->pager->getNextPage());
 
         $this->pager->setPage(3);
-        $this->callMethod($this->pager, 'setLastPage', array(20));
+        $this->callMethod($this->pager, 'setLastPage', [20]);
         $this->assertEquals(4, $this->pager->getNextPage());
 
         $this->pager->setPage(21);
@@ -465,7 +465,7 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
         $this->pager->setPage(0);
         $this->assertEquals(0, $this->pager->getLastIndice());
 
-        $this->callMethod($this->pager, 'setNbResults', array(100));
+        $this->callMethod($this->pager, 'setNbResults', [100]);
 
         $this->assertEquals(100, $this->pager->getLastIndice());
 
@@ -492,7 +492,7 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
         $object3 = new \stdClass();
         $object3->foo = 'bar3';
 
-        $this->callMethod($this->pager, 'setNbResults', array(3));
+        $this->callMethod($this->pager, 'setNbResults', [3]);
 
         $query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
 
@@ -510,17 +510,17 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
             ->will($this->returnCallback(function () use (&$id, $object1, $object2, $object3) {
                 switch ($id) {
                     case 0:
-                        return array($object1);
+                        return [$object1];
 
                         break;
 
                     case 1:
-                        return array($object2);
+                        return [$object2];
 
                         break;
 
                     case 2:
-                        return array($object3);
+                        return [$object3];
 
                         break;
                 }
@@ -556,7 +556,7 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
         $object3 = new \stdClass();
         $object3->foo = 'bar3';
 
-        $this->callMethod($this->pager, 'setNbResults', array(3));
+        $this->callMethod($this->pager, 'setNbResults', [3]);
 
         $query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
 
@@ -574,17 +574,17 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
             ->will($this->returnCallback(function () use (&$id, $object1, $object2, $object3) {
                 switch ($id) {
                     case 0:
-                        return array($object1);
+                        return [$object1];
 
                         break;
 
                     case 1:
-                        return array($object2);
+                        return [$object2];
 
                         break;
 
                     case 2:
-                        return array($object3);
+                        return [$object3];
 
                         break;
                 }
@@ -623,22 +623,22 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
 
     public function testUnserialize()
     {
-        $serialized = array(
+        $serialized = [
             'page' => 6,
             'maxPerPage' => 7,
             'maxPageLinks' => 5,
             'lastPage' => 4,
             'nbResults' => 30,
             'cursor' => 3,
-            'parameters' => array('foo' => 'bar'),
+            'parameters' => ['foo' => 'bar'],
             'currentMaxLink' => 2,
             'maxRecordLimit' => 22,
-            'countColumn' => array('idx'),
-        );
+            'countColumn' => ['idx'],
+        ];
 
         $this->pager->expects($this->any())
             ->method('getResults')
-            ->will($this->returnValue(array()));
+            ->will($this->returnValue([]));
         $this->pager->current();
 
         $this->pager->unserialize(serialize($serialized));
@@ -647,16 +647,16 @@ class BasePagerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(6, $this->pager->getPage());
         $this->assertEquals(5, $this->pager->getMaxPageLinks());
         $this->assertEquals(4, $this->pager->getLastPage());
-        $this->assertEquals(array('idx'), $this->pager->getCountColumn());
+        $this->assertEquals(['idx'], $this->pager->getCountColumn());
         $this->assertEquals(30, $this->pager->getNbResults());
         $this->assertEquals(3, $this->pager->getCursor());
-        $this->assertEquals(array('foo' => 'bar'), $this->pager->getParameters());
+        $this->assertEquals(['foo' => 'bar'], $this->pager->getParameters());
         $this->assertEquals(2, $this->pager->getCurrentMaxLink());
         $this->assertEquals(22, $this->pager->getMaxRecordLimit());
         $this->assertEquals(null, $this->pager->getQuery());
     }
 
-    protected function callMethod($obj, $name, array $args = array())
+    protected function callMethod($obj, $name, array $args = [])
     {
         $class = new \ReflectionClass($obj);
         $method = $class->getMethod($name);

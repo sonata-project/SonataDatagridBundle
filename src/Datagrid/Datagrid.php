@@ -14,6 +14,7 @@ namespace Sonata\DatagridBundle\Datagrid;
 use Sonata\DatagridBundle\Filter\FilterInterface;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormInterface;
 
@@ -24,7 +25,7 @@ final class Datagrid implements DatagridInterface
      *
      * @var array
      */
-    private $filters = array();
+    private $filters = [];
 
     /**
      * Values / Datagrid options.
@@ -69,7 +70,7 @@ final class Datagrid implements DatagridInterface
      * @param FormBuilder         $formBuilder
      * @param array               $values
      */
-    public function __construct(ProxyQueryInterface $query, PagerInterface $pager, FormBuilder $formBuilder, array $values = array())
+    public function __construct(ProxyQueryInterface $query, PagerInterface $pager, FormBuilder $formBuilder, array $values = [])
     {
         $this->pager = $pager;
         $this->query = $query;
@@ -114,10 +115,10 @@ final class Datagrid implements DatagridInterface
             $this->formBuilder->add($filter->getFormName(), $type, $options);
         }
 
-        $this->formBuilder->add('_sort_by', 'hidden');
-        $this->formBuilder->add('_sort_order', 'hidden');
-        $this->formBuilder->add('_page', 'hidden');
-        $this->formBuilder->add('_per_page', 'hidden');
+        $this->formBuilder->add('_sort_by', HiddenType::class);
+        $this->formBuilder->add('_sort_order', HiddenType::class);
+        $this->formBuilder->add('_page', HiddenType::class);
+        $this->formBuilder->add('_per_page', HiddenType::class);
 
         $this->form = $this->formBuilder->getForm();
         $this->form->submit($this->values);
@@ -203,10 +204,10 @@ final class Datagrid implements DatagridInterface
      */
     public function setValue(string $name, string $operator, $value): void
     {
-        $this->values[$name] = array(
+        $this->values[$name] = [
             'type' => $operator,
             'value' => $value,
-        );
+        ];
     }
 
     /**

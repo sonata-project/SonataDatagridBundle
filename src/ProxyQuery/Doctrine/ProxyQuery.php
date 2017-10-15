@@ -23,7 +23,7 @@ final class ProxyQuery extends BaseProxyQuery
     /**
      * {@inheritdoc}
      */
-    public function execute(array $params = array(), ?int $hydrationMode = null)
+    public function execute(array $params = [], ?int $hydrationMode = null)
     {
         // Limit & offset
         $this->queryBuilder->setMaxResults($this->getMaxResults());
@@ -75,7 +75,7 @@ final class ProxyQuery extends BaseProxyQuery
         // For any orderBy clause defined directly in the dqlParts
         $dqlParts = $queryBuilder->getDQLParts();
         if ($dqlParts['orderBy'] && count($dqlParts['orderBy'])) {
-            $sqlOrderColumns = array();
+            $sqlOrderColumns = [];
             foreach ($dqlParts['orderBy'] as $part) {
                 foreach ($part->getParts() as $orderBy) {
                     $sqlOrderColumns[] = preg_replace("/\s+(ASC|DESC)$/i", '', $orderBy);
@@ -114,9 +114,9 @@ final class ProxyQuery extends BaseProxyQuery
         $queryBuilderId->add('select', 'DISTINCT '.$select);
         $queryBuilderId = $this->preserveSqlOrdering($queryBuilderId);
 
-        $results = $queryBuilderId->getQuery()->execute(array(), Query::HYDRATE_ARRAY);
+        $results = $queryBuilderId->getQuery()->execute([], Query::HYDRATE_ARRAY);
 
-        $idx = array();
+        $idx = [];
         $connection = $queryBuilder->getEntityManager()->getConnection();
         foreach ($results as $id) {
             $idx[] = $connection->quote($id[$idName]);

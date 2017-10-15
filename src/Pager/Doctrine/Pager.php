@@ -50,7 +50,7 @@ final class Pager extends BasePager
      */
     public function getResults($hydrationMode = Query::HYDRATE_OBJECT): ?array
     {
-        return $this->getQuery()->execute(array(), $hydrationMode);
+        return $this->getQuery()->execute([], $hydrationMode);
     }
 
     /**

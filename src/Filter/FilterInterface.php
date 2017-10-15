@@ -87,7 +87,7 @@ interface FilterInterface
      * @param string $name
      * @param array  $options
      */
-    public function initialize(string $name, array $options = array()): void;
+    public function initialize(string $name, array $options = []): void;
 
     /**
      * @return string

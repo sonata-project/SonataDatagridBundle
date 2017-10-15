@@ -22,7 +22,7 @@ final class ProxyQuery extends BaseProxyQuery
     /**
      * {@inheritdoc}
      */
-    public function execute(array $params = array(), ?int $hydrationMode = null)
+    public function execute(array $params = [], ?int $hydrationMode = null)
     {
         $query = $this->queryBuilder->getQuery();
 
@@ -31,14 +31,14 @@ final class ProxyQuery extends BaseProxyQuery
         $sortOrder = $this->getSortOrder();
 
         if ($sortBy && $sortOrder) {
-            $query->setSort(array($sortBy => array('order' => $sortOrder)));
+            $query->setSort([$sortBy => ['order' => $sortOrder]]);
         }
 
         // Limit & offset.
-        $this->results = $this->queryBuilder->getRepository()->createPaginatorAdapter($query, array(
+        $this->results = $this->queryBuilder->getRepository()->createPaginatorAdapter($query, [
             Search::OPTION_SIZE => $this->getMaxResults(),
             Search::OPTION_FROM => $this->getFirstResult(),
-        ));
+        ]);
 
         return $this->results->getResults($this->getFirstResult(), $this->getMaxResults())->toArray();
     }

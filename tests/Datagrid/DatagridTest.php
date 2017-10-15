@@ -56,7 +56,7 @@ class DatagridTest extends PHPUnit_Framework_TestCase
         $this->query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
         $this->pager = $this->createMock('Sonata\DatagridBundle\Pager\PagerInterface');
 
-        $this->formTypes = array();
+        $this->formTypes = [];
 
         // php 5.3 BC
         $formTypes = &$this->formTypes;
@@ -97,7 +97,7 @@ class DatagridTest extends PHPUnit_Framework_TestCase
                 return $form;
             }));
 
-        $values = array();
+        $values = [];
 
         $this->datagrid = new Datagrid($this->query, $this->pager, $this->formBuilder, $values);
     }
@@ -130,7 +130,7 @@ class DatagridTest extends PHPUnit_Framework_TestCase
 
     public function testGetFilters()
     {
-        $this->assertEquals(array(), $this->datagrid->getFilters());
+        $this->assertEquals([], $this->datagrid->getFilters());
 
         $filter1 = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
         $filter1->expects($this->once())
@@ -151,16 +151,16 @@ class DatagridTest extends PHPUnit_Framework_TestCase
         $this->datagrid->addFilter($filter2);
         $this->datagrid->addFilter($filter3);
 
-        $this->assertEquals(array('foo' => $filter1, 'bar' => $filter2, 'baz' => $filter3), $this->datagrid->getFilters());
+        $this->assertEquals(['foo' => $filter1, 'bar' => $filter2, 'baz' => $filter3], $this->datagrid->getFilters());
 
         $this->datagrid->removeFilter('bar');
 
-        $this->assertEquals(array('foo' => $filter1, 'baz' => $filter3), $this->datagrid->getFilters());
+        $this->assertEquals(['foo' => $filter1, 'baz' => $filter3], $this->datagrid->getFilters());
     }
 
     public function testReorderFilters()
     {
-        $this->assertEquals(array(), $this->datagrid->getFilters());
+        $this->assertEquals([], $this->datagrid->getFilters());
 
         $filter1 = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
         $filter1->expects($this->once())
@@ -181,22 +181,22 @@ class DatagridTest extends PHPUnit_Framework_TestCase
         $this->datagrid->addFilter($filter2);
         $this->datagrid->addFilter($filter3);
 
-        $this->assertEquals(array('foo' => $filter1, 'bar' => $filter2, 'baz' => $filter3), $this->datagrid->getFilters());
-        $this->assertEquals(array('foo', 'bar', 'baz'), array_keys($this->datagrid->getFilters()));
+        $this->assertEquals(['foo' => $filter1, 'bar' => $filter2, 'baz' => $filter3], $this->datagrid->getFilters());
+        $this->assertEquals(['foo', 'bar', 'baz'], array_keys($this->datagrid->getFilters()));
 
-        $this->datagrid->reorderFilters(array('bar', 'baz', 'foo'));
+        $this->datagrid->reorderFilters(['bar', 'baz', 'foo']);
 
-        $this->assertEquals(array('bar' => $filter2, 'baz' => $filter3, 'foo' => $filter1), $this->datagrid->getFilters());
-        $this->assertEquals(array('bar', 'baz', 'foo'), array_keys($this->datagrid->getFilters()));
+        $this->assertEquals(['bar' => $filter2, 'baz' => $filter3, 'foo' => $filter1], $this->datagrid->getFilters());
+        $this->assertEquals(['bar', 'baz', 'foo'], array_keys($this->datagrid->getFilters()));
     }
 
     public function testGetValues()
     {
-        $this->assertEquals(array(), $this->datagrid->getValues());
+        $this->assertEquals([], $this->datagrid->getValues());
 
         $this->datagrid->setValue('foo', 'bar', 'baz');
 
-        $this->assertEquals(array('foo' => array('type' => 'bar', 'value' => 'baz')), $this->datagrid->getValues());
+        $this->assertEquals(['foo' => ['type' => 'bar', 'value' => 'baz']], $this->datagrid->getValues());
     }
 
     public function testGetQuery()
@@ -244,9 +244,9 @@ class DatagridTest extends PHPUnit_Framework_TestCase
 
         $this->pager->expects($this->once())
             ->method('getResults')
-            ->will($this->returnValue(array('foo', 'bar')));
+            ->will($this->returnValue(['foo', 'bar']));
 
-        $this->assertEquals(array('foo', 'bar'), $this->datagrid->getResults());
+        $this->assertEquals(['foo', 'bar'], $this->datagrid->getResults());
     }
 
     public function testBuildPager()
@@ -263,7 +263,7 @@ class DatagridTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(false));
         $filter1->expects($this->any())
             ->method('getRenderSettings')
-            ->will($this->returnValue(array('foo1', array('bar1' => 'baz1'))));
+            ->will($this->returnValue(['foo1', ['bar1' => 'baz1']]));
 
         $this->datagrid->addFilter($filter1);
 
@@ -279,17 +279,17 @@ class DatagridTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
         $filter2->expects($this->any())
             ->method('getRenderSettings')
-            ->will($this->returnValue(array('foo2', array('bar2' => 'baz2'))));
+            ->will($this->returnValue(['foo2', ['bar2' => 'baz2']]));
 
         $this->datagrid->addFilter($filter2);
 
         $this->datagrid->buildPager();
 
-        $this->assertEquals(array('foo' => null, 'bar' => null), $this->datagrid->getValues());
+        $this->assertEquals(['foo' => null, 'bar' => null], $this->datagrid->getValues());
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('fooFormName'));
-        $this->assertEquals(array('bar1' => 'baz1'), $this->formBuilder->get('fooFormName')->getOptions());
+        $this->assertEquals(['bar1' => 'baz1'], $this->formBuilder->get('fooFormName')->getOptions());
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('barFormName'));
-        $this->assertEquals(array('bar2' => 'baz2'), $this->formBuilder->get('barFormName')->getOptions());
+        $this->assertEquals(['bar2' => 'baz2'], $this->formBuilder->get('barFormName')->getOptions());
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_sort_by'));
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_sort_order'));
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_page'));
@@ -298,9 +298,9 @@ class DatagridTest extends PHPUnit_Framework_TestCase
 
     public function testBuildPagerWithSortBy()
     {
-        $this->datagrid = new Datagrid($this->query, $this->pager, $this->formBuilder, array(
+        $this->datagrid = new Datagrid($this->query, $this->pager, $this->formBuilder, [
             '_sort_by' => 'name',
-        ));
+        ]);
 
         $filter = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
         $filter->expects($this->once())
@@ -314,15 +314,15 @@ class DatagridTest extends PHPUnit_Framework_TestCase
             ->will($this->returnValue(false));
         $filter->expects($this->any())
             ->method('getRenderSettings')
-            ->will($this->returnValue(array('foo', array('bar' => 'baz'))));
+            ->will($this->returnValue(['foo', ['bar' => 'baz']]));
 
         $this->datagrid->addFilter($filter);
 
         $this->datagrid->buildPager();
 
-        $this->assertEquals(array('_sort_by' => 'name', 'foo' => null), $this->datagrid->getValues());
+        $this->assertEquals(['_sort_by' => 'name', 'foo' => null], $this->datagrid->getValues());
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('fooFormName'));
-        $this->assertEquals(array('bar' => 'baz'), $this->formBuilder->get('fooFormName')->getOptions());
+        $this->assertEquals(['bar' => 'baz'], $this->formBuilder->get('fooFormName')->getOptions());
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_sort_by'));
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_sort_order'));
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_page'));
