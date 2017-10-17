@@ -11,10 +11,12 @@
 
 namespace Sonata\DatagridBundle\Tests\ProxyQuery;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @author Romain Mouillard <romain.mouillard@gmail.com>
  */
-class BaseProxyQueryTest extends \PHPUnit_Framework_TestCase
+class BaseProxyQueryTest extends TestCase
 {
     /**
      * Test calling undefined method on proxy query object will also try it on its query builder.
