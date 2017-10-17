@@ -11,10 +11,10 @@
 
 namespace Sonata\DatagridBundle\Tests\Datagrid;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\DatagridBundle\Datagrid\Datagrid;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
-use Sonata\DatagridBundle\Tests\Helpers\PHPUnit_Framework_TestCase;
 use Symfony\Component\Form\FormBuilder;
 
 class TestEntity
@@ -24,7 +24,7 @@ class TestEntity
 /**
  * @author Andrej Hudec <pulzarraider@gmail.com>
  */
-class DatagridTest extends PHPUnit_Framework_TestCase
+class DatagridTest extends TestCase
 {
     /**
      * @var Datagrid

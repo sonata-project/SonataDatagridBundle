@@ -11,6 +11,7 @@
 
 namespace Sonata\DatagridBundle\Tests\Filter;
 
+use PHPUnit\Framework\TestCase;
 use Sonata\DatagridBundle\Filter\BaseFilter;
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
@@ -36,7 +37,7 @@ class FilterTest_Filter extends BaseFilter
     }
 }
 
-class FilterTest extends \PHPUnit_Framework_TestCase
+class FilterTest extends TestCase
 {
     public function testFilter()
     {
