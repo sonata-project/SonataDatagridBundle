@@ -64,7 +64,7 @@ class ProxyQuery extends BaseProxyQuery
         // todo : check how doctrine behave, potential SQL injection here ...
         if ($this->getSortBy()) {
             $sortBy = $this->getSortBy();
-            if (strpos($sortBy, '.') === false) {
+            if (false === strpos($sortBy, '.')) {
                 // add the current alias
                 $sortBy = $rootAlias.'.'.$sortBy;
             }
