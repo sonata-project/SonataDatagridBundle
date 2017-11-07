@@ -125,7 +125,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      */
     public function getLinks(?int $nbLinks = null): array
     {
-        if ($nbLinks == null) {
+        if (null == $nbLinks) {
             $nbLinks = $this->getMaxPageLinks();
         }
         $links = [];
@@ -223,7 +223,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      */
     public function getFirstIndice(): int
     {
-        if ($this->page == 0) {
+        if (0 == $this->page) {
             return 1;
         }
 
@@ -235,7 +235,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      */
     public function getLastIndice(): int
     {
-        if ($this->page == 0) {
+        if (0 == $this->page) {
             return $this->nbResults;
         }
         if ($this->page * $this->maxPerPage >= $this->nbResults) {
@@ -321,16 +321,16 @@ abstract class BasePager implements \Serializable, PagerInterface
     {
         if ($max > 0) {
             $this->maxPerPage = $max;
-            if ($this->page == 0) {
+            if (0 == $this->page) {
                 $this->page = 1;
             }
         } else {
-            if ($max == 0) {
+            if (0 == $max) {
                 $this->maxPerPage = 0;
                 $this->page = 0;
             } else {
                 $this->maxPerPage = 1;
-                if ($this->page == 0) {
+                if (0 == $this->page) {
                     $this->page = 1;
                 }
             }
