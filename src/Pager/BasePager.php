@@ -340,7 +340,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
      */
     public function setPage($page)
     {
-        $this->page = intval($page);
+        $this->page = (int) $page;
 
         if ($this->page <= 0) {
             // set first page, which depends on a maximum set
