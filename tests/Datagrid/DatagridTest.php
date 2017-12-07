@@ -70,8 +70,6 @@ class DatagridTest extends TestCase
                 if (isset($formTypes[$name])) {
                     return $formTypes[$name];
                 }
-
-                return null;
             }));
 
         // php 5.3 BC
@@ -82,8 +80,6 @@ class DatagridTest extends TestCase
             ->method('add')
             ->will($this->returnCallback(function ($name, $type, $options) use (&$formTypes, $eventDispatcher, $formFactory) {
                 $formTypes[$name] = new FormBuilder($name, 'Sonata\DatagridBundle\Tests\Datagrid\TestEntity', $eventDispatcher, $formFactory, $options);
-
-                return;
             }));
 
         // php 5.3 BC
@@ -240,7 +236,7 @@ class DatagridTest extends TestCase
 
     public function testGetResults()
     {
-        $this->assertEquals(null, $this->datagrid->getResults());
+        $this->assertNull($this->datagrid->getResults());
 
         $this->pager->expects($this->once())
             ->method('getResults')

@@ -112,7 +112,7 @@ class BasePagerTest extends TestCase
 
     public function testGetMaxRecordLimit()
     {
-        $this->assertEquals(false, $this->pager->getMaxRecordLimit());
+        $this->assertEquals(0, $this->pager->getMaxRecordLimit());
 
         $this->pager->setMaxRecordLimit(99);
         $this->assertEquals(99, $this->pager->getMaxRecordLimit());
@@ -154,7 +154,7 @@ class BasePagerTest extends TestCase
 
     public function testParameters()
     {
-        $this->assertEquals(null, $this->pager->getParameter('foo', null));
+        $this->assertNull($this->pager->getParameter('foo', null));
         $this->assertEquals('bar', $this->pager->getParameter('foo', 'bar'));
         $this->assertFalse($this->pager->hasParameter('foo'));
         $this->assertEquals([], $this->pager->getParameters());
@@ -394,8 +394,6 @@ class BasePagerTest extends TestCase
 
                         break;
                 }
-
-                return null;
             }));
 
         $this->pager->setQuery($query);
@@ -412,7 +410,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(3, $this->pager->getCursor());
 
         $id = 3;
-        $this->assertEquals(null, $this->pager->getObjectByCursor(4));
+        $this->assertNull($this->pager->getObjectByCursor(4));
         $this->assertEquals(3, $this->pager->getCursor());
     }
 
@@ -485,7 +483,7 @@ class BasePagerTest extends TestCase
 
     public function testGetNext()
     {
-        $this->assertEquals(null, $this->pager->getNext());
+        $this->assertNull($this->pager->getNext());
 
         $object1 = new \stdClass();
         $object1->foo = 'bar1';
@@ -528,8 +526,6 @@ class BasePagerTest extends TestCase
 
                         break;
                 }
-
-                return null;
             }));
 
         $this->pager->setQuery($query);
@@ -544,12 +540,12 @@ class BasePagerTest extends TestCase
         $this->assertEquals($object3, $this->pager->getNext());
 
         ++$id;
-        $this->assertEquals(null, $this->pager->getNext());
+        $this->assertNull($this->pager->getNext());
     }
 
     public function testGetPrevious()
     {
-        $this->assertEquals(null, $this->pager->getPrevious());
+        $this->assertNull($this->pager->getPrevious());
 
         $object1 = new \stdClass();
         $object1->foo = 'bar1';
@@ -592,8 +588,6 @@ class BasePagerTest extends TestCase
 
                         break;
                 }
-
-                return null;
             }));
 
         $this->pager->setQuery($query);
@@ -608,7 +602,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals($object1, $this->pager->getPrevious());
 
         --$id;
-        $this->assertEquals(null, $this->pager->getPrevious());
+        $this->assertNull($this->pager->getPrevious());
     }
 
     public function testSerialize()
@@ -657,7 +651,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(['foo' => 'bar'], $this->pager->getParameters());
         $this->assertEquals(2, $this->pager->getCurrentMaxLink());
         $this->assertEquals(22, $this->pager->getMaxRecordLimit());
-        $this->assertEquals(null, $this->pager->getQuery());
+        $this->assertNull($this->pager->getQuery());
     }
 
     protected function callMethod($obj, $name, array $args = [])

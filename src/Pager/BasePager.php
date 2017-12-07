@@ -298,7 +298,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      */
     public function setPage(int $page): void
     {
-        $this->page = intval($page);
+        $this->page = (int) $page;
 
         if ($this->page <= 0) {
             // set first page, which depends on a maximum set

@@ -94,11 +94,10 @@ class FilterTest extends TestCase
         $this->assertEquals('foo', $filter->getLabel());
     }
 
-    /**
-     * @expectedException \RuntimeException
-     */
     public function testExceptionOnNonDefinedFieldName()
     {
+        $this->expectException(\RuntimeException::class);
+
         $filter = new FilterTest_Filter();
 
         $filter->getFieldName();
