@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -21,7 +23,7 @@ class BaseProxyQueryTest extends TestCase
     /**
      * Test calling undefined method on proxy query object will also try it on its query builder.
      */
-    public function testFallbackOnQuerybuilder()
+    public function testFallbackOnQuerybuilder(): void
     {
         if (!class_exists('Doctrine\ORM\Query')) {
             $this->markTestSkipped("Doctrine ORM doesn't seem to be installed");
