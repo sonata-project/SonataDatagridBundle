@@ -59,9 +59,9 @@ abstract class BasePager implements \Serializable, PagerInterface
     private $currentMaxLink = 1;
 
     /**
-     * @var bool
+     * @var int
      */
-    private $maxRecordLimit = false;
+    private $maxRecordLimit = 0;
 
     /**
      * @var int
