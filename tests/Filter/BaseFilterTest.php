@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -39,7 +41,7 @@ class FilterTest_Filter extends BaseFilter
 
 class FilterTest extends TestCase
 {
-    public function testFilter()
+    public function testFilter(): void
     {
         $filter = new FilterTest_Filter();
 
@@ -74,7 +76,7 @@ class FilterTest extends TestCase
         $this->assertEquals('>', $filter->getCondition());
     }
 
-    public function testInitialize()
+    public function testInitialize(): void
     {
         $filter = new FilterTest_Filter();
         $filter->initialize('name', [
@@ -86,7 +88,7 @@ class FilterTest extends TestCase
         $this->assertEquals('bar', $filter->getFieldName());
     }
 
-    public function testLabel()
+    public function testLabel(): void
     {
         $filter = new FilterTest_Filter();
         $filter->setLabel('foo');
@@ -94,7 +96,7 @@ class FilterTest extends TestCase
         $this->assertEquals('foo', $filter->getLabel());
     }
 
-    public function testExceptionOnNonDefinedFieldName()
+    public function testExceptionOnNonDefinedFieldName(): void
     {
         $this->expectException(\RuntimeException::class);
 
@@ -109,7 +111,7 @@ class FilterTest extends TestCase
      * @param $expected
      * @param $value
      */
-    public function testIsActive($expected, $value)
+    public function testIsActive($expected, $value): void
     {
         $filter = new FilterTest_Filter();
         $filter->setValue($value);

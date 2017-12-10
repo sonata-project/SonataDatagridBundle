@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -24,7 +26,7 @@ class BasePagerTest extends TestCase
      */
     private $pager;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->pager = $this->getMockForAbstractClass('Sonata\DatagridBundle\Pager\BasePager');
     }
@@ -32,7 +34,7 @@ class BasePagerTest extends TestCase
     /**
      * @dataProvider getGetMaxPerPage1Tests
      */
-    public function testGetMaxPerPage1($expectedMaxPerPage, $expectedPage, $maxPerPage, $page)
+    public function testGetMaxPerPage1($expectedMaxPerPage, $expectedPage, $maxPerPage, $page): void
     {
         $this->assertEquals(10, $this->pager->getMaxPerPage());
         $this->assertEquals(1, $this->pager->getPage());
@@ -61,7 +63,7 @@ class BasePagerTest extends TestCase
         ];
     }
 
-    public function testGetMaxPerPage2()
+    public function testGetMaxPerPage2(): void
     {
         $this->assertEquals(10, $this->pager->getMaxPerPage());
         $this->assertEquals(1, $this->pager->getPage());
@@ -78,7 +80,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(1, $this->pager->getPage());
     }
 
-    public function testGetMaxPerPage3()
+    public function testGetMaxPerPage3(): void
     {
         $this->assertEquals(10, $this->pager->getMaxPerPage());
         $this->assertEquals(1, $this->pager->getPage());
@@ -94,7 +96,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(1, $this->pager->getPage());
     }
 
-    public function testGetCurrentMaxLink()
+    public function testGetCurrentMaxLink(): void
     {
         $this->assertEquals(1, $this->pager->getCurrentMaxLink());
 
@@ -110,7 +112,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(10, $this->pager->getCurrentMaxLink());
     }
 
-    public function testGetMaxRecordLimit()
+    public function testGetMaxRecordLimit(): void
     {
         $this->assertEquals(0, $this->pager->getMaxRecordLimit());
 
@@ -118,7 +120,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(99, $this->pager->getMaxRecordLimit());
     }
 
-    public function testGetNbResults()
+    public function testGetNbResults(): void
     {
         $this->assertEquals(0, $this->pager->getNbResults());
 
@@ -127,7 +129,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(100, $this->pager->getNbResults());
     }
 
-    public function testCount()
+    public function testCount(): void
     {
         $this->assertEquals(0, $this->pager->count());
 
@@ -136,7 +138,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(100, $this->pager->count());
     }
 
-    public function testGetQuery()
+    public function testGetQuery(): void
     {
         $query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
 
@@ -144,7 +146,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals($query, $this->pager->getQuery());
     }
 
-    public function testGetCountColumn()
+    public function testGetCountColumn(): void
     {
         $this->assertEquals(['id'], $this->pager->getCountColumn());
 
@@ -152,7 +154,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(['foo'], $this->pager->getCountColumn());
     }
 
-    public function testParameters()
+    public function testParameters(): void
     {
         $this->assertNull($this->pager->getParameter('foo', null));
         $this->assertEquals('bar', $this->pager->getParameter('foo', 'bar'));
@@ -181,7 +183,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(['foo' => 'baz', 'foo2' => 'foo2_value'], $this->pager->getParameters());
     }
 
-    public function testGetMaxPageLinks()
+    public function testGetMaxPageLinks(): void
     {
         $this->assertEquals(0, $this->pager->getMaxPageLinks());
 
@@ -189,7 +191,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(123, $this->pager->getMaxPageLinks());
     }
 
-    public function testIsFirstPage()
+    public function testIsFirstPage(): void
     {
         $this->assertTrue($this->pager->isFirstPage());
 
@@ -197,7 +199,7 @@ class BasePagerTest extends TestCase
         $this->assertFalse($this->pager->isFirstPage());
     }
 
-    public function testIsLastPage()
+    public function testIsLastPage(): void
     {
         $this->assertTrue($this->pager->isLastPage());
         $this->assertEquals(1, $this->pager->getLastPage());
@@ -216,7 +218,7 @@ class BasePagerTest extends TestCase
         $this->assertTrue($this->pager->isLastPage());
     }
 
-    public function testGetLinks()
+    public function testGetLinks(): void
     {
         $this->assertEquals([], $this->pager->getLinks());
 
@@ -247,7 +249,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals([45, 46, 47, 48, 49, 50], $this->pager->getLinks());
     }
 
-    public function testHaveToPaginate()
+    public function testHaveToPaginate(): void
     {
         $this->assertFalse($this->pager->haveToPaginate());
 
@@ -258,7 +260,7 @@ class BasePagerTest extends TestCase
         $this->assertTrue($this->pager->haveToPaginate());
     }
 
-    public function testIterator()
+    public function testIterator(): void
     {
         $this->assertTrue($this->pager instanceof \Iterator);
 
@@ -294,7 +296,7 @@ class BasePagerTest extends TestCase
         $this->assertTrue($this->pager->valid());
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $this->pager->expects($this->any())
             ->method('getResults')
@@ -303,7 +305,7 @@ class BasePagerTest extends TestCase
         $this->assertFalse($this->pager->valid());
     }
 
-    public function testNext()
+    public function testNext(): void
     {
         $this->pager->expects($this->any())
             ->method('getResults')
@@ -312,7 +314,7 @@ class BasePagerTest extends TestCase
         $this->assertFalse($this->pager->next());
     }
 
-    public function testKey()
+    public function testKey(): void
     {
         $this->pager->expects($this->any())
             ->method('getResults')
@@ -321,7 +323,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(123, $this->pager->key());
     }
 
-    public function testCurrent()
+    public function testCurrent(): void
     {
         $object = new \stdClass();
 
@@ -332,7 +334,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals($object, $this->pager->current());
     }
 
-    public function testGetCursor()
+    public function testGetCursor(): void
     {
         $this->assertEquals(1, $this->pager->getCursor());
 
@@ -351,7 +353,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(100, $this->pager->getCursor());
     }
 
-    public function testGetObjectByCursor()
+    public function testGetObjectByCursor(): void
     {
         $object1 = new \stdClass();
         $object1->foo = 'bar1';
@@ -414,12 +416,12 @@ class BasePagerTest extends TestCase
         $this->assertEquals(3, $this->pager->getCursor());
     }
 
-    public function testGetFirstPage()
+    public function testGetFirstPage(): void
     {
         $this->assertEquals(1, $this->pager->getFirstPage());
     }
 
-    public function testGetNextPage()
+    public function testGetNextPage(): void
     {
         $this->assertEquals(1, $this->pager->getNextPage());
 
@@ -431,7 +433,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(20, $this->pager->getNextPage());
     }
 
-    public function testGetPreviousPage()
+    public function testGetPreviousPage(): void
     {
         $this->assertEquals(1, $this->pager->getPreviousPage());
 
@@ -442,7 +444,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(20, $this->pager->getPreviousPage());
     }
 
-    public function testGetFirstIndice()
+    public function testGetFirstIndice(): void
     {
         $this->assertEquals(1, $this->pager->getFirstIndice());
 
@@ -459,7 +461,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(22, $this->pager->getFirstIndice());
     }
 
-    public function testGetLastIndice()
+    public function testGetLastIndice(): void
     {
         $this->assertEquals(0, $this->pager->getLastIndice());
 
@@ -481,7 +483,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals(100, $this->pager->getLastIndice());
     }
 
-    public function testGetNext()
+    public function testGetNext(): void
     {
         $this->assertNull($this->pager->getNext());
 
@@ -543,7 +545,7 @@ class BasePagerTest extends TestCase
         $this->assertNull($this->pager->getNext());
     }
 
-    public function testGetPrevious()
+    public function testGetPrevious(): void
     {
         $this->assertNull($this->pager->getPrevious());
 
@@ -605,7 +607,7 @@ class BasePagerTest extends TestCase
         $this->assertNull($this->pager->getPrevious());
     }
 
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $pagerClone = clone $this->pager;
         $data = $this->pager->serialize();
@@ -619,7 +621,7 @@ class BasePagerTest extends TestCase
         $this->assertEquals($pagerClone, $this->pager);
     }
 
-    public function testUnserialize()
+    public function testUnserialize(): void
     {
         $serialized = [
             'page' => 6,
