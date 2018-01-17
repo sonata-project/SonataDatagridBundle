@@ -29,13 +29,13 @@
 </div>
 
 <div class="row text-center">
-    {% include 'SonataDatagridBundle:Search:pager.html.twig' %}
+    {% include '@SonataDatagrid/Search/pager.html.twig' %}
 </div>
 
 <div class="row">
     {% for product in results %}
         <div class="col-sm-4" itemscope itemtype="http://schema.org/Product">
-            {% include 'SonataProductBundle:Catalog:_product_grid.html.twig' %}
+            {% include '@SonataProduct/Catalog/_product_grid.html.twig' %}
         </div>
     {% endfor %}
 </div>
