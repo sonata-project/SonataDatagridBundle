@@ -2,7 +2,10 @@
     "name": "sonata-project/datagrid-bundle",
     "type": "symfony-bundle",
     "description": "Symfony SonataDatagridBundle",
-    "keywords": ["datagrid", "sonata"],
+    "keywords": [
+        "datagrid",
+        "sonata"
+    ],
     "homepage": "https://sonata-project.org/bundles/datagrid",
     "license": "MIT",
     "authors": [
@@ -25,18 +28,22 @@
         "doctrine/orm": "^2.4",
         "symfony/phpunit-bridge": "^3.3"
     },
-    "autoload": {
-        "psr-4": { "Sonata\\DatagridBundle\\": "src/" }
-    },
-    "autoload-dev": {
-        "psr-4": { "Sonata\\DatagridBundle\\Tests\\": "tests/" }
-    },
     "config": {
         "sort-packages": true
     },
     "extra": {
         "branch-alias": {
             "dev-master": "3.x-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Sonata\\DatagridBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sonata\\DatagridBundle\\Tests\\": "tests/"
         }
     }
 }
