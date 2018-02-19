@@ -28,7 +28,7 @@
     },
     "require-dev": {
         "doctrine/orm": "^2.4",
-        "symfony/phpunit-bridge": "^3.3"
+        "symfony/phpunit-bridge": "^4.0"
     },
     "config": {
         "sort-packages": true
