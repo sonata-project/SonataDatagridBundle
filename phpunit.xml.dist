@@ -13,20 +13,13 @@
 >
     <testsuites>
         <testsuite name="DatagridBundle Test Suite">
-            <directory>./tests</directory>
+            <directory suffix="Test.php">./tests/</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory>./</directory>
-            <exclude>
-                <directory>./tests/</directory>
-                <directory>./DataFixtures/</directory>
-                <directory>./Resources/</directory>
-                <directory>./vendor/</directory>
-                <directory>./coverage/</directory>
-            </exclude>
+            <directory suffix=".php">./src/</directory>
         </whitelist>
     </filter>
 
