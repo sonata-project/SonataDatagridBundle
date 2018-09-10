@@ -58,7 +58,7 @@ class Pager extends BasePager
 
         $this->setNbResults($this->computeNbResult());
 
-        if (count($this->getParameters()) > 0) {
+        if (\count($this->getParameters()) > 0) {
             $this->getQuery()->setParameters($this->getParameters());
         }
 
