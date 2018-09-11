@@ -230,22 +230,22 @@ class BasePagerTest extends TestCase
         $this->pager->setPage(1);
         $this->pager->setMaxPageLinks(7);
         $this->callMethod($this->pager, 'setLastPage', [50]);
-        $this->assertEquals(7, count($this->pager->getLinks()));
+        $this->assertCount(7, $this->pager->getLinks());
         $this->assertEquals([1, 2, 3, 4, 5, 6, 7], $this->pager->getLinks());
 
         $this->pager->setPage(10);
         $this->pager->setMaxPageLinks(12);
-        $this->assertEquals(5, count($this->pager->getLinks(5)));
+        $this->assertCount(5, $this->pager->getLinks(5));
         $this->assertEquals([8, 9, 10, 11, 12], $this->pager->getLinks(5));
 
         $this->pager->setPage(10);
         $this->pager->setMaxPageLinks(6);
-        $this->assertEquals(6, count($this->pager->getLinks()));
+        $this->assertCount(6, $this->pager->getLinks());
         $this->assertEquals([7, 8, 9, 10, 11, 12], $this->pager->getLinks());
 
         $this->pager->setPage(50);
         $this->pager->setMaxPageLinks(6);
-        $this->assertEquals(6, count($this->pager->getLinks()));
+        $this->assertCount(6, $this->pager->getLinks());
         $this->assertEquals([45, 46, 47, 48, 49, 50], $this->pager->getLinks());
     }
 

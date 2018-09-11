@@ -76,7 +76,7 @@ final class ProxyQuery extends BaseProxyQuery
 
         // For any orderBy clause defined directly in the dqlParts
         $dqlParts = $queryBuilder->getDQLParts();
-        if ($dqlParts['orderBy'] && count($dqlParts['orderBy'])) {
+        if ($dqlParts['orderBy'] && \count($dqlParts['orderBy'])) {
             $sqlOrderColumns = [];
             foreach ($dqlParts['orderBy'] as $part) {
                 foreach ($part->getParts() as $orderBy) {
@@ -125,7 +125,7 @@ final class ProxyQuery extends BaseProxyQuery
         }
 
         // step 4 : alter the query to match the targeted ids
-        if (count($idx) > 0) {
+        if (\count($idx) > 0) {
             $queryBuilder->andWhere(sprintf('%s IN (%s)', $select, implode(',', $idx)));
             $queryBuilder->setMaxResults(null);
             $queryBuilder->setFirstResult(null);

@@ -141,7 +141,7 @@ abstract class BasePager implements \Serializable, PagerInterface
             $links[] = $i++;
         }
 
-        $this->currentMaxLink = count($links) ? $links[count($links) - 1] : 1;
+        $this->currentMaxLink = \count($links) ? $links[\count($links) - 1] : 1;
 
         return $links;
     }
@@ -450,7 +450,7 @@ abstract class BasePager implements \Serializable, PagerInterface
             $this->initializeIterator();
         }
 
-        $this->resultsCounter = count($this->results);
+        $this->resultsCounter = \count($this->results);
 
         return reset($this->results);
     }
@@ -579,7 +579,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     private function initializeIterator(): void
     {
         $this->results = $this->getResults();
-        $this->resultsCounter = count($this->results);
+        $this->resultsCounter = \count($this->results);
     }
 
     /**
