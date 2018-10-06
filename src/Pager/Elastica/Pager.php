@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Sonata\DatagridBundle\Pager\Elastica;
 
 use Sonata\DatagridBundle\Pager\BasePager;
+use Sonata\DatagridBundle\Pager\PagerInterface;
+use Sonata\DatagridBundle\ProxyQuery\Elastica\ProxyQuery;
 
 /**
  * Elastica pager class.
@@ -66,5 +68,23 @@ final class Pager extends BasePager
             $this->getQuery()->setFirstResult($offset);
             $this->getQuery()->setMaxResults($this->getMaxPerPage());
         }
+    }
+
+    /**
+     * Builds a pager for a given query builder.
+     *
+     * @param int $limit
+     * @param int $page
+     *
+     * @return PagerInterface
+     */
+    public static function create(QueryBuilder $builder, $limit, $page)
+    {
+        $pager = new self($limit);
+        $pager->setQuery(new ProxyQuery($builder));
+        $pager->setPage($page);
+        $pager->init();
+
+        return $pager;
     }
 }
