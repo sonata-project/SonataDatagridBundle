@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\DatagridBundle\Pager\Doctrine;
 
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Sonata\DatagridBundle\Pager\BasePager;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\DatagridBundle\Pager\Elastica;
 
+use Elastica\QueryBuilder;
 use Sonata\DatagridBundle\Pager\BasePager;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\DatagridBundle\ProxyQuery\Elastica\ProxyQuery;
