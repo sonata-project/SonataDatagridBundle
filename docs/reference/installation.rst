@@ -22,6 +22,7 @@ Now, add the new Bundle to ``bundles.php`` file::
     ];
 
 .. note::
+
     If you are not using Symfony Flex, you should enable bundles in your
     ``AppKernel.php``.
 
