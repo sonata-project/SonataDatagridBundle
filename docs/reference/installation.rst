@@ -38,8 +38,3 @@ Now, add the new Bundle to ``bundles.php`` file::
             new Sonata\DatagridBundle\SonataDatagridBundle(),
         );
     }
-
-Configuration
--------------
-
-There is no configuration for now ...
