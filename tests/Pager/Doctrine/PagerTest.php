@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -24,7 +26,7 @@ class PagerTest extends TestCase
      */
     private $pager;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->pager = $this->getMockForAbstractClass('Sonata\DatagridBundle\Pager\Doctrine\Pager');
 
@@ -36,7 +38,7 @@ class PagerTest extends TestCase
     /**
      * Test get results method retuns query results.
      */
-    public function testGetResults()
+    public function testGetResults(): void
     {
         $query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
 

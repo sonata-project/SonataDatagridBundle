@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -36,7 +38,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function initialize($name, array $options = [])
+    public function initialize($name, array $options = []): void
     {
         $this->name = $name;
         $this->setOptions($options);
@@ -79,7 +81,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function setOption($name, $value)
+    public function setOption($name, $value): void
     {
         $this->options[$name] = $value;
     }
@@ -111,7 +113,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * {@inheritdoc}
      */
-    public function setLabel($label)
+    public function setLabel($label): void
     {
         $this->setOption('label', $label);
     }
@@ -133,7 +135,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * @param array $options
      */
-    public function setOptions(array $options)
+    public function setOptions(array $options): void
     {
         $this->options = array_merge($this->getDefaultOptions(), $options);
     }
@@ -149,7 +151,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * @param mixed $value
      */
-    public function setValue($value)
+    public function setValue($value): void
     {
         $this->value = $value;
     }
@@ -177,7 +179,7 @@ abstract class BaseFilter implements FilterInterface
     /**
      * @param string $condition
      */
-    public function setCondition($condition)
+    public function setCondition($condition): void
     {
         $this->condition = $condition;
     }

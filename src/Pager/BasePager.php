@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -121,7 +123,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
      *
      * @param int $limit
      */
-    public function setMaxRecordLimit($limit)
+    public function setMaxRecordLimit($limit): void
     {
         $this->maxRecordLimit = $limit;
     }
@@ -179,7 +181,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
      *
      * @param int $pos
      */
-    public function setCursor($pos)
+    public function setCursor($pos): void
     {
         if ($pos < 1) {
             $this->cursor = 1;
@@ -338,7 +340,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
     /**
      * {@inheritdoc}
      */
-    public function setPage($page)
+    public function setPage($page): void
     {
         $this->page = (int) $page;
 
@@ -359,7 +361,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
     /**
      * {@inheritdoc}
      */
-    public function setMaxPerPage($max)
+    public function setMaxPerPage($max): void
     {
         if ($max > 0) {
             $this->maxPerPage = $max;
@@ -394,7 +396,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
      *
      * @param int $maxPageLinks
      */
-    public function setMaxPageLinks($maxPageLinks)
+    public function setMaxPageLinks($maxPageLinks): void
     {
         $this->maxPageLinks = $maxPageLinks;
     }
@@ -460,7 +462,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
      * @param string $name
      * @param mixed  $value
      */
-    public function setParameter($name, $value)
+    public function setParameter($name, $value): void
     {
         $this->parameters[$name] = $value;
     }
@@ -551,7 +553,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
     /**
      * {@inheritdoc}
      */
-    public function unserialize($serialized)
+    public function unserialize($serialized): void
     {
         $array = unserialize($serialized);
 
@@ -581,7 +583,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
     /**
      * {@inheritdoc}
      */
-    public function setQuery($query)
+    public function setQuery($query): void
     {
         $this->query = $query;
     }
@@ -599,7 +601,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
      *
      * @param int $nb
      */
-    protected function setNbResults($nb)
+    protected function setNbResults($nb): void
     {
         $this->nbResults = $nb;
     }
@@ -609,7 +611,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
      *
      * @param int $page
      */
-    protected function setLastPage($page)
+    protected function setLastPage($page): void
     {
         $this->lastPage = $page;
 
@@ -631,7 +633,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
     /**
      * Loads data into properties used for iteration.
      */
-    protected function initializeIterator()
+    protected function initializeIterator(): void
     {
         $this->results = $this->getResults();
         $this->resultsCounter = \count($this->results);
@@ -640,7 +642,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
     /**
      * Empties properties used for iteration.
      */
-    protected function resetIterator()
+    protected function resetIterator(): void
     {
         $this->results = null;
         $this->resultsCounter = 0;

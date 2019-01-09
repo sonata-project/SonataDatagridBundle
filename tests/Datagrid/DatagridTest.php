@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -51,7 +53,7 @@ class DatagridTest extends TestCase
      */
     private $formTypes;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
         $this->pager = $this->createMock('Sonata\DatagridBundle\Pager\PagerInterface');
@@ -78,7 +80,7 @@ class DatagridTest extends TestCase
 
         $this->formBuilder->expects($this->any())
             ->method('add')
-            ->will($this->returnCallback(function ($name, $type, $options) use (&$formTypes, $eventDispatcher, $formFactory) {
+            ->will($this->returnCallback(function ($name, $type, $options) use (&$formTypes, $eventDispatcher, $formFactory): void {
                 $formTypes[$name] = new FormBuilder($name, 'Sonata\DatagridBundle\Tests\Datagrid\TestEntity', $eventDispatcher, $formFactory, $options);
             }));
 
@@ -98,12 +100,12 @@ class DatagridTest extends TestCase
         $this->datagrid = new Datagrid($this->query, $this->pager, $this->formBuilder, $values);
     }
 
-    public function testGetPager()
+    public function testGetPager(): void
     {
         $this->assertEquals($this->pager, $this->datagrid->getPager());
     }
 
-    public function testFilter()
+    public function testFilter(): void
     {
         $this->assertFalse($this->datagrid->hasFilter('foo'));
         $this->assertNull($this->datagrid->getFilter('foo'));
@@ -124,7 +126,7 @@ class DatagridTest extends TestCase
         $this->assertFalse($this->datagrid->hasFilter('foo'));
     }
 
-    public function testGetFilters()
+    public function testGetFilters(): void
     {
         $this->assertEquals([], $this->datagrid->getFilters());
 
@@ -154,7 +156,7 @@ class DatagridTest extends TestCase
         $this->assertEquals(['foo' => $filter1, 'baz' => $filter3], $this->datagrid->getFilters());
     }
 
-    public function testReorderFilters()
+    public function testReorderFilters(): void
     {
         $this->assertEquals([], $this->datagrid->getFilters());
 
@@ -186,7 +188,7 @@ class DatagridTest extends TestCase
         $this->assertEquals(['bar', 'baz', 'foo'], array_keys($this->datagrid->getFilters()));
     }
 
-    public function testGetValues()
+    public function testGetValues(): void
     {
         $this->assertEquals([], $this->datagrid->getValues());
 
@@ -195,12 +197,12 @@ class DatagridTest extends TestCase
         $this->assertEquals(['foo' => ['type' => 'bar', 'value' => 'baz']], $this->datagrid->getValues());
     }
 
-    public function testGetQuery()
+    public function testGetQuery(): void
     {
         $this->assertEquals($this->query, $this->datagrid->getQuery());
     }
 
-    public function testHasActiveFilters()
+    public function testHasActiveFilters(): void
     {
         $this->assertFalse($this->datagrid->hasActiveFilters());
 
@@ -229,12 +231,12 @@ class DatagridTest extends TestCase
         $this->assertTrue($this->datagrid->hasActiveFilters());
     }
 
-    public function testGetForm()
+    public function testGetForm(): void
     {
         $this->assertInstanceOf('Symfony\Component\Form\Form', $this->datagrid->getForm());
     }
 
-    public function testGetResults()
+    public function testGetResults(): void
     {
         $this->assertNull($this->datagrid->getResults());
 
@@ -245,7 +247,7 @@ class DatagridTest extends TestCase
         $this->assertEquals(['foo', 'bar'], $this->datagrid->getResults());
     }
 
-    public function testBuildPager()
+    public function testBuildPager(): void
     {
         $filter1 = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
         $filter1->expects($this->once())
@@ -292,7 +294,7 @@ class DatagridTest extends TestCase
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_per_page'));
     }
 
-    public function testBuildPagerWithSortBy()
+    public function testBuildPagerWithSortBy(): void
     {
         $this->datagrid = new Datagrid($this->query, $this->pager, $this->formBuilder, [
             '_sort_by' => 'name',

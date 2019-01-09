@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Sonata Project package.
  *
@@ -18,9 +20,9 @@ use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
  */
 interface FilterInterface
 {
-    const CONDITION_OR = 'OR';
+    public const CONDITION_OR = 'OR';
 
-    const CONDITION_AND = 'AND';
+    public const CONDITION_AND = 'AND';
 
     /**
      * Apply the filter to the QueryBuilder instance.
