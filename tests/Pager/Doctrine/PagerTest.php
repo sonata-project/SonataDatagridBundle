@@ -59,6 +59,6 @@ class PagerTest extends TestCase
 
         $this->pager->setQuery($query);
 
-        $this->assertEquals($expectedObjects, $this->pager->getResults());
+        $this->assertSame($expectedObjects, $this->pager->getResults());
     }
 }
