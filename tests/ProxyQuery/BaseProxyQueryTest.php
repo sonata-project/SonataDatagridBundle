@@ -41,6 +41,6 @@ class BaseProxyQueryTest extends TestCase
             ->setConstructorArgs([$queryBuilder])
             ->getMockForAbstractClass();
 
-        $this->assertEquals('foobar', $proxyQuery->getType());
+        $this->assertSame('foobar', $proxyQuery->getType());
     }
 }
