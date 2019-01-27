@@ -36,7 +36,7 @@ final class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('sonata_datagrid');
 
         // Keep compatibility with symfony/config < 4.2
-        if (!\method_exists($treeBuilder, 'getRootNode')) {
+        if (!method_exists($treeBuilder, 'getRootNode')) {
             $treeBuilder->root('sonata_datagrid');
         }
 
