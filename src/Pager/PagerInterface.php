@@ -147,31 +147,23 @@ interface PagerInterface extends \Iterator, \Countable, \Serializable
      * Returns an object by cursor position.
      *
      * @param int $pos
-     *
-     * @return mixed
      */
-    public function getObjectByCursor(int $pos);
+    public function getObjectByCursor(int $pos): ?object;
 
     /**
      * Returns the current object.
-     *
-     * @return mixed
      */
-    public function getCurrent();
+    public function getCurrent(): ?object;
 
     /**
      * Returns the next object.
-     *
-     * @return mixed|null
      */
-    public function getNext();
+    public function getNext(): ?object;
 
     /**
      * Returns the previous object.
-     *
-     * @return mixed|null
      */
-    public function getPrevious();
+    public function getPrevious(): ?object;
 
     /**
      * Returns the first index on the current page.

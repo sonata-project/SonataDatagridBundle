@@ -181,7 +181,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getObjectByCursor(int $pos)
+    public function getObjectByCursor(int $pos): ?object
     {
         $this->setCursor($pos);
 
@@ -191,7 +191,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getCurrent()
+    public function getCurrent(): ?object
     {
         return $this->retrieveObject($this->cursor);
     }
@@ -199,7 +199,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getNext()
+    public function getNext(): ?object
     {
         if ($this->cursor + 1 > $this->nbResults) {
             return null;
@@ -211,7 +211,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     /**
      * {@inheritdoc}
      */
-    public function getPrevious()
+    public function getPrevious(): ?object
     {
         if ($this->cursor - 1 < 1) {
             return null;
@@ -586,10 +586,8 @@ abstract class BasePager implements \Serializable, PagerInterface
      * Retrieve the object for a certain offset.
      *
      * @param int $offset
-     *
-     * @return object
      */
-    private function retrieveObject(int $offset)
+    private function retrieveObject(int $offset): ?object
     {
         $queryForRetrieve = clone $this->getQuery();
         $queryForRetrieve
