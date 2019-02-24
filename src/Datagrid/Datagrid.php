@@ -66,14 +66,12 @@ final class Datagrid implements DatagridInterface
      */
     private $results;
 
-    /**
-     * @param ProxyQueryInterface $query
-     * @param PagerInterface      $pager
-     * @param FormBuilder         $formBuilder
-     * @param array               $values
-     */
-    public function __construct(ProxyQueryInterface $query, PagerInterface $pager, FormBuilder $formBuilder, array $values = [])
-    {
+    public function __construct(
+        ProxyQueryInterface $query,
+        PagerInterface $pager,
+        FormBuilder $formBuilder,
+        array $values = []
+    ) {
         $this->pager = $pager;
         $this->query = $query;
         $this->values = $values;

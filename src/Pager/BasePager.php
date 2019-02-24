@@ -16,8 +16,6 @@ namespace Sonata\DatagridBundle\Pager;
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
 /**
- * Pager class.
- *
  * @author Fabien Potencier <fabien.potencier@symfony-project.com>
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */

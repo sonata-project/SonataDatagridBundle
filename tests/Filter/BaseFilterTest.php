@@ -36,6 +36,7 @@ class FilterTest_Filter extends BaseFilter
 
     public function getRenderSettings(): array
     {
+        return [];
     }
 }
 

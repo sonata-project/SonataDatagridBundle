@@ -15,9 +15,6 @@ namespace Sonata\DatagridBundle\Filter;
 
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
-/**
- * Interface FilterInterface.
- */
 interface FilterInterface
 {
     public const CONDITION_OR = 'OR';
@@ -27,10 +24,9 @@ interface FilterInterface
     /**
      * Apply the filter to the QueryBuilder instance.
      *
-     * @param ProxyQueryInterface $queryBuilder
-     * @param string              $alias
-     * @param string              $field
-     * @param string              $value
+     * @param string $alias
+     * @param string $field
+     * @param string $value
      */
     public function filter(ProxyQueryInterface $queryBuilder, string  $alias, string $field, string $value): void;
 
@@ -87,7 +83,6 @@ interface FilterInterface
 
     /**
      * @param string $name
-     * @param array  $options
      */
     public function initialize(string $name, array $options = []): void;
 

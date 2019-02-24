@@ -20,8 +20,6 @@ use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 
 /**
- * Doctrine pager class.
- *
  * @author Jonathan H. Wage <jonwage@gmail.com>
  */
 final class Pager extends BasePager
