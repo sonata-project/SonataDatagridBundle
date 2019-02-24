@@ -19,8 +19,6 @@ use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\DatagridBundle\ProxyQuery\Elastica\ProxyQuery;
 
 /**
- * Elastica pager class.
- *
  * @author Vincent Composieux <vincent.composieux@gmail.com>
  */
 class Pager extends BasePager
