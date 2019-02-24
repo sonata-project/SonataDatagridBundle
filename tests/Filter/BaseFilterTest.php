@@ -19,11 +19,11 @@ use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
 class FilterTest_Filter extends BaseFilter
 {
-    public function filter(ProxyQueryInterface $queryBuilder, $alias, $field, $value)
+    public function filter(ProxyQueryInterface $queryBuilder, $alias, $field, $value): void
     {
     }
 
-    public function apply($query, $value)
+    public function apply($query, $value): void
     {
     }
 
@@ -34,14 +34,14 @@ class FilterTest_Filter extends BaseFilter
         ];
     }
 
-    public function getRenderSettings()
+    public function getRenderSettings(): void
     {
     }
 }
 
 class FilterTest extends TestCase
 {
-    public function testFilter()
+    public function testFilter(): void
     {
         $filter = new FilterTest_Filter();
 
@@ -76,7 +76,7 @@ class FilterTest extends TestCase
         $this->assertEquals('>', $filter->getCondition());
     }
 
-    public function testInitialize()
+    public function testInitialize(): void
     {
         $filter = new FilterTest_Filter();
         $filter->initialize('name', [
@@ -88,7 +88,7 @@ class FilterTest extends TestCase
         $this->assertEquals('bar', $filter->getFieldName());
     }
 
-    public function testLabel()
+    public function testLabel(): void
     {
         $filter = new FilterTest_Filter();
         $filter->setLabel('foo');
@@ -96,7 +96,7 @@ class FilterTest extends TestCase
         $this->assertEquals('foo', $filter->getLabel());
     }
 
-    public function testExceptionOnNonDefinedFieldName()
+    public function testExceptionOnNonDefinedFieldName(): void
     {
         $this->expectException(\RuntimeException::class);
 
@@ -111,7 +111,7 @@ class FilterTest extends TestCase
      * @param $expected
      * @param $value
      */
-    public function testIsActive($expected, $value)
+    public function testIsActive($expected, $value): void
     {
         $filter = new FilterTest_Filter();
         $filter->setValue($value);
