@@ -15,11 +15,10 @@ namespace Sonata\DatagridBundle\Pager;
 
 interface PageableInterface
 {
-    /**
-     * @param int $page
-     * @param int $limit
-     *
-     * @return PagerInterface
-     */
-    public function getPager(array $criteria, $page, $limit = 10, array $sort = []);
+    public function getPager(
+        array $criteria,
+        int $page,
+        int $limit = 10,
+        array $sort = []
+    ): PagerInterface;
 }

@@ -530,19 +530,12 @@ abstract class BasePager implements \Serializable, PagerInterface
 
     /**
      * Sets the number of results.
-     *
-     * @param int $nb
      */
     final protected function setNbResults(int $nb): void
     {
         $this->nbResults = $nb;
     }
 
-    /**
-     * Sets the last page number.
-     *
-     * @param int $page
-     */
     final protected function setLastPage(int $page): void
     {
         $this->lastPage = $page;
@@ -561,11 +554,6 @@ abstract class BasePager implements \Serializable, PagerInterface
         $this->resultsCounter = 0;
     }
 
-    /**
-     * Returns true if the properties used for iteration have been initialized.
-     *
-     * @return bool
-     */
     private function isIteratorInitialized(): bool
     {
         return null !== $this->results;
@@ -582,8 +570,6 @@ abstract class BasePager implements \Serializable, PagerInterface
 
     /**
      * Retrieve the object for a certain offset.
-     *
-     * @param int $offset
      */
     private function retrieveObject(int $offset): ?object
     {
