@@ -611,7 +611,7 @@ abstract class BasePager implements \Iterator, \Countable, \Serializable, PagerI
      */
     protected function setLastPage($page)
     {
-        $this->lastPage = $page;
+        $this->lastPage = (int) $page;
 
         if ($this->getPage() > $page) {
             $this->setPage($page);
