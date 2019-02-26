@@ -33,8 +33,6 @@ interface ProxyQueryInterface
 
     /**
      * @param mixed $sortBy
-     *
-     * @return ProxyQueryInterface
      */
     public function setSortBy($sortBy): self;
 
@@ -45,8 +43,6 @@ interface ProxyQueryInterface
 
     /**
      * @param mixed $sortOrder
-     *
-     * @return ProxyQueryInterface
      */
     public function setSortOrder($sortOrder): self;
 
@@ -55,11 +51,6 @@ interface ProxyQueryInterface
      */
     public function getSortOrder();
 
-    /**
-     * @param int $firstResult
-     *
-     * @return ProxyQueryInterface
-     */
     public function setFirstResult(int $firstResult): self;
 
     /**
@@ -67,11 +58,6 @@ interface ProxyQueryInterface
      */
     public function getFirstResult();
 
-    /**
-     * @param int $maxResults
-     *
-     * @return ProxyQueryInterface
-     */
     public function setMaxResults(int $maxResults): self;
 
     /**
@@ -79,10 +65,5 @@ interface ProxyQueryInterface
      */
     public function getMaxResults();
 
-    /**
-     * Returns query results.
-     *
-     * @return array
-     */
     public function getResults(): array;
 }

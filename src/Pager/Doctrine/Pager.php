@@ -24,9 +24,6 @@ use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
  */
 final class Pager extends BasePager
 {
-    /**
-     * @return int
-     */
     public function computeNbResult(): int
     {
         $countQuery = clone $this->getQuery();
@@ -86,13 +83,8 @@ final class Pager extends BasePager
 
     /**
      * Builds a pager for a given query builder.
-     *
-     * @param int $limit
-     * @param int $page
-     *
-     * @return PagerInterface
      */
-    public static function create(QueryBuilder $builder, $limit, $page)
+    public static function create(QueryBuilder $builder, int $limit, int $page): PagerInterface
     {
         $pager = new self($limit);
         $pager->setQuery(new ProxyQuery($builder));

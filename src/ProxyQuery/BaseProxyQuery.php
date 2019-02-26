@@ -50,9 +50,6 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
      */
     private $maxResults;
 
-    /**
-     * @param QueryBuilder $queryBuilder A query builder object
-     */
     public function __construct(QueryBuilder $queryBuilder)
     {
         $this->queryBuilder = $queryBuilder;

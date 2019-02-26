@@ -132,17 +132,11 @@ abstract class BaseFilter implements FilterInterface
         return $fieldName;
     }
 
-    /**
-     * @param array $options
-     */
     public function setOptions(array $options): void
     {
         $this->options = array_merge($this->getDefaultOptions(), $options);
     }
 
-    /**
-     * @return array
-     */
     public function getOptions(): array
     {
         return $this->options;
@@ -176,9 +170,6 @@ abstract class BaseFilter implements FilterInterface
         && '' !== $values['value'];
     }
 
-    /**
-     * @param string $condition
-     */
     public function setCondition(string $condition): void
     {
         $this->condition = $condition;

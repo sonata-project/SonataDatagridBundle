@@ -48,8 +48,6 @@ final class ProxyQuery extends BaseProxyQuery
 
     /**
      * Generates new QueryBuilder for Postgresql or Oracle if necessary.
-     *
-     * @return QueryBuilder
      */
     public function preserveSqlOrdering(QueryBuilder $queryBuilder): QueryBuilder
     {
@@ -90,8 +88,6 @@ final class ProxyQuery extends BaseProxyQuery
     /**
      * This method alters the query to return a clean set of object with a working
      * set of Object.
-     *
-     * @return QueryBuilder
      */
     private function getFixedQueryBuilder(QueryBuilder $queryBuilder): QueryBuilder
     {
