@@ -62,7 +62,7 @@ class FilterTest extends TestCase
         $this->assertSame('foo', $filter->getLabel());
 
         $expected = $options;
-        $expected['foo'] = 'bar';
+        $expected = ['foo' => 'bar'] + $expected;
 
         $this->assertSame($expected, $filter->getOptions());
         $this->assertSame('name', $filter->getFieldName());

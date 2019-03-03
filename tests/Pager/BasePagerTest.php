@@ -618,7 +618,9 @@ class BasePagerTest extends TestCase
         $this->pager->setMaxPageLinks(6);
 
         $this->pager->unserialize($data);
-        $this->assertSame($pagerClone, $this->pager);
+        $this->assertSame($pagerClone->getPage(), $this->pager->getPage());
+        $this->assertSame($pagerClone->getMaxPerPage(), $this->pager->getMaxPerPage());
+        $this->assertSame($pagerClone->getMaxPageLinks(), $this->pager->getMaxPageLinks());
     }
 
     public function testUnserialize(): void
