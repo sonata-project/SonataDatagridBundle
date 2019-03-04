@@ -114,7 +114,7 @@ class BasePagerTest extends TestCase
 
     public function testGetMaxRecordLimit(): void
     {
-        $this->assertEquals(0, $this->pager->getMaxRecordLimit());
+        $this->assertSame(0, $this->pager->getMaxRecordLimit());
 
         $this->pager->setMaxRecordLimit(99);
         $this->assertSame(99, $this->pager->getMaxRecordLimit());
