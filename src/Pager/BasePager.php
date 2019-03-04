@@ -125,7 +125,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      */
     public function getLinks(?int $nbLinks = null): array
     {
-        if (null == $nbLinks) {
+        if (null === $nbLinks) {
             $nbLinks = $this->getMaxPageLinks();
         }
         $links = [];
@@ -223,7 +223,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      */
     public function getFirstIndice(): int
     {
-        if (0 == $this->page) {
+        if (0 === $this->page) {
             return 1;
         }
 
@@ -235,7 +235,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      */
     public function getLastIndice(): int
     {
-        if (0 == $this->page) {
+        if (0 === $this->page) {
             return $this->nbResults;
         }
         if ($this->page * $this->maxPerPage >= $this->nbResults) {
@@ -321,16 +321,16 @@ abstract class BasePager implements \Serializable, PagerInterface
     {
         if ($max > 0) {
             $this->maxPerPage = $max;
-            if (0 == $this->page) {
+            if (0 === $this->page) {
                 $this->page = 1;
             }
         } else {
-            if (0 == $max) {
+            if (0 === $max) {
                 $this->maxPerPage = 0;
                 $this->page = 0;
             } else {
                 $this->maxPerPage = 1;
-                if (0 == $this->page) {
+                if (0 === $this->page) {
                     $this->page = 1;
                 }
             }
@@ -358,7 +358,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      */
     public function isFirstPage(): bool
     {
-        return 1 == $this->page;
+        return 1 === $this->page;
     }
 
     /**
@@ -366,7 +366,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      */
     public function isLastPage(): bool
     {
-        return $this->page == $this->lastPage;
+        return $this->page === $this->lastPage;
     }
 
     /**

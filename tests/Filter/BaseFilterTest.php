@@ -46,8 +46,8 @@ class FilterTest extends TestCase
     {
         $filter = new FilterTest_Filter();
 
-        $this->assertEquals('text', $filter->getFieldType());
-        $this->assertEquals(['required' => false], $filter->getFieldOptions());
+        $this->assertSame('text', $filter->getFieldType());
+        $this->assertSame(['required' => false], $filter->getFieldOptions());
         $this->assertNull($filter->getLabel());
 
         $options = [
@@ -59,22 +59,22 @@ class FilterTest extends TestCase
 
         $filter->setOptions($options);
 
-        $this->assertEquals('foo', $filter->getOption('label'));
-        $this->assertEquals('foo', $filter->getLabel());
+        $this->assertSame('foo', $filter->getOption('label'));
+        $this->assertSame('foo', $filter->getLabel());
 
         $expected = $options;
-        $expected['foo'] = 'bar';
+        $expected = ['foo' => 'bar'] + $expected;
 
-        $this->assertEquals($expected, $filter->getOptions());
-        $this->assertEquals('name', $filter->getFieldName());
+        $this->assertSame($expected, $filter->getOptions());
+        $this->assertSame('name', $filter->getFieldName());
 
-        $this->assertEquals('default', $filter->getOption('fake', 'default'));
+        $this->assertSame('default', $filter->getOption('fake', 'default'));
 
         $filter->setValue(42);
-        $this->assertEquals(42, $filter->getValue());
+        $this->assertSame(42, $filter->getValue());
 
         $filter->setCondition('>');
-        $this->assertEquals('>', $filter->getCondition());
+        $this->assertSame('>', $filter->getCondition());
     }
 
     public function testInitialize(): void
@@ -84,9 +84,9 @@ class FilterTest extends TestCase
             'field_name' => 'bar',
         ]);
 
-        $this->assertEquals('name', $filter->getName());
-        $this->assertEquals('bar', $filter->getOption('field_name'));
-        $this->assertEquals('bar', $filter->getFieldName());
+        $this->assertSame('name', $filter->getName());
+        $this->assertSame('bar', $filter->getOption('field_name'));
+        $this->assertSame('bar', $filter->getFieldName());
     }
 
     public function testLabel(): void
@@ -94,7 +94,7 @@ class FilterTest extends TestCase
         $filter = new FilterTest_Filter();
         $filter->setLabel('foo');
 
-        $this->assertEquals('foo', $filter->getLabel());
+        $this->assertSame('foo', $filter->getLabel());
     }
 
     public function testExceptionOnNonDefinedFieldName(): void
@@ -117,7 +117,7 @@ class FilterTest extends TestCase
         $filter = new FilterTest_Filter();
         $filter->setValue($value);
 
-        $this->assertEquals($expected, $filter->isActive());
+        $this->assertSame($expected, $filter->isActive());
     }
 
     public function isActiveData()

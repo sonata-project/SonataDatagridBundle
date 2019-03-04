@@ -102,7 +102,7 @@ class DatagridTest extends TestCase
 
     public function testGetPager(): void
     {
-        $this->assertEquals($this->pager, $this->datagrid->getPager());
+        $this->assertSame($this->pager, $this->datagrid->getPager());
     }
 
     public function testFilter(): void
@@ -119,7 +119,7 @@ class DatagridTest extends TestCase
 
         $this->assertTrue($this->datagrid->hasFilter('foo'));
         $this->assertFalse($this->datagrid->hasFilter('nonexistent'));
-        $this->assertEquals($filter, $this->datagrid->getFilter('foo'));
+        $this->assertSame($filter, $this->datagrid->getFilter('foo'));
 
         $this->datagrid->removeFilter('foo');
 
@@ -128,7 +128,7 @@ class DatagridTest extends TestCase
 
     public function testGetFilters(): void
     {
-        $this->assertEquals([], $this->datagrid->getFilters());
+        $this->assertSame([], $this->datagrid->getFilters());
 
         $filter1 = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
         $filter1->expects($this->once())
@@ -149,16 +149,16 @@ class DatagridTest extends TestCase
         $this->datagrid->addFilter($filter2);
         $this->datagrid->addFilter($filter3);
 
-        $this->assertEquals(['foo' => $filter1, 'bar' => $filter2, 'baz' => $filter3], $this->datagrid->getFilters());
+        $this->assertSame(['foo' => $filter1, 'bar' => $filter2, 'baz' => $filter3], $this->datagrid->getFilters());
 
         $this->datagrid->removeFilter('bar');
 
-        $this->assertEquals(['foo' => $filter1, 'baz' => $filter3], $this->datagrid->getFilters());
+        $this->assertSame(['foo' => $filter1, 'baz' => $filter3], $this->datagrid->getFilters());
     }
 
     public function testReorderFilters(): void
     {
-        $this->assertEquals([], $this->datagrid->getFilters());
+        $this->assertSame([], $this->datagrid->getFilters());
 
         $filter1 = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
         $filter1->expects($this->once())
@@ -179,27 +179,27 @@ class DatagridTest extends TestCase
         $this->datagrid->addFilter($filter2);
         $this->datagrid->addFilter($filter3);
 
-        $this->assertEquals(['foo' => $filter1, 'bar' => $filter2, 'baz' => $filter3], $this->datagrid->getFilters());
-        $this->assertEquals(['foo', 'bar', 'baz'], array_keys($this->datagrid->getFilters()));
+        $this->assertSame(['foo' => $filter1, 'bar' => $filter2, 'baz' => $filter3], $this->datagrid->getFilters());
+        $this->assertSame(['foo', 'bar', 'baz'], array_keys($this->datagrid->getFilters()));
 
         $this->datagrid->reorderFilters(['bar', 'baz', 'foo']);
 
-        $this->assertEquals(['bar' => $filter2, 'baz' => $filter3, 'foo' => $filter1], $this->datagrid->getFilters());
-        $this->assertEquals(['bar', 'baz', 'foo'], array_keys($this->datagrid->getFilters()));
+        $this->assertSame(['bar' => $filter2, 'baz' => $filter3, 'foo' => $filter1], $this->datagrid->getFilters());
+        $this->assertSame(['bar', 'baz', 'foo'], array_keys($this->datagrid->getFilters()));
     }
 
     public function testGetValues(): void
     {
-        $this->assertEquals([], $this->datagrid->getValues());
+        $this->assertSame([], $this->datagrid->getValues());
 
         $this->datagrid->setValue('foo', 'bar', 'baz');
 
-        $this->assertEquals(['foo' => ['type' => 'bar', 'value' => 'baz']], $this->datagrid->getValues());
+        $this->assertSame(['foo' => ['type' => 'bar', 'value' => 'baz']], $this->datagrid->getValues());
     }
 
     public function testGetQuery(): void
     {
-        $this->assertEquals($this->query, $this->datagrid->getQuery());
+        $this->assertSame($this->query, $this->datagrid->getQuery());
     }
 
     public function testHasActiveFilters(): void
@@ -244,7 +244,7 @@ class DatagridTest extends TestCase
             ->method('getResults')
             ->will($this->returnValue(['foo', 'bar']));
 
-        $this->assertEquals(['foo', 'bar'], $this->datagrid->getResults());
+        $this->assertSame(['foo', 'bar'], $this->datagrid->getResults());
     }
 
     public function testBuildPager(): void
@@ -283,11 +283,11 @@ class DatagridTest extends TestCase
 
         $this->datagrid->buildPager();
 
-        $this->assertEquals(['foo' => null, 'bar' => null], $this->datagrid->getValues());
+        $this->assertSame(['foo' => null, 'bar' => null], $this->datagrid->getValues());
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('fooFormName'));
-        $this->assertEquals(['bar1' => 'baz1'], $this->formBuilder->get('fooFormName')->getOptions());
+        $this->assertSame(['bar1' => 'baz1'], $this->formBuilder->get('fooFormName')->getOptions());
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('barFormName'));
-        $this->assertEquals(['bar2' => 'baz2'], $this->formBuilder->get('barFormName')->getOptions());
+        $this->assertSame(['bar2' => 'baz2'], $this->formBuilder->get('barFormName')->getOptions());
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_sort_by'));
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_sort_order'));
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_page'));
@@ -318,9 +318,9 @@ class DatagridTest extends TestCase
 
         $this->datagrid->buildPager();
 
-        $this->assertEquals(['_sort_by' => 'name', 'foo' => null], $this->datagrid->getValues());
+        $this->assertSame(['_sort_by' => 'name', 'foo' => null], $this->datagrid->getValues());
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('fooFormName'));
-        $this->assertEquals(['bar' => 'baz'], $this->formBuilder->get('fooFormName')->getOptions());
+        $this->assertSame(['bar' => 'baz'], $this->formBuilder->get('fooFormName')->getOptions());
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_sort_by'));
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_sort_order'));
         $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_page'));
