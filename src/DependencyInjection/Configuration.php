@@ -17,11 +17,6 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * This class contains the configuration information for the bundle.
- *
- * This information is solely responsible for how the different configuration
- * sections are normalized, and merged.
- *
  * @author Vincent Composieux <vincent.composieux@gmail.com>
  */
 final class Configuration implements ConfigurationInterface
@@ -31,7 +26,7 @@ final class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('sonata_datagrid');
 
         // Keep compatibility with symfony/config < 4.2
-        if (!method_exists($treeBuilder, 'getRootNode')) {
+        if (!\method_exists($treeBuilder, 'getRootNode')) {
             $treeBuilder->root('sonata_datagrid');
         }
 

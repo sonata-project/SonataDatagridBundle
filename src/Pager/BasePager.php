@@ -66,12 +66,10 @@ abstract class BasePager implements \Serializable, PagerInterface
      */
     private $maxPageLinks = 0;
 
-    // used by iterator interface
-
     /**
      * @var array
      */
-    private $results = null;
+    private $results = [];
 
     /**
      * @var int
@@ -79,55 +77,41 @@ abstract class BasePager implements \Serializable, PagerInterface
     private $resultsCounter = 0;
 
     /**
-     * @var ProxyQueryInterface
+     * @var ProxyQueryInterface|null
      */
-    private $query = null;
+    private $query;
 
     /**
      * @var string[]
      */
     private $countColumn = ['id'];
 
-    /**
-     * @param int $maxPerPage Number of records to display per page
-     */
-    public function __construct($maxPerPage = 10)
+    public function __construct(int $maxPerPage = 10)
     {
         $this->setMaxPerPage($maxPerPage);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCurrentMaxLink(): int
     {
         return $this->currentMaxLink;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getMaxRecordLimit(): int
     {
         return $this->maxRecordLimit;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setMaxRecordLimit(int $limit): void
     {
         $this->maxRecordLimit = $limit;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getLinks(?int $nbLinks = null): array
     {
         if (null === $nbLinks) {
             $nbLinks = $this->getMaxPageLinks();
         }
+
         $links = [];
         $tmp = $this->page - (int) floor($nbLinks / 2);
         $check = $this->lastPage - $nbLinks + 1;
@@ -135,6 +119,7 @@ abstract class BasePager implements \Serializable, PagerInterface
         $begin = $tmp > 0 ? ($tmp > $limit ? $limit : $tmp) : 1;
 
         $i = $begin;
+
         while ($i < $begin + $nbLinks && $i <= $this->lastPage) {
             $links[] = $i++;
         }
@@ -144,41 +129,31 @@ abstract class BasePager implements \Serializable, PagerInterface
         return $links;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function haveToPaginate(): bool
     {
         return $this->getMaxPerPage() && $this->getNbResults() > $this->getMaxPerPage();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCursor(): int
     {
         return $this->cursor;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setCursor(int $pos): void
     {
         if ($pos < 1) {
             $this->cursor = 1;
-        } else {
-            if ($pos > $this->nbResults) {
-                $this->cursor = $this->nbResults;
-            } else {
-                $this->cursor = $pos;
-            }
+            return;
         }
+
+        if ($pos > $this->nbResults) {
+            $this->cursor = $this->nbResults;
+            return;
+        }
+
+        $this->cursor = $pos;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getObjectByCursor(int $pos): ?object
     {
         $this->setCursor($pos);
@@ -186,17 +161,11 @@ abstract class BasePager implements \Serializable, PagerInterface
         return $this->getCurrent();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCurrent(): ?object
     {
         return $this->retrieveObject($this->cursor);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNext(): ?object
     {
         if ($this->cursor + 1 > $this->nbResults) {
@@ -206,9 +175,6 @@ abstract class BasePager implements \Serializable, PagerInterface
         return $this->retrieveObject($this->cursor + 1);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPrevious(): ?object
     {
         if ($this->cursor - 1 < 1) {
@@ -218,9 +184,6 @@ abstract class BasePager implements \Serializable, PagerInterface
         return $this->retrieveObject($this->cursor - 1);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFirstIndice(): int
     {
         if (0 === $this->page) {
@@ -230,14 +193,12 @@ abstract class BasePager implements \Serializable, PagerInterface
         return ($this->page - 1) * $this->maxPerPage + 1;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getLastIndice(): int
     {
         if (0 === $this->page) {
             return $this->nbResults;
         }
+
         if ($this->page * $this->maxPerPage >= $this->nbResults) {
             return $this->nbResults;
         }
@@ -245,156 +206,119 @@ abstract class BasePager implements \Serializable, PagerInterface
         return $this->page * $this->maxPerPage;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults(): int
     {
         return $this->nbResults;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFirstPage(): int
     {
         return 1;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getLastPage(): int
     {
         return $this->lastPage;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPage(): int
     {
         return $this->page;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNextPage(): int
     {
-        return min($this->getPage() + 1, $this->getLastPage());
+        return \min($this->getPage() + 1, $this->getLastPage());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPreviousPage(): int
     {
-        return max($this->getPage() - 1, $this->getFirstPage());
+        return \max($this->getPage() - 1, $this->getFirstPage());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setPage(int $page): void
     {
-        $this->page = (int) $page;
-
-        if ($this->page <= 0) {
+        if ($page <= 0) {
             // set first page, which depends on a maximum set
             $this->page = $this->getMaxPerPage() ? 1 : 0;
+            return;
         }
+
+        $this->page = $page;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getMaxPerPage(): int
     {
         return $this->maxPerPage;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setMaxPerPage(int $max): void
     {
         if ($max > 0) {
             $this->maxPerPage = $max;
+
             if (0 === $this->page) {
                 $this->page = 1;
             }
-        } else {
-            if (0 === $max) {
-                $this->maxPerPage = 0;
-                $this->page = 0;
-            } else {
-                $this->maxPerPage = 1;
-                if (0 === $this->page) {
-                    $this->page = 1;
-                }
-            }
+
+            return;
+        }
+
+        if (0 === $max) {
+            $this->maxPerPage = 0;
+            $this->page = 0;
+            return;
+        }
+
+        $this->maxPerPage = 1;
+
+        if (0 === $this->page) {
+            $this->page = 1;
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getMaxPageLinks(): int
     {
         return $this->maxPageLinks;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setMaxPageLinks(int $maxPageLinks): void
     {
         $this->maxPageLinks = $maxPageLinks;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isFirstPage(): bool
     {
-        return 1 === $this->page;
+        return $this->getFirstPage() === $this->page;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isLastPage(): bool
     {
         return $this->page === $this->lastPage;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParameters(): array
     {
         return $this->parameters;
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $default
+     *
+     * @return mixed
      */
     public function getParameter(string $name, $default = null)
     {
         return isset($this->parameters[$name]) ? $this->parameters[$name] : $default;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasParameter(string $name): bool
     {
         return isset($this->parameters[$name]);
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $value
      */
     public function setParameter(string $name, $value): void
     {
@@ -402,7 +326,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed
      */
     public function current()
     {
@@ -410,11 +334,11 @@ abstract class BasePager implements \Serializable, PagerInterface
             $this->initializeIterator();
         }
 
-        return current($this->results);
+        return \current($this->results);
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed
      */
     public function key()
     {
@@ -422,11 +346,11 @@ abstract class BasePager implements \Serializable, PagerInterface
             $this->initializeIterator();
         }
 
-        return key($this->results);
+        return \key($this->results);
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed
      */
     public function next()
     {
@@ -436,11 +360,11 @@ abstract class BasePager implements \Serializable, PagerInterface
 
         --$this->resultsCounter;
 
-        return next($this->results);
+        return \next($this->results);
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed
      */
     public function rewind()
     {
@@ -450,13 +374,10 @@ abstract class BasePager implements \Serializable, PagerInterface
 
         $this->resultsCounter = \count($this->results);
 
-        return reset($this->results);
+        return \reset($this->results);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function valid()
+    public function valid(): bool
     {
         if (!$this->isIteratorInitialized()) {
             $this->initializeIterator();
@@ -465,72 +386,48 @@ abstract class BasePager implements \Serializable, PagerInterface
         return $this->resultsCounter > 0;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function count()
+    public function count(): int
     {
         return $this->getNbResults();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function serialize()
+    public function serialize(): string
     {
         $vars = get_object_vars($this);
         unset($vars['query']);
 
-        return serialize($vars);
+        return \serialize($vars);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function unserialize($serialized): void
     {
-        $array = unserialize($serialized);
+        $array = \unserialize($serialized);
 
         foreach ($array as $name => $values) {
             $this->$name = $values;
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCountColumn(): array
     {
         return $this->countColumn;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setCountColumn(array $countColumn): array
     {
         return $this->countColumn = $countColumn;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setQuery(ProxyQueryInterface $query): void
     {
         $this->query = $query;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getQuery(): ?ProxyQueryInterface
     {
         return $this->query;
     }
 
-    /**
-     * Sets the number of results.
-     */
     final protected function setNbResults(int $nb): void
     {
         $this->nbResults = $nb;
@@ -545,35 +442,29 @@ abstract class BasePager implements \Serializable, PagerInterface
         }
     }
 
-    /**
-     * Empties properties used for iteration.
-     */
     final protected function resetIterator(): void
     {
-        $this->results = null;
+        $this->results = [];
         $this->resultsCounter = 0;
     }
 
     private function isIteratorInitialized(): bool
     {
-        return null !== $this->results;
+        return \count($this->results) > 0;
     }
 
-    /**
-     * Loads data into properties used for iteration.
-     */
     private function initializeIterator(): void
     {
         $this->results = $this->getResults();
         $this->resultsCounter = \count($this->results);
     }
 
-    /**
-     * Retrieve the object for a certain offset.
-     */
     private function retrieveObject(int $offset): ?object
     {
         $queryForRetrieve = clone $this->getQuery();
+
+        \assert($queryForRetrieve instanceof ProxyQueryInterface);
+
         $queryForRetrieve
             ->setFirstResult($offset - 1)
             ->setMaxResults(1);

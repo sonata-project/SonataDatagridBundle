@@ -17,28 +17,20 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\DatagridBundle\ProxyQuery\BaseProxyQuery;
 
-/**
- * This is the Doctrine proxy query class.
- */
 final class ProxyQuery extends BaseProxyQuery
 {
-    /**
-     * {@inheritdoc}
-     */
     public function execute(array $params = [], ?int $hydrationMode = null)
     {
-        // Limit & offset
         $this->queryBuilder->setMaxResults($this->getMaxResults());
         $this->queryBuilder->setFirstResult($this->getFirstResult());
 
-        // Sorted field and sort order
         $sortBy = $this->getSortBy();
         $sortOrder = $this->getSortOrder();
 
         if ($sortBy && $sortOrder) {
             $rootAliases = $this->queryBuilder->getRootAliases();
             $rootAlias = $rootAliases[0];
-            $sortBy = sprintf('%s.%s', $rootAlias, $sortBy);
+            $sortBy = \sprintf('%s.%s', $rootAlias, $sortBy);
 
             $this->queryBuilder->orderBy($sortBy, $sortOrder);
         }
@@ -98,7 +90,7 @@ final class ProxyQuery extends BaseProxyQuery
         $class = $from[0]->getFrom();
 
         // step 2 : retrieve the column id
-        $idName = current($queryBuilderId->getEntityManager()->getMetadataFactory()->getMetadataFor($class)->getIdentifierFieldNames());
+        $idName = \current($queryBuilderId->getEntityManager()->getMetadataFactory()->getMetadataFor($class)->getIdentifierFieldNames());
 
         // step 3 : retrieve the different subjects id
         $rootAliases = $queryBuilderId->getRootAliases();
@@ -118,7 +110,7 @@ final class ProxyQuery extends BaseProxyQuery
 
         // step 4 : alter the query to match the targeted ids
         if (\count($idx) > 0) {
-            $queryBuilder->andWhere(sprintf('%s IN (%s)', $select, implode(',', $idx)));
+            $queryBuilder->andWhere(sprintf('%s IN (%s)', $select, \implode(',', $idx)));
             $queryBuilder->setMaxResults(null);
             $queryBuilder->setFirstResult(null);
         }

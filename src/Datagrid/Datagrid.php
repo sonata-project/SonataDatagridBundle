@@ -23,9 +23,7 @@ use Symfony\Component\Form\FormInterface;
 final class Datagrid implements DatagridInterface
 {
     /**
-     * The filter instances.
-     *
-     * @var array
+     * @var FilterInterface[]
      */
     private $filters = [];
 
@@ -78,17 +76,11 @@ final class Datagrid implements DatagridInterface
         $this->formBuilder = $formBuilder;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPager(): PagerInterface
     {
         return $this->pager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResults(): ?array
     {
         $this->buildPager();
@@ -100,9 +92,6 @@ final class Datagrid implements DatagridInterface
         return $this->results;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildPager(): void
     {
         if ($this->bound) {
@@ -110,7 +99,7 @@ final class Datagrid implements DatagridInterface
         }
 
         foreach ($this->getFilters() as $name => $filter) {
-            list($type, $options) = $filter->getRenderSettings();
+            [$type, $options] = $filter->getRenderSettings();
 
             $this->formBuilder->add($filter->getFormName(), $type, $options);
         }
@@ -143,65 +132,41 @@ final class Datagrid implements DatagridInterface
         $this->bound = true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addFilter(FilterInterface $filter): void
     {
         $this->filters[$filter->getName()] = $filter;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasFilter(string $name): bool
     {
         return isset($this->filters[$name]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function removeFilter(string $name): void
     {
         unset($this->filters[$name]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFilter(string $name): ?FilterInterface
     {
         return $this->hasFilter($name) ? $this->filters[$name] : null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFilters(): array
     {
         return $this->filters;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function reorderFilters(array $keys): void
     {
         $this->filters = array_merge(array_flip($keys), $this->filters);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getValues(): array
     {
         return $this->values;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setValue(string $name, string $operator, $value): void
     {
         $this->values[$name] = [
@@ -210,9 +175,6 @@ final class Datagrid implements DatagridInterface
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasActiveFilters(): bool
     {
         foreach ($this->filters as $name => $filter) {
@@ -224,17 +186,11 @@ final class Datagrid implements DatagridInterface
         return false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getQuery(): ProxyQueryInterface
     {
         return $this->query;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getForm(): FormInterface
     {
         $this->buildPager();
