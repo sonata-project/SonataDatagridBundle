@@ -32,7 +32,7 @@ class PagerTest extends TestCase
     {
         $this->pager = new Pager();
 
-        if (!\class_exists(Query::class)) {
+        if (!class_exists(Query::class)) {
             $this->markTestSkipped("Doctrine ORM doesn't seem to be installed");
         }
     }

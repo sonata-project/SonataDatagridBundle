@@ -54,7 +54,7 @@ abstract class BaseFilter implements FilterInterface
            So use this trick to avoid any issue.
         */
 
-        return \str_replace('.', '__', $this->name);
+        return str_replace('.', '__', $this->name);
     }
 
     /**
@@ -112,7 +112,7 @@ abstract class BaseFilter implements FilterInterface
 
     public function setOptions(array $options): void
     {
-        $this->options = \array_merge($this->getDefaultOptions(), $options);
+        $this->options = array_merge($this->getDefaultOptions(), $options);
     }
 
     public function getOptions(): array
