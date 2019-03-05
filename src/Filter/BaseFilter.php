@@ -16,14 +16,14 @@ namespace Sonata\DatagridBundle\Filter;
 abstract class BaseFilter implements FilterInterface
 {
     /**
-     * @var string
+     * @var string|null
      */
-    private $name = null;
+    private $name;
 
     /**
      * @var mixed
      */
-    private $value = null;
+    private $value;
 
     /**
      * @var array
@@ -35,26 +35,17 @@ abstract class BaseFilter implements FilterInterface
      */
     private $condition;
 
-    /**
-     * {@inheritdoc}
-     */
     public function initialize(string $name, array $options = []): void
     {
         $this->name = $name;
         $this->setOptions($options);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFormName(): string
     {
         /* Symfony default form class sadly can't handle
@@ -63,11 +54,13 @@ abstract class BaseFilter implements FilterInterface
            So use this trick to avoid any issue.
         */
 
-        return str_replace('.', '__', $this->name);
+        return \str_replace('.', '__', $this->name);
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $default
+     *
+     * @return mixed
      */
     public function getOption(string $name, $default = null)
     {
@@ -79,48 +72,33 @@ abstract class BaseFilter implements FilterInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $value
      */
     public function setOption(string $name, $value): void
     {
         $this->options[$name] = $value;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFieldType(): string
     {
         return $this->getOption('field_type', 'text');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFieldOptions(): array
     {
         return $this->getOption('field_options', ['required' => false]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getLabel(): ?string
     {
         return $this->getOption('label');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setLabel(string $label): void
     {
         $this->setOption('label', $label);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFieldName(): string
     {
         $fieldName = $this->getOption('field_name');
@@ -134,7 +112,7 @@ abstract class BaseFilter implements FilterInterface
 
     public function setOptions(array $options): void
     {
-        $this->options = array_merge($this->getDefaultOptions(), $options);
+        $this->options = \array_merge($this->getDefaultOptions(), $options);
     }
 
     public function getOptions(): array
@@ -158,16 +136,13 @@ abstract class BaseFilter implements FilterInterface
         return $this->value;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isActive(): bool
     {
         $values = $this->getValue();
 
         return isset($values['value'])
-        && false !== $values['value']
-        && '' !== $values['value'];
+            && false !== $values['value']
+            && '' !== $values['value'];
     }
 
     public function setCondition(string $condition): void
@@ -175,17 +150,11 @@ abstract class BaseFilter implements FilterInterface
         $this->condition = $condition;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCondition(): string
     {
         return $this->condition;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTranslationDomain(): string
     {
         return $this->getOption('translation_domain');

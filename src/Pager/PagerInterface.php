@@ -32,14 +32,8 @@ interface PagerInterface extends \Iterator, \Countable, \Serializable
 
     public function getResults(): ?array;
 
-    /**
-     * Returns the first page number.
-     */
     public function getFirstPage(): int;
 
-    /**
-     * Returns the last page number.
-     */
     public function getLastPage(): int;
 
     public function getPage(): int;
@@ -59,9 +53,6 @@ interface PagerInterface extends \Iterator, \Countable, \Serializable
      */
     public function getLinks(?int $nbLinks = null): array;
 
-    /**
-     * Returns true if the current query requires pagination.
-     */
     public function haveToPaginate(): bool;
 
     public function getCursor(): int;
@@ -70,50 +61,26 @@ interface PagerInterface extends \Iterator, \Countable, \Serializable
 
     public function getObjectByCursor(int $pos): ?object;
 
-    /**
-     * Returns the current object.
-     */
     public function getCurrent(): ?object;
 
-    /**
-     * Returns the next object.
-     */
     public function getNext(): ?object;
 
-    /**
-     * Returns the previous object.
-     */
     public function getPrevious(): ?object;
 
-    /**
-     * Returns the first index on the current page.
-     */
     public function getFirstIndice(): int;
 
-    /**
-     * Returns the last index on the current page.
-     */
     public function getLastIndice(): int;
 
     public function getNbResults(): int;
 
-    /**
-     * Returns the maximum number of page numbers.
-     */
     public function getMaxPageLinks(): int;
 
-    /**
-     * Sets the maximum number of page numbers.
-     */
     public function setMaxPageLinks(int $maxPageLinks): void;
 
     public function isFirstPage(): bool;
 
     public function isLastPage(): bool;
 
-    /**
-     * Returns the current pager's parameter holder.
-     */
     public function getParameters(): array;
 
     /**
@@ -125,6 +92,9 @@ interface PagerInterface extends \Iterator, \Countable, \Serializable
 
     public function hasParameter(string $name): bool;
 
+    /**
+     * @param mixed $value
+     */
     public function setParameter(string $name, $value): void;
 
     public function getCountColumn(): array;

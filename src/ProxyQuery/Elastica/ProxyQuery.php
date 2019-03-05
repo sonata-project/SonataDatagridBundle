@@ -16,19 +16,12 @@ namespace Sonata\DatagridBundle\ProxyQuery\Elastica;
 use Elastica\Search;
 use Sonata\DatagridBundle\ProxyQuery\BaseProxyQuery;
 
-/**
- * This class try to unify the query usage with Doctrine.
- */
 final class ProxyQuery extends BaseProxyQuery
 {
-    /**
-     * {@inheritdoc}
-     */
     public function execute(array $params = [], ?int $hydrationMode = null)
     {
         $query = $this->queryBuilder->getQuery();
 
-        // Sorted field and sort order
         $sortBy = $this->getSortBy();
         $sortOrder = $this->getSortOrder();
 
@@ -36,11 +29,15 @@ final class ProxyQuery extends BaseProxyQuery
             $query->setSort([$sortBy => ['order' => $sortOrder]]);
         }
 
-        // Limit & offset.
-        $this->results = $this->queryBuilder->getRepository()->createPaginatorAdapter($query, [
-            Search::OPTION_SIZE => $this->getMaxResults(),
-            Search::OPTION_FROM => $this->getFirstResult(),
-        ]);
+        $this->results = $this->queryBuilder
+            ->getRepository()
+            ->createPaginatorAdapter(
+                $query,
+                [
+                    Search::OPTION_SIZE => $this->getMaxResults(),
+                    Search::OPTION_FROM => $this->getFirstResult(),
+                ]
+            );
 
         return $this->results->getResults($this->getFirstResult(), $this->getMaxResults())->toArray();
     }

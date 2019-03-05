@@ -13,19 +13,15 @@ declare(strict_types=1);
 
 namespace Sonata\DatagridBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
 /**
  * @author Vincent Composieux <vincent.composieux@gmail.com>
  */
-final class SonataDatagridExtension extends Extension
+final class SonataDatagridExtension extends ConfigurableExtension
 {
-    public function load(array $configs, ContainerBuilder $container): void
+    protected function loadInternal(array $configs, ContainerBuilder $container): void
     {
-        $processor = new Processor();
-        $configuration = new Configuration();
-        $processor->processConfiguration($configuration, $configs);
     }
 }

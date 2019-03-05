@@ -18,6 +18,7 @@ use Doctrine\ORM\QueryBuilder;
 use Sonata\DatagridBundle\Pager\BasePager;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
+use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
 /**
  * @author Jonathan H. Wage <jonwage@gmail.com>
@@ -27,6 +28,8 @@ final class Pager extends BasePager
     public function computeNbResult(): int
     {
         $countQuery = clone $this->getQuery();
+
+        \assert($countQuery instanceof ProxyQueryInterface);
 
         if (\count($this->getParameters()) > 0) {
             $countQuery->setParameters($this->getParameters());
@@ -45,28 +48,26 @@ final class Pager extends BasePager
         return $countQuery->getQuery()->getSingleScalarResult();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResults($hydrationMode = Query::HYDRATE_OBJECT): ?array
     {
         return $this->getQuery()->execute([], $hydrationMode);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function init(): void
     {
         $this->resetIterator();
 
         $this->setNbResults($this->computeNbResult());
 
-        $this->getQuery()->setFirstResult(null);
-        $this->getQuery()->setMaxResults(null);
+        $query = $this->getQuery();
+
+        \assert($query instanceof ProxyQueryInterface);
+
+        $query->setFirstResult(null);
+        $query->setMaxResults(null);
 
         if (\count($this->getParameters()) > 0) {
-            $this->getQuery()->setParameters($this->getParameters());
+            $query->setParameters($this->getParameters());
         }
 
         if (0 === $this->getPage() || 0 === $this->getMaxPerPage() || 0 === $this->getNbResults()) {
@@ -74,10 +75,10 @@ final class Pager extends BasePager
         } else {
             $offset = ($this->getPage() - 1) * $this->getMaxPerPage();
 
-            $this->setLastPage(ceil($this->getNbResults() / $this->getMaxPerPage()));
+            $this->setLastPage((int)\ceil($this->getNbResults() / $this->getMaxPerPage()));
 
-            $this->getQuery()->setFirstResult($offset);
-            $this->getQuery()->setMaxResults($this->getMaxPerPage());
+            $query->setFirstResult($offset);
+            $query->setMaxResults($this->getMaxPerPage());
         }
     }
 

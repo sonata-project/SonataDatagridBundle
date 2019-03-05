@@ -19,12 +19,9 @@ namespace Sonata\DatagridBundle\ProxyQuery;
 interface ProxyQueryInterface
 {
     /**
-     * @param string $name
-     * @param array  $args
-     *
      * @return mixed
      */
-    public function __call($name, $args);
+    public function __call(string $name, array $args);
 
     /**
      * @return mixed
@@ -51,19 +48,13 @@ interface ProxyQueryInterface
      */
     public function getSortOrder();
 
-    public function setFirstResult(int $firstResult): self;
+    public function setFirstResult(?int $firstResult): self;
 
-    /**
-     * @return mixed
-     */
-    public function getFirstResult();
+    public function getFirstResult(): ?int;
 
-    public function setMaxResults(int $maxResults): self;
+    public function setMaxResults(?int $maxResults): self;
 
-    /**
-     * @return mixed
-     */
-    public function getMaxResults();
+    public function getMaxResults(): ?int;
 
     public function getResults(): array;
 }

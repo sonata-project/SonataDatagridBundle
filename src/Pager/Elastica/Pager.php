@@ -17,6 +17,7 @@ use Elastica\QueryBuilder;
 use Sonata\DatagridBundle\Pager\BasePager;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\DatagridBundle\ProxyQuery\Elastica\ProxyQuery;
+use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
 /**
  * @author Vincent Composieux <vincent.composieux@gmail.com>
@@ -31,27 +32,25 @@ final class Pager extends BasePager
         return $countQuery->getResults()->getTotalHits();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResults(): ?array
     {
         return $this->getQuery()->execute();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function init(): void
     {
         $this->resetIterator();
 
-        $this->getQuery()->setMaxResults($this->getMaxPerPage());
+        $query = $this->getQuery();
+
+        \assert($query instanceof ProxyQueryInterface);
+
+        $query->setMaxResults($this->getMaxPerPage());
 
         $this->setNbResults($this->computeNbResult());
 
         if (\count($this->getParameters()) > 0) {
-            $this->getQuery()->setParameters($this->getParameters());
+            $query->setParameters($this->getParameters());
         }
 
         if (0 === $this->getPage() || 0 === $this->getMaxPerPage() || 0 === $this->getNbResults()) {
@@ -59,10 +58,10 @@ final class Pager extends BasePager
         } else {
             $offset = ($this->getPage() - 1) * $this->getMaxPerPage();
 
-            $this->setLastPage(ceil($this->getNbResults() / $this->getMaxPerPage()));
+            $this->setLastPage((int) ceil($this->getNbResults() / $this->getMaxPerPage()));
 
-            $this->getQuery()->setFirstResult($offset);
-            $this->getQuery()->setMaxResults($this->getMaxPerPage());
+            $query->setFirstResult($offset);
+            $query->setMaxResults($this->getMaxPerPage());
         }
     }
 

@@ -15,9 +15,13 @@ namespace Sonata\DatagridBundle\Tests\Datagrid;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\DatagridBundle\Datagrid\Datagrid;
+use Sonata\DatagridBundle\Filter\FilterInterface;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormFactoryInterface;
 
 class TestEntity
 {
@@ -55,39 +59,31 @@ class DatagridTest extends TestCase
 
     public function setUp(): void
     {
-        $this->query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
-        $this->pager = $this->createMock('Sonata\DatagridBundle\Pager\PagerInterface');
+        $this->query = $this->createMock(ProxyQueryInterface::class);
+        $this->pager = $this->createMock(PagerInterface::class);
 
         $this->formTypes = [];
 
-        // php 5.3 BC
-        $formTypes = &$this->formTypes;
-
-        $this->formBuilder = $this->getMockBuilder('Symfony\Component\Form\FormBuilder')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->formBuilder->expects($this->any())
+        $this->formBuilder = $this->createMock(FormBuilder::class);
+        $this->formBuilder
+            ->expects($this->any())
             ->method('get')
-            ->will($this->returnCallback(function ($name) use (&$formTypes) {
-                if (isset($formTypes[$name])) {
-                    return $formTypes[$name];
+            ->will($this->returnCallback(function ($name) {
+                if (isset($this->formTypes[$name])) {
+                    return $this->formTypes[$name];
                 }
             }));
 
-        // php 5.3 BC
-        $eventDispatcher = $this->createMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
-        $formFactory = $this->createMock('Symfony\Component\Form\FormFactoryInterface');
+        $eventDispatcher = $this->createMock(EventDispatcherInterface::class);
+        $formFactory = $this->createMock(FormFactoryInterface::class);
 
         $this->formBuilder->expects($this->any())
             ->method('add')
-            ->will($this->returnCallback(function ($name, $type, $options) use (&$formTypes, $eventDispatcher, $formFactory): void {
-                $formTypes[$name] = new FormBuilder($name, 'Sonata\DatagridBundle\Tests\Datagrid\TestEntity', $eventDispatcher, $formFactory, $options);
+            ->will($this->returnCallback(function ($name, $type, $options) use ($eventDispatcher, $formFactory): void {
+                $this->formTypes[$name] = new FormBuilder($name, TestEntity::class, $eventDispatcher, $formFactory, $options);
             }));
 
-        // php 5.3 BC
-        $form = $this->getMockBuilder('Symfony\Component\Form\Form')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $form = $this->createMock(Form::class);
 
         $this->formBuilder->expects($this->any())
             ->method('getForm')
@@ -110,7 +106,7 @@ class DatagridTest extends TestCase
         $this->assertFalse($this->datagrid->hasFilter('foo'));
         $this->assertNull($this->datagrid->getFilter('foo'));
 
-        $filter = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
+        $filter = $this->createMock(FilterInterface::class);
         $filter->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('foo'));
@@ -130,17 +126,17 @@ class DatagridTest extends TestCase
     {
         $this->assertSame([], $this->datagrid->getFilters());
 
-        $filter1 = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
+        $filter1 = $this->createMock(FilterInterface::class);
         $filter1->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('foo'));
 
-        $filter2 = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
+        $filter2 = $this->createMock(FilterInterface::class);
         $filter2->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('bar'));
 
-        $filter3 = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
+        $filter3 = $this->createMock(FilterInterface::class);
         $filter3->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('baz'));
@@ -160,17 +156,17 @@ class DatagridTest extends TestCase
     {
         $this->assertSame([], $this->datagrid->getFilters());
 
-        $filter1 = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
+        $filter1 = $this->createMock(FilterInterface::class);
         $filter1->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('foo'));
 
-        $filter2 = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
+        $filter2 = $this->createMock(FilterInterface::class);
         $filter2->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('bar'));
 
-        $filter3 = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
+        $filter3 = $this->createMock(FilterInterface::class);
         $filter3->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('baz'));
@@ -206,7 +202,7 @@ class DatagridTest extends TestCase
     {
         $this->assertFalse($this->datagrid->hasActiveFilters());
 
-        $filter1 = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
+        $filter1 = $this->createMock(FilterInterface::class);
         $filter1->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('foo'));
@@ -218,7 +214,7 @@ class DatagridTest extends TestCase
 
         $this->assertFalse($this->datagrid->hasActiveFilters());
 
-        $filter2 = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
+        $filter2 = $this->createMock(FilterInterface::class);
         $filter2->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('bar'));
@@ -233,7 +229,7 @@ class DatagridTest extends TestCase
 
     public function testGetForm(): void
     {
-        $this->assertInstanceOf('Symfony\Component\Form\Form', $this->datagrid->getForm());
+        $this->assertInstanceOf(Form::class, $this->datagrid->getForm());
     }
 
     public function testGetResults(): void
@@ -249,7 +245,7 @@ class DatagridTest extends TestCase
 
     public function testBuildPager(): void
     {
-        $filter1 = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
+        $filter1 = $this->createMock(FilterInterface::class);
         $filter1->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('foo'));
@@ -265,7 +261,7 @@ class DatagridTest extends TestCase
 
         $this->datagrid->addFilter($filter1);
 
-        $filter2 = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
+        $filter2 = $this->createMock(FilterInterface::class);
         $filter2->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('bar'));
@@ -284,14 +280,14 @@ class DatagridTest extends TestCase
         $this->datagrid->buildPager();
 
         $this->assertSame(['foo' => null, 'bar' => null], $this->datagrid->getValues());
-        $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('fooFormName'));
+        $this->assertInstanceOf(FormBuilder::class, $this->formBuilder->get('fooFormName'));
         $this->assertSame(['bar1' => 'baz1'], $this->formBuilder->get('fooFormName')->getOptions());
-        $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('barFormName'));
+        $this->assertInstanceOf(FormBuilder::class, $this->formBuilder->get('barFormName'));
         $this->assertSame(['bar2' => 'baz2'], $this->formBuilder->get('barFormName')->getOptions());
-        $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_sort_by'));
-        $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_sort_order'));
-        $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_page'));
-        $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_per_page'));
+        $this->assertInstanceOf(FormBuilder::class, $this->formBuilder->get('_sort_by'));
+        $this->assertInstanceOf(FormBuilder::class, $this->formBuilder->get('_sort_order'));
+        $this->assertInstanceOf(FormBuilder::class, $this->formBuilder->get('_page'));
+        $this->assertInstanceOf(FormBuilder::class, $this->formBuilder->get('_per_page'));
     }
 
     public function testBuildPagerWithSortBy(): void
@@ -300,7 +296,7 @@ class DatagridTest extends TestCase
             '_sort_by' => 'name',
         ]);
 
-        $filter = $this->createMock('Sonata\DatagridBundle\Filter\FilterInterface');
+        $filter = $this->createMock(FilterInterface::class);
         $filter->expects($this->once())
             ->method('getName')
             ->will($this->returnValue('foo'));
@@ -319,11 +315,11 @@ class DatagridTest extends TestCase
         $this->datagrid->buildPager();
 
         $this->assertSame(['_sort_by' => 'name', 'foo' => null], $this->datagrid->getValues());
-        $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('fooFormName'));
+        $this->assertInstanceOf(FormBuilder::class, $this->formBuilder->get('fooFormName'));
         $this->assertSame(['bar' => 'baz'], $this->formBuilder->get('fooFormName')->getOptions());
-        $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_sort_by'));
-        $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_sort_order'));
-        $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_page'));
-        $this->assertInstanceOf('Symfony\Component\Form\FormBuilder', $this->formBuilder->get('_per_page'));
+        $this->assertInstanceOf(FormBuilder::class, $this->formBuilder->get('_sort_by'));
+        $this->assertInstanceOf(FormBuilder::class, $this->formBuilder->get('_sort_order'));
+        $this->assertInstanceOf(FormBuilder::class, $this->formBuilder->get('_page'));
+        $this->assertInstanceOf(FormBuilder::class, $this->formBuilder->get('_per_page'));
     }
 }

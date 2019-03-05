@@ -15,9 +15,6 @@ namespace Sonata\DatagridBundle\ProxyQuery;
 
 use Doctrine\ORM\QueryBuilder;
 
-/**
- * This class try to unify the query usage between different models.
- */
 abstract class BaseProxyQuery implements ProxyQueryInterface
 {
     /**
@@ -28,25 +25,25 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     /**
      * @var array
      */
-    protected $results;
+    protected $results = [];
 
     /**
      * @var array
      */
-    private $sortBy;
+    private $sortBy = [];
 
     /**
      * @var array
      */
-    private $sortOrder;
+    private $sortOrder = [];
 
     /**
-     * @var int
+     * @var int|null
      */
     private $firstResult;
 
     /**
-     * @var int
+     * @var int|null
      */
     private $maxResults;
 
@@ -55,24 +52,18 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
         $this->queryBuilder = $queryBuilder;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function __clone()
     {
         $this->queryBuilder = clone $this->queryBuilder;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function __call($name, $args)
+    public function __call(string $name, array $args)
     {
         return \call_user_func_array([$this->queryBuilder, $name], $args);
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $sortBy
      */
     public function setSortBy($sortBy): ProxyQueryInterface
     {
@@ -82,7 +73,7 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed
      */
     public function getSortBy()
     {
@@ -90,7 +81,7 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param mixed $sortOrder
      */
     public function setSortOrder($sortOrder): ProxyQueryInterface
     {
@@ -100,45 +91,33 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed
      */
     public function getSortOrder()
     {
         return $this->sortOrder;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setFirstResult(int $firstResult): ProxyQueryInterface
+    public function setFirstResult(?int $firstResult): ProxyQueryInterface
     {
         $this->firstResult = $firstResult;
 
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getFirstResult()
+    public function getFirstResult(): ?int
     {
         return $this->firstResult;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setMaxResults(int $maxResults): ProxyQueryInterface
+    public function setMaxResults(?int $maxResults): ProxyQueryInterface
     {
         $this->maxResults = $maxResults;
 
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getMaxResults()
+    public function getMaxResults(): ?int
     {
         return $this->maxResults;
     }
@@ -151,9 +130,6 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
         return $this->queryBuilder;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResults(): array
     {
         return $this->results;

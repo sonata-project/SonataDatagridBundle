@@ -13,8 +13,10 @@ declare(strict_types=1);
 
 namespace Sonata\DatagridBundle\Tests\Pager\Doctrine;
 
+use Doctrine\ORM\Query;
 use PHPUnit\Framework\TestCase;
 use Sonata\DatagridBundle\Pager\Doctrine\Pager;
+use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
 /**
  * @author Romain Mouillard <romain.mouillard@gmail.com>
@@ -30,7 +32,7 @@ class PagerTest extends TestCase
     {
         $this->pager = new Pager();
 
-        if (!class_exists('Doctrine\ORM\Query')) {
+        if (!\class_exists(Query::class)) {
             $this->markTestSkipped("Doctrine ORM doesn't seem to be installed");
         }
     }
@@ -40,7 +42,7 @@ class PagerTest extends TestCase
      */
     public function testGetResults(): void
     {
-        $query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
+        $query = $this->createMock(ProxyQueryInterface::class);
 
         $object1 = new \stdClass();
         $object1->foo = 'bar1';

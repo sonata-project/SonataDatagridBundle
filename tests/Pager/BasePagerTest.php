@@ -15,6 +15,7 @@ namespace Sonata\DatagridBundle\Tests\Pager;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\DatagridBundle\Pager\BasePager;
+use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
 /**
  * @author Andrej Hudec <pulzarraider@gmail.com>
@@ -28,7 +29,7 @@ class BasePagerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->pager = $this->getMockForAbstractClass('Sonata\DatagridBundle\Pager\BasePager');
+        $this->pager = $this->getMockForAbstractClass(BasePager::class);
     }
 
     /**
@@ -140,7 +141,7 @@ class BasePagerTest extends TestCase
 
     public function testGetQuery(): void
     {
-        $query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
+        $query = $this->createMock(ProxyQueryInterface::class);
 
         $this->pager->setQuery($query);
         $this->assertSame($query, $this->pager->getQuery());
@@ -366,7 +367,7 @@ class BasePagerTest extends TestCase
 
         $this->callMethod($this->pager, 'setNbResults', [3]);
 
-        $query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
+        $query = $this->createMock(ProxyQueryInterface::class);
 
         $query->expects($this->any())
             ->method('setFirstResult')
@@ -379,7 +380,7 @@ class BasePagerTest extends TestCase
         $id = 0;
         $query->expects($this->any())
             ->method('execute')
-            ->will($this->returnCallback(function () use (&$id, $object1, $object2, $object3) {
+            ->will($this->returnCallback(static function () use (&$id, $object1, $object2, $object3): ?array {
                 switch ($id) {
                     case 0:
                         return [$object1];
@@ -396,6 +397,8 @@ class BasePagerTest extends TestCase
 
                         break;
                 }
+
+                return null;
             }));
 
         $this->pager->setQuery($query);
@@ -498,7 +501,7 @@ class BasePagerTest extends TestCase
 
         $this->callMethod($this->pager, 'setNbResults', [3]);
 
-        $query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
+        $query = $this->createMock(ProxyQueryInterface::class);
 
         $query->expects($this->any())
             ->method('setFirstResult')
@@ -511,7 +514,7 @@ class BasePagerTest extends TestCase
         $id = 0;
         $query->expects($this->any())
             ->method('execute')
-            ->will($this->returnCallback(function () use (&$id, $object1, $object2, $object3) {
+            ->will($this->returnCallback(static function () use (&$id, $object1, $object2, $object3): ?array {
                 switch ($id) {
                     case 0:
                         return [$object1];
@@ -528,6 +531,8 @@ class BasePagerTest extends TestCase
 
                         break;
                 }
+
+                return null;
             }));
 
         $this->pager->setQuery($query);
@@ -560,7 +565,7 @@ class BasePagerTest extends TestCase
 
         $this->callMethod($this->pager, 'setNbResults', [3]);
 
-        $query = $this->createMock('Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface');
+        $query = $this->createMock(ProxyQueryInterface::class);
 
         $query->expects($this->any())
             ->method('setFirstResult')
@@ -573,7 +578,7 @@ class BasePagerTest extends TestCase
         $id = 2;
         $query->expects($this->any())
             ->method('execute')
-            ->will($this->returnCallback(function () use (&$id, $object1, $object2, $object3) {
+            ->will($this->returnCallback(static function () use (&$id, $object1, $object2, $object3): ?array {
                 switch ($id) {
                     case 0:
                         return [$object1];
@@ -590,6 +595,8 @@ class BasePagerTest extends TestCase
 
                         break;
                 }
+
+                return null;
             }));
 
         $this->pager->setQuery($query);
