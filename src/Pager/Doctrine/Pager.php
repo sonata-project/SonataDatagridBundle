@@ -75,7 +75,7 @@ final class Pager extends BasePager
         } else {
             $offset = ($this->getPage() - 1) * $this->getMaxPerPage();
 
-            $this->setLastPage((int)\ceil($this->getNbResults() / $this->getMaxPerPage()));
+            $this->setLastPage((int) ceil($this->getNbResults() / $this->getMaxPerPage()));
 
             $query->setFirstResult($offset);
             $query->setMaxResults($this->getMaxPerPage());

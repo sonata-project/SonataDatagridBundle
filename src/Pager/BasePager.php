@@ -143,11 +143,13 @@ abstract class BasePager implements \Serializable, PagerInterface
     {
         if ($pos < 1) {
             $this->cursor = 1;
+
             return;
         }
 
         if ($pos > $this->nbResults) {
             $this->cursor = $this->nbResults;
+
             return;
         }
 
@@ -228,12 +230,12 @@ abstract class BasePager implements \Serializable, PagerInterface
 
     public function getNextPage(): int
     {
-        return \min($this->getPage() + 1, $this->getLastPage());
+        return min($this->getPage() + 1, $this->getLastPage());
     }
 
     public function getPreviousPage(): int
     {
-        return \max($this->getPage() - 1, $this->getFirstPage());
+        return max($this->getPage() - 1, $this->getFirstPage());
     }
 
     public function setPage(int $page): void
@@ -241,6 +243,7 @@ abstract class BasePager implements \Serializable, PagerInterface
         if ($page <= 0) {
             // set first page, which depends on a maximum set
             $this->page = $this->getMaxPerPage() ? 1 : 0;
+
             return;
         }
 
@@ -267,6 +270,7 @@ abstract class BasePager implements \Serializable, PagerInterface
         if (0 === $max) {
             $this->maxPerPage = 0;
             $this->page = 0;
+
             return;
         }
 
@@ -334,7 +338,7 @@ abstract class BasePager implements \Serializable, PagerInterface
             $this->initializeIterator();
         }
 
-        return \current($this->results);
+        return current($this->results);
     }
 
     /**
@@ -346,7 +350,7 @@ abstract class BasePager implements \Serializable, PagerInterface
             $this->initializeIterator();
         }
 
-        return \key($this->results);
+        return key($this->results);
     }
 
     /**
@@ -360,7 +364,7 @@ abstract class BasePager implements \Serializable, PagerInterface
 
         --$this->resultsCounter;
 
-        return \next($this->results);
+        return next($this->results);
     }
 
     /**
@@ -374,7 +378,7 @@ abstract class BasePager implements \Serializable, PagerInterface
 
         $this->resultsCounter = \count($this->results);
 
-        return \reset($this->results);
+        return reset($this->results);
     }
 
     public function valid(): bool
@@ -396,12 +400,12 @@ abstract class BasePager implements \Serializable, PagerInterface
         $vars = get_object_vars($this);
         unset($vars['query']);
 
-        return \serialize($vars);
+        return serialize($vars);
     }
 
     public function unserialize($serialized): void
     {
-        $array = \unserialize($serialized);
+        $array = unserialize($serialized);
 
         foreach ($array as $name => $values) {
             $this->$name = $values;
