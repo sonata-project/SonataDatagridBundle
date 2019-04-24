@@ -68,7 +68,7 @@ class DatagridTest extends TestCase
             ->getMock();
         $this->formBuilder->expects($this->any())
             ->method('get')
-            ->will($this->returnCallback(function ($name) use (&$formTypes) {
+            ->will($this->returnCallback(static function ($name) use (&$formTypes) {
                 if (isset($formTypes[$name])) {
                     return $formTypes[$name];
                 }
@@ -80,7 +80,7 @@ class DatagridTest extends TestCase
 
         $this->formBuilder->expects($this->any())
             ->method('add')
-            ->will($this->returnCallback(function ($name, $type, $options) use (&$formTypes, $eventDispatcher, $formFactory): void {
+            ->will($this->returnCallback(static function ($name, $type, $options) use (&$formTypes, $eventDispatcher, $formFactory): void {
                 $formTypes[$name] = new FormBuilder($name, 'Sonata\DatagridBundle\Tests\Datagrid\TestEntity', $eventDispatcher, $formFactory, $options);
             }));
 
@@ -91,7 +91,7 @@ class DatagridTest extends TestCase
 
         $this->formBuilder->expects($this->any())
             ->method('getForm')
-            ->will($this->returnCallback(function () use ($form) {
+            ->will($this->returnCallback(static function () use ($form) {
                 return $form;
             }));
 
