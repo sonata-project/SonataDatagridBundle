@@ -379,7 +379,7 @@ class BasePagerTest extends TestCase
         $id = 0;
         $query->expects($this->any())
             ->method('execute')
-            ->will($this->returnCallback(function () use (&$id, $object1, $object2, $object3) {
+            ->will($this->returnCallback(static function () use (&$id, $object1, $object2, $object3) {
                 switch ($id) {
                     case 0:
                         return [$object1];
@@ -511,7 +511,7 @@ class BasePagerTest extends TestCase
         $id = 0;
         $query->expects($this->any())
             ->method('execute')
-            ->will($this->returnCallback(function () use (&$id, $object1, $object2, $object3) {
+            ->will($this->returnCallback(static function () use (&$id, $object1, $object2, $object3) {
                 switch ($id) {
                     case 0:
                         return [$object1];
@@ -573,7 +573,7 @@ class BasePagerTest extends TestCase
         $id = 2;
         $query->expects($this->any())
             ->method('execute')
-            ->will($this->returnCallback(function () use (&$id, $object1, $object2, $object3) {
+            ->will($this->returnCallback(static function () use (&$id, $object1, $object2, $object3) {
                 switch ($id) {
                     case 0:
                         return [$object1];
