@@ -1,6 +1,10 @@
 UPGRADE FROM 2.x to 3.0
 =======================
 
+## PHP
+
+The minimum requirement is php 7.2.
+
 ## Interfaces
 
 The `Pager/PagerInterface` implements `\Iterator` and `\Countable`.
