@@ -68,28 +68,28 @@ class DatagridTest extends TestCase
         $this->formBuilder
             ->expects($this->any())
             ->method('get')
-            ->will($this->returnCallback(function ($name) {
+            ->willReturnCallback(function ($name) {
                 if (isset($this->formTypes[$name])) {
                     return $this->formTypes[$name];
                 }
-            }));
+            });
 
         $eventDispatcher = $this->createMock(EventDispatcherInterface::class);
         $formFactory = $this->createMock(FormFactoryInterface::class);
 
         $this->formBuilder->expects($this->any())
             ->method('add')
-            ->will($this->returnCallback(function ($name, $type, $options) use ($eventDispatcher, $formFactory): void {
+            ->willReturnCallback(function ($name, $type, $options) use ($eventDispatcher, $formFactory): void {
                 $this->formTypes[$name] = new FormBuilder($name, TestEntity::class, $eventDispatcher, $formFactory, $options);
-            }));
+            });
 
         $form = $this->createMock(Form::class);
 
         $this->formBuilder->expects($this->any())
             ->method('getForm')
-            ->will($this->returnCallback(static function () use ($form) {
+            ->willReturnCallback(static function () use ($form) {
                 return $form;
-            }));
+            });
 
         $values = [];
 
@@ -109,7 +109,7 @@ class DatagridTest extends TestCase
         $filter = $this->createMock(FilterInterface::class);
         $filter->expects($this->once())
             ->method('getName')
-            ->will($this->returnValue('foo'));
+            ->willReturn('foo');
 
         $this->datagrid->addFilter($filter);
 
@@ -129,17 +129,17 @@ class DatagridTest extends TestCase
         $filter1 = $this->createMock(FilterInterface::class);
         $filter1->expects($this->once())
             ->method('getName')
-            ->will($this->returnValue('foo'));
+            ->willReturn('foo');
 
         $filter2 = $this->createMock(FilterInterface::class);
         $filter2->expects($this->once())
             ->method('getName')
-            ->will($this->returnValue('bar'));
+            ->willReturn('bar');
 
         $filter3 = $this->createMock(FilterInterface::class);
         $filter3->expects($this->once())
             ->method('getName')
-            ->will($this->returnValue('baz'));
+            ->willReturn('baz');
 
         $this->datagrid->addFilter($filter1);
         $this->datagrid->addFilter($filter2);
@@ -159,17 +159,17 @@ class DatagridTest extends TestCase
         $filter1 = $this->createMock(FilterInterface::class);
         $filter1->expects($this->once())
             ->method('getName')
-            ->will($this->returnValue('foo'));
+            ->willReturn('foo');
 
         $filter2 = $this->createMock(FilterInterface::class);
         $filter2->expects($this->once())
             ->method('getName')
-            ->will($this->returnValue('bar'));
+            ->willReturn('bar');
 
         $filter3 = $this->createMock(FilterInterface::class);
         $filter3->expects($this->once())
             ->method('getName')
-            ->will($this->returnValue('baz'));
+            ->willReturn('baz');
 
         $this->datagrid->addFilter($filter1);
         $this->datagrid->addFilter($filter2);
@@ -205,10 +205,10 @@ class DatagridTest extends TestCase
         $filter1 = $this->createMock(FilterInterface::class);
         $filter1->expects($this->once())
             ->method('getName')
-            ->will($this->returnValue('foo'));
+            ->willReturn('foo');
         $filter1->expects($this->any())
             ->method('isActive')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         $this->datagrid->addFilter($filter1);
 
@@ -217,10 +217,10 @@ class DatagridTest extends TestCase
         $filter2 = $this->createMock(FilterInterface::class);
         $filter2->expects($this->once())
             ->method('getName')
-            ->will($this->returnValue('bar'));
+            ->willReturn('bar');
         $filter2->expects($this->any())
             ->method('isActive')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
 
         $this->datagrid->addFilter($filter2);
 
@@ -238,7 +238,7 @@ class DatagridTest extends TestCase
 
         $this->pager->expects($this->once())
             ->method('getResults')
-            ->will($this->returnValue(['foo', 'bar']));
+            ->willReturn(['foo', 'bar']);
 
         $this->assertSame(['foo', 'bar'], $this->datagrid->getResults());
     }
@@ -248,32 +248,32 @@ class DatagridTest extends TestCase
         $filter1 = $this->createMock(FilterInterface::class);
         $filter1->expects($this->once())
             ->method('getName')
-            ->will($this->returnValue('foo'));
+            ->willReturn('foo');
         $filter1->expects($this->any())
             ->method('getFormName')
-            ->will($this->returnValue('fooFormName'));
+            ->willReturn('fooFormName');
         $filter1->expects($this->any())
             ->method('isActive')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
         $filter1->expects($this->any())
             ->method('getRenderSettings')
-            ->will($this->returnValue(['foo1', ['bar1' => 'baz1']]));
+            ->willReturn(['foo1', ['bar1' => 'baz1']]);
 
         $this->datagrid->addFilter($filter1);
 
         $filter2 = $this->createMock(FilterInterface::class);
         $filter2->expects($this->once())
             ->method('getName')
-            ->will($this->returnValue('bar'));
+            ->willReturn('bar');
         $filter2->expects($this->any())
             ->method('getFormName')
-            ->will($this->returnValue('barFormName'));
+            ->willReturn('barFormName');
         $filter2->expects($this->any())
             ->method('isActive')
-            ->will($this->returnValue(true));
+            ->willReturn(true);
         $filter2->expects($this->any())
             ->method('getRenderSettings')
-            ->will($this->returnValue(['foo2', ['bar2' => 'baz2']]));
+            ->willReturn(['foo2', ['bar2' => 'baz2']]);
 
         $this->datagrid->addFilter($filter2);
 
@@ -299,16 +299,16 @@ class DatagridTest extends TestCase
         $filter = $this->createMock(FilterInterface::class);
         $filter->expects($this->once())
             ->method('getName')
-            ->will($this->returnValue('foo'));
+            ->willReturn('foo');
         $filter->expects($this->any())
             ->method('getFormName')
-            ->will($this->returnValue('fooFormName'));
+            ->willReturn('fooFormName');
         $filter->expects($this->any())
             ->method('isActive')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
         $filter->expects($this->any())
             ->method('getRenderSettings')
-            ->will($this->returnValue(['foo', ['bar' => 'baz']]));
+            ->willReturn(['foo', ['bar' => 'baz']]);
 
         $this->datagrid->addFilter($filter);
 
