@@ -57,7 +57,7 @@ class PagerTest extends TestCase
 
         $query->expects($this->any())
             ->method('execute')
-            ->will($this->returnValue($expectedObjects));
+            ->willReturn($expectedObjects);
 
         $this->pager->setQuery($query);
 
