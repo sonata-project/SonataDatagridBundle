@@ -7,12 +7,11 @@ The minimum requirement is php 7.2.
 
 ## Interfaces
 
-The `Pager/PagerInterface` implements `\Iterator` and `\Countable`.
-All public methods of `Pager\BasePager` were moved to `Pager/PagerInterface`.
+The `Pager\PagerInterface` implements `\Iterator` and `\Countable`.
+All public methods of `Pager\BasePager` were moved to `Pager\PagerInterface`.
 
 ## Type hinting and API closing
 
-Now that only PHP 7.1 is supported, many signatures have changed: type hinting was
-added for the parameters or the return value. Also all classes were made final to 
+Now that only PHP >= 7.1 is supported, many signatures have changed: type hinting was
+added for the parameters or the return value. Also all classes were made final to
 allow slightly modification in upcoming minor releases.
-
