@@ -12,8 +12,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - possibility for extension in most classes
 
 ### Changed
-- The `Pager/PagerInterface` implements `\Iterator` and `\Countable`.
-- All public methods of `Pager\BasePager` were moved to `Pager/PagerInterface`.
+- The `Pager\PagerInterface` implements `\Iterator` and `\Countable`.
+- All public methods of `Pager\BasePager` were moved to `Pager\PagerInterface`.
 
 
 ## [2.5.0](https://github.com/sonata-project/SonataDatagridBundle/compare/2.4.0...2.5.0) - 2019-13-15
