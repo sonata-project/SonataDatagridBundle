@@ -87,7 +87,7 @@ class DatagridTest extends TestCase
 
         $this->formBuilder->expects($this->any())
             ->method('getForm')
-            ->willReturnCallback(function () use ($form) {
+            ->willReturnCallback(static function () use ($form) {
                 return $form;
             });
 

@@ -5,7 +5,7 @@
 branches:
   only:
     - master
-    - 2.x
+    - 3.x
 
 language: php
 
@@ -29,7 +29,7 @@ cache:
 env:
   global:
     - PATH="$HOME/.local/bin:$PATH"
-    - SYMFONY_DEPRECATIONS_HELPER=weak_vendors
+    - SYMFONY_DEPRECATIONS_HELPER=max[self]=0
     - TARGET=test
     - UPSTREAM_URL=https://github.com/sonata-project/SonataDatagridBundle.git
     - PHPUNIT_VERSION=7
