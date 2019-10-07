@@ -45,7 +45,7 @@ final class Pager extends BasePager
             current($this->getCountColumn())
         ));
 
-        return $countQuery->getQuery()->getSingleScalarResult();
+        return (int) $countQuery->getQuery()->getSingleScalarResult();
     }
 
     public function getResults($hydrationMode = Query::HYDRATE_OBJECT): ?array
