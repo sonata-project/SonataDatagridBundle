@@ -69,10 +69,11 @@ class PagerTest extends TestCase
     }
 
     /**
-     * Test ensure getSingleScalarResult result within computeNbResult will be cast
+     * Test ensure getSingleScalarResult result within computeNbResult will be cast.
+     *
      * @covers ::computeNbResult
      */
-    public function testComputeNbResult()
+    public function testComputeNbResult(): void
     {
         $queryBuilder = $this->createMock(QueryBuilder::class);
 
@@ -91,12 +92,12 @@ class PagerTest extends TestCase
 
         $proxyQuery
             ->method('__call')
-            ->will($this->returnValueMap([
+            ->willReturnMap([
                 ['select', [], ''],
                 ['getQueryBuilder', [], $queryBuilder],
                 ['getRootAliases', [], []],
                 ['getQuery', [], $query],
-            ]));
+            ]);
 
         $this->pager->setQuery($proxyQuery);
 
