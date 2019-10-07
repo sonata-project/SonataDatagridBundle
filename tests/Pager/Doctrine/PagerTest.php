@@ -22,8 +22,6 @@ use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
 /**
  * @author Romain Mouillard <romain.mouillard@gmail.com>
- *
- * @coversDefaultClass \Sonata\DatagridBundle\Pager\Doctrine\Pager
  */
 class PagerTest extends TestCase
 {
@@ -70,8 +68,6 @@ class PagerTest extends TestCase
 
     /**
      * Test ensure getSingleScalarResult result within computeNbResult will be cast.
-     *
-     * @covers ::computeNbResult
      */
     public function testComputeNbResult()
     {
