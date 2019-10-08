@@ -24,7 +24,7 @@ interface FilterInterface
     /**
      * Apply the filter to the QueryBuilder instance.
      */
-    public function filter(ProxyQueryInterface $queryBuilder, string  $alias, string $field, string $value): void;
+    public function filter(ProxyQueryInterface $queryBuilder, string $alias, string $field, string $value): void;
 
     /**
      * @param mixed $query

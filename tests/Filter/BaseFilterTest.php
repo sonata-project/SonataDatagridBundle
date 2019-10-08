@@ -19,7 +19,7 @@ use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
 class FilterTest_Filter extends BaseFilter
 {
-    public function filter(ProxyQueryInterface $queryBuilder, string  $alias, string $field, string $value): void
+    public function filter(ProxyQueryInterface $queryBuilder, string $alias, string $field, string $value): void
     {
     }
 
