@@ -152,6 +152,9 @@ final class Datagrid implements DatagridInterface
         return $this->hasFilter($name) ? $this->filters[$name] : null;
     }
 
+    /**
+     * @return FilterInterface[]
+     */
     public function getFilters(): array
     {
         return $this->filters;
