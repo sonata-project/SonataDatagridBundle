@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.1.0](https://github.com/sonata-project/SonataDatagridBundle/compare/3.0.1...3.1.0) - 2020-01-03
+### Added
+- Add support for symfony 5
+
 ## [3.0.1](https://github.com/sonata-project/SonataDatagridBundle/compare/3.0.0...3.0.1) - 2019-10-08
 ### Fixed
 - `TypeError` induced by strict types in `Pager::computeNbResults()`
