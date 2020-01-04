@@ -16,6 +16,7 @@ namespace Sonata\DatagridBundle\Tests\Filter;
 use PHPUnit\Framework\TestCase;
 use Sonata\DatagridBundle\Filter\BaseFilter;
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class FilterTest_Filter extends BaseFilter
 {
@@ -46,7 +47,7 @@ class FilterTest extends TestCase
     {
         $filter = new FilterTest_Filter();
 
-        $this->assertSame('text', $filter->getFieldType());
+        $this->assertSame(TextType::class, $filter->getFieldType());
         $this->assertSame(['required' => false], $filter->getFieldOptions());
         $this->assertNull($filter->getLabel());
 
