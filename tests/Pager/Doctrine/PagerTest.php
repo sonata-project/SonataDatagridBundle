@@ -57,7 +57,7 @@ class PagerTest extends TestCase
 
         $expectedObjects = [$object1, $object2, $object3];
 
-        $query->expects($this->any())
+        $query
             ->method('execute')
             ->willReturn($expectedObjects);
 
@@ -69,7 +69,7 @@ class PagerTest extends TestCase
     /**
      * Test ensure getSingleScalarResult result within computeNbResult will be cast.
      */
-    public function testComputeNbResult()
+    public function testComputeNbResult(): void
     {
         $queryBuilder = $this->createMock(QueryBuilder::class);
 
@@ -80,7 +80,7 @@ class PagerTest extends TestCase
 
         $query = $this->createMock(AbstractQuery::class);
 
-        $query->expects($this->any())
+        $query
             ->method('getSingleScalarResult')
             ->willReturn('6');
 
