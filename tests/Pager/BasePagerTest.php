@@ -50,7 +50,7 @@ class BasePagerTest extends TestCase
         $this->assertSame($expectedMaxPerPage, $this->pager->getMaxPerPage());
     }
 
-    public function getGetMaxPerPage1Tests()
+    public function getGetMaxPerPage1Tests(): array
     {
         return [
             [123, 1, 123, 1],
@@ -263,7 +263,7 @@ class BasePagerTest extends TestCase
 
     public function testIterator(): void
     {
-        $this->assertTrue($this->pager instanceof \Iterator);
+        $this->assertInstanceOf(\Iterator::class, $this->pager);
 
         $object1 = new \stdClass();
         $object1->foo = 'bar1';
@@ -276,7 +276,7 @@ class BasePagerTest extends TestCase
 
         $expectedObjects = [$object1, $object2, $object3];
 
-        $this->pager->expects($this->any())
+        $this->pager
             ->method('getResults')
             ->willReturn($expectedObjects);
 
@@ -299,7 +299,7 @@ class BasePagerTest extends TestCase
 
     public function testValid(): void
     {
-        $this->pager->expects($this->any())
+        $this->pager
             ->method('getResults')
             ->willReturn([]);
 
@@ -308,7 +308,7 @@ class BasePagerTest extends TestCase
 
     public function testNext(): void
     {
-        $this->pager->expects($this->any())
+        $this->pager
             ->method('getResults')
             ->willReturn([]);
 
@@ -317,7 +317,7 @@ class BasePagerTest extends TestCase
 
     public function testKey(): void
     {
-        $this->pager->expects($this->any())
+        $this->pager
             ->method('getResults')
             ->willReturn([123 => new \stdClass()]);
 
@@ -328,7 +328,7 @@ class BasePagerTest extends TestCase
     {
         $object = new \stdClass();
 
-        $this->pager->expects($this->any())
+        $this->pager
             ->method('getResults')
             ->willReturn([$object]);
 
@@ -369,16 +369,16 @@ class BasePagerTest extends TestCase
 
         $query = $this->createMock(ProxyQueryInterface::class);
 
-        $query->expects($this->any())
+        $query
             ->method('setFirstResult')
             ->willReturn($query);
 
-        $query->expects($this->any())
+        $query
             ->method('setMaxResults')
             ->willReturn($query);
 
         $id = 0;
-        $query->expects($this->any())
+        $query
             ->method('execute')
             ->willReturnCallback(static function () use (&$id, $object1, $object2, $object3): ?array {
                 switch ($id) {
@@ -503,16 +503,16 @@ class BasePagerTest extends TestCase
 
         $query = $this->createMock(ProxyQueryInterface::class);
 
-        $query->expects($this->any())
+        $query
             ->method('setFirstResult')
             ->willReturn($query);
 
-        $query->expects($this->any())
+        $query
             ->method('setMaxResults')
             ->willReturn($query);
 
         $id = 0;
-        $query->expects($this->any())
+        $query
             ->method('execute')
             ->willReturnCallback(static function () use (&$id, $object1, $object2, $object3): ?array {
                 switch ($id) {
@@ -567,16 +567,16 @@ class BasePagerTest extends TestCase
 
         $query = $this->createMock(ProxyQueryInterface::class);
 
-        $query->expects($this->any())
+        $query
             ->method('setFirstResult')
             ->willReturn($query);
 
-        $query->expects($this->any())
+        $query
             ->method('setMaxResults')
             ->willReturn($query);
 
         $id = 2;
-        $query->expects($this->any())
+        $query
             ->method('execute')
             ->willReturnCallback(static function () use (&$id, $object1, $object2, $object3): ?array {
                 switch ($id) {
@@ -645,7 +645,7 @@ class BasePagerTest extends TestCase
             'countColumn' => ['idx'],
         ];
 
-        $this->pager->expects($this->any())
+        $this->pager
             ->method('getResults')
             ->willReturn([]);
         $this->pager->current();

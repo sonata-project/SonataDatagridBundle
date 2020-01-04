@@ -34,7 +34,7 @@ class BaseProxyQueryTest extends TestCase
 
         $queryBuilder = $this->createMock(QueryBuilder::class);
 
-        $queryBuilder->expects($this->any())
+        $queryBuilder
             ->method('getType')
             ->willReturn('foobar');
 
