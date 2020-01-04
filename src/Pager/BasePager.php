@@ -116,7 +116,7 @@ abstract class BasePager implements \Serializable, PagerInterface
         $tmp = $this->page - (int) floor($nbLinks / 2);
         $check = $this->lastPage - $nbLinks + 1;
         $limit = $check > 0 ? $check : 1;
-        $begin = $tmp > 0 ? ($tmp > $limit ? $limit : $tmp) : 1;
+        $begin = $tmp > 0 ? (($tmp > $limit) ? $limit : $tmp) : 1;
 
         $i = $begin;
 
@@ -313,7 +313,7 @@ abstract class BasePager implements \Serializable, PagerInterface
      */
     public function getParameter(string $name, $default = null)
     {
-        return isset($this->parameters[$name]) ? $this->parameters[$name] : $default;
+        return $this->parameters[$name] ?? $default;
     }
 
     public function hasParameter(string $name): bool
@@ -475,6 +475,6 @@ abstract class BasePager implements \Serializable, PagerInterface
 
         $results = $queryForRetrieve->execute();
 
-        return $results[0];
+        return $results[0] ?? null;
     }
 }

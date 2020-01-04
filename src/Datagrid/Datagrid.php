@@ -115,17 +115,17 @@ final class Datagrid implements DatagridInterface
         $data = $this->form->getData();
 
         foreach ($this->getFilters() as $name => $filter) {
-            $this->values[$name] = isset($this->values[$name]) ? $this->values[$name] : null;
-            $filter->apply($this->query, $data[$filter->getFormName()]);
+            $this->values[$name] = $this->values[$name] ?? null;
+            $filter->apply($this->query, $data[$filter->getFormName()] ?? null);
         }
 
         if (isset($this->values['_sort_by'])) {
             $this->query->setSortBy($this->values['_sort_by']);
-            $this->query->setSortOrder(isset($this->values['_sort_order']) ? $this->values['_sort_order'] : null);
+            $this->query->setSortOrder($this->values['_sort_order'] ?? null);
         }
 
-        $this->pager->setMaxPerPage(isset($this->values['_per_page']) ? $this->values['_per_page'] : 25);
-        $this->pager->setPage(isset($this->values['_page']) ? $this->values['_page'] : 1);
+        $this->pager->setMaxPerPage($this->values['_per_page'] ?? 25);
+        $this->pager->setPage($this->values['_page'] ?? 1);
         $this->pager->setQuery($this->query);
         $this->pager->init();
 
