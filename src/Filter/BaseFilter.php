@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Sonata\DatagridBundle\Filter;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 abstract class BaseFilter implements FilterInterface
 {
     /**
@@ -81,7 +83,7 @@ abstract class BaseFilter implements FilterInterface
 
     public function getFieldType(): string
     {
-        return $this->getOption('field_type', 'text');
+        return $this->getOption('field_type', TextType::class);
     }
 
     public function getFieldOptions(): array

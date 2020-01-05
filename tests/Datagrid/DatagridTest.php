@@ -66,7 +66,6 @@ class DatagridTest extends TestCase
 
         $this->formBuilder = $this->createMock(FormBuilder::class);
         $this->formBuilder
-            ->expects($this->any())
             ->method('get')
             ->willReturnCallback(function ($name) {
                 if (isset($this->formTypes[$name])) {
@@ -77,7 +76,7 @@ class DatagridTest extends TestCase
         $eventDispatcher = $this->createMock(EventDispatcherInterface::class);
         $formFactory = $this->createMock(FormFactoryInterface::class);
 
-        $this->formBuilder->expects($this->any())
+        $this->formBuilder
             ->method('add')
             ->willReturnCallback(function ($name, $type, $options) use ($eventDispatcher, $formFactory): void {
                 $this->formTypes[$name] = new FormBuilder($name, TestEntity::class, $eventDispatcher, $formFactory, $options);
@@ -85,7 +84,7 @@ class DatagridTest extends TestCase
 
         $form = $this->createMock(Form::class);
 
-        $this->formBuilder->expects($this->any())
+        $this->formBuilder
             ->method('getForm')
             ->willReturnCallback(static function () use ($form) {
                 return $form;
@@ -206,7 +205,7 @@ class DatagridTest extends TestCase
         $filter1->expects($this->once())
             ->method('getName')
             ->willReturn('foo');
-        $filter1->expects($this->any())
+        $filter1
             ->method('isActive')
             ->willReturn(false);
 
@@ -218,7 +217,7 @@ class DatagridTest extends TestCase
         $filter2->expects($this->once())
             ->method('getName')
             ->willReturn('bar');
-        $filter2->expects($this->any())
+        $filter2
             ->method('isActive')
             ->willReturn(true);
 
@@ -249,13 +248,13 @@ class DatagridTest extends TestCase
         $filter1->expects($this->once())
             ->method('getName')
             ->willReturn('foo');
-        $filter1->expects($this->any())
+        $filter1
             ->method('getFormName')
             ->willReturn('fooFormName');
-        $filter1->expects($this->any())
+        $filter1
             ->method('isActive')
             ->willReturn(false);
-        $filter1->expects($this->any())
+        $filter1
             ->method('getRenderSettings')
             ->willReturn(['foo1', ['bar1' => 'baz1']]);
 
@@ -265,13 +264,13 @@ class DatagridTest extends TestCase
         $filter2->expects($this->once())
             ->method('getName')
             ->willReturn('bar');
-        $filter2->expects($this->any())
+        $filter2
             ->method('getFormName')
             ->willReturn('barFormName');
-        $filter2->expects($this->any())
+        $filter2
             ->method('isActive')
             ->willReturn(true);
-        $filter2->expects($this->any())
+        $filter2
             ->method('getRenderSettings')
             ->willReturn(['foo2', ['bar2' => 'baz2']]);
 
@@ -300,13 +299,13 @@ class DatagridTest extends TestCase
         $filter->expects($this->once())
             ->method('getName')
             ->willReturn('foo');
-        $filter->expects($this->any())
+        $filter
             ->method('getFormName')
             ->willReturn('fooFormName');
-        $filter->expects($this->any())
+        $filter
             ->method('isActive')
             ->willReturn(false);
-        $filter->expects($this->any())
+        $filter
             ->method('getRenderSettings')
             ->willReturn(['foo', ['bar' => 'baz']]);
 
