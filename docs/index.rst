@@ -8,4 +8,3 @@ Datagrid Bundle
    :numbered:
 
    reference/installation
-
