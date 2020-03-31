@@ -13,8 +13,17 @@ declare(strict_types=1);
 
 namespace Sonata\DatagridBundle\Pager;
 
+/**
+ * @template-covariant T of object
+ */
 interface PageableInterface
 {
+    /**
+     * @param array<string, mixed>  $criteria
+     * @param array<string, string> $sort
+     *
+     * @return PagerInterface<T>
+     */
     public function getPager(
         array $criteria,
         int $page,
