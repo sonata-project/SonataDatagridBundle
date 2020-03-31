@@ -1,0 +1,17 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\$builder of method Sonata\\\\DatagridBundle\\\\Pager\\\\Elastica\\\\Pager\\:\\:create\\(\\) has invalid typehint type Elastica\\\\QueryBuilder\\.$#"
+			count: 1
+			path: src/Pager/Elastica/Pager.php
+
+		-
+			message: "#^Access to constant OPTION_SIZE on an unknown class Elastica\\\\Search\\.$#"
+			count: 1
+			path: src/ProxyQuery/Elastica/ProxyQuery.php
+
+		-
+			message: "#^Access to constant OPTION_FROM on an unknown class Elastica\\\\Search\\.$#"
+			count: 1
+			path: src/ProxyQuery/Elastica/ProxyQuery.php
+
