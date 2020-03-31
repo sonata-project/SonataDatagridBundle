@@ -15,6 +15,9 @@ namespace Sonata\DatagridBundle\Pager;
 
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
+/**
+ * @template-covariant T of object
+ */
 interface PagerInterface extends \Iterator, \Countable, \Serializable
 {
     /**
@@ -30,6 +33,9 @@ interface PagerInterface extends \Iterator, \Countable, \Serializable
 
     public function setQuery(ProxyQueryInterface $query): void;
 
+    /**
+     * @return array<T>
+     */
     public function getResults(): ?array;
 
     public function getFirstPage(): int;
@@ -50,6 +56,8 @@ interface PagerInterface extends \Iterator, \Countable, \Serializable
 
     /**
      * Returns an array of page numbers to use in pagination links.
+     *
+     * @return int[]
      */
     public function getLinks(?int $nbLinks = null): array;
 
@@ -59,12 +67,24 @@ interface PagerInterface extends \Iterator, \Countable, \Serializable
 
     public function setCursor(int $pos): void;
 
+    /**
+     * @return T|null
+     */
     public function getObjectByCursor(int $pos): ?object;
 
+    /**
+     * @return T|null
+     */
     public function getCurrent(): ?object;
 
+    /**
+     * @return T|null
+     */
     public function getNext(): ?object;
 
+    /**
+     * @return T|null
+     */
     public function getPrevious(): ?object;
 
     public function getFirstIndice(): int;
@@ -81,6 +101,9 @@ interface PagerInterface extends \Iterator, \Countable, \Serializable
 
     public function isLastPage(): bool;
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getParameters(): array;
 
     /**
@@ -97,8 +120,16 @@ interface PagerInterface extends \Iterator, \Countable, \Serializable
      */
     public function setParameter(string $name, $value): void;
 
+    /**
+     * @return string[]
+     */
     public function getCountColumn(): array;
 
+    /**
+     * @param string[] $countColumn
+     *
+     * @return string[]
+     */
     public function setCountColumn(array $countColumn): array;
 
     public function getQuery(): ?ProxyQueryInterface;

@@ -47,7 +47,7 @@ abstract class BasePager implements \Serializable, PagerInterface
     private $cursor = 1;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $parameters = [];
 
