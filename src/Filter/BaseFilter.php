@@ -91,6 +91,20 @@ abstract class BaseFilter implements FilterInterface
         return $this->getOption('field_options', ['required' => false]);
     }
 
+    public function getFieldOption(string $name, $default = null)
+    {
+        if (isset($this->options['field_options'][$name]) && \is_array($this->options['field_options'])) {
+            return $this->options['field_options'][$name];
+        }
+
+        return $default;
+    }
+
+    public function setFieldOption(string $name, $value): void
+    {
+        $this->options['field_options'][$name] = $value;
+    }
+
     public function getLabel(): ?string
     {
         return $this->getOption('label');
@@ -110,6 +124,33 @@ abstract class BaseFilter implements FilterInterface
         }
 
         return $fieldName;
+    }
+
+    public function getParentAssociationMappings(): array
+    {
+        return $this->getOption('parent_association_mappings', []);
+    }
+
+    public function getFieldMapping(): array
+    {
+        $fieldMapping = $this->getOption('field_mapping');
+
+        if (!$fieldMapping) {
+            throw new \RuntimeException(sprintf('The option `field_mapping` must be set for field: `%s`', $this->getName()));
+        }
+
+        return $fieldMapping;
+    }
+
+    public function getAssociationMapping(): array
+    {
+        $associationMapping = $this->getOption('association_mapping');
+
+        if (!$associationMapping) {
+            throw new \RuntimeException(sprintf('The option `association_mapping` must be set for field: `%s`', $this->getName()));
+        }
+
+        return $associationMapping;
     }
 
     public function setOptions(array $options): void

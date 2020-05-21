@@ -50,4 +50,6 @@ interface DatagridInterface
     public function removeFilter(string $name): void;
 
     public function hasActiveFilters(): bool;
+
+    public function hasDisplayableFilters(): bool;
 }

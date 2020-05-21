@@ -189,6 +189,18 @@ final class Datagrid implements DatagridInterface
         return false;
     }
 
+    public function hasDisplayableFilters(): bool
+    {
+        foreach ($this->filters as $name => $filter) {
+            $showFilter = $filter->getOption('show_filter', null);
+            if (($filter->isActive() && null === $showFilter) || (true === $showFilter)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function getQuery(): ProxyQueryInterface
     {
         return $this->query;

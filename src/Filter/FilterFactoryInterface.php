@@ -15,8 +15,5 @@ namespace Sonata\DatagridBundle\Filter;
 
 interface FilterFactoryInterface
 {
-    /**
-     * @return mixed
-     */
-    public function create(string $name, string $type, array $options = []);
+    public function create(string $name, string $type, array $options = []): FilterInterface;
 }

@@ -58,7 +58,34 @@ interface FilterInterface
 
     public function getFieldName(): string;
 
+    /**
+     * @return array<string, string> array of mappings
+     */
+    public function getParentAssociationMappings(): array;
+
+    /**
+     * @return array<string, string> field mapping
+     */
+    public function getFieldMapping(): array;
+
+    /**
+     * @return array<string, string>  association mapping
+     */
+    public function getAssociationMapping(): array;
+
     public function getFieldOptions(): array;
+
+    /**
+     * @param mixed $default
+     *
+     * @return mixed
+     */
+    public function getFieldOption(string $name, $default = null);
+
+    /**
+     * @param mixed $value
+     */
+    public function setFieldOption(string $name, $value): void;
 
     public function getFieldType(): string;
 

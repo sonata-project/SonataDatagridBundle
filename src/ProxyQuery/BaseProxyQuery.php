@@ -28,14 +28,24 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     protected $results = [];
 
     /**
-     * @var array
+     * @var int
      */
-    private $sortBy = [];
+    protected $uniqueParameterId = 0;
 
     /**
-     * @var array
+     * @var string[]
      */
-    private $sortOrder = [];
+    protected $entityJoinAliases = [];
+
+    /**
+     * @var string|null
+     */
+    private $sortBy;
+
+    /**
+     * @var string|null
+     */
+    private $sortOrder;
 
     /**
      * @var int|null
@@ -62,38 +72,27 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
         return \call_user_func_array([$this->queryBuilder, $name], $args);
     }
 
-    /**
-     * @param mixed $sortBy
-     */
-    public function setSortBy($sortBy): ProxyQueryInterface
+    public function setSortBy(array $parentAssociationMappings, array $fieldMapping): ProxyQueryInterface
     {
-        $this->sortBy = $sortBy;
+        $alias = $this->entityJoin($parentAssociationMappings);
+        $this->sortBy = $alias.'.'.$fieldMapping['fieldName'];
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSortBy()
+    public function getSortBy(): ?string
     {
         return $this->sortBy;
     }
 
-    /**
-     * @param mixed $sortOrder
-     */
-    public function setSortOrder($sortOrder): ProxyQueryInterface
+    public function setSortOrder(string $sortOrder): ProxyQueryInterface
     {
         $this->sortOrder = $sortOrder;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSortOrder()
+    public function getSortOrder(): ?string
     {
         return $this->sortOrder;
     }
@@ -122,10 +121,7 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
         return $this->maxResults;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getQueryBuilder()
+    public function getQueryBuilder(): QueryBuilder
     {
         return $this->queryBuilder;
     }
@@ -133,5 +129,45 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     public function getResults(): array
     {
         return $this->results;
+    }
+
+    public function getUniqueParameterId(): int
+    {
+        return $this->uniqueParameterId++;
+    }
+
+    public function entityJoin(array $associationMappings): string
+    {
+        $alias = current($this->queryBuilder->getRootAliases());
+
+        $newAlias = 's';
+
+        $joinedEntities = $this->queryBuilder->getDQLPart('join');
+
+        foreach ($associationMappings as $associationMapping) {
+            // Do not add left join to already joined entities with custom query
+            foreach ($joinedEntities as $joinExprList) {
+                foreach ($joinExprList as $joinExpr) {
+                    $newAliasTmp = $joinExpr->getAlias();
+
+                    if (sprintf('%s.%s', $alias, $associationMapping['fieldName']) === $joinExpr->getJoin()) {
+                        $this->entityJoinAliases[] = $newAliasTmp;
+                        $alias = $newAliasTmp;
+
+                        continue 3;
+                    }
+                }
+            }
+
+            $newAlias .= '_'.$associationMapping['fieldName'];
+            if (!\in_array($newAlias, $this->entityJoinAliases, true)) {
+                $this->entityJoinAliases[] = $newAlias;
+                $this->queryBuilder->leftJoin(sprintf('%s.%s', $alias, $associationMapping['fieldName']), $newAlias);
+            }
+
+            $alias = $newAlias;
+        }
+
+        return $alias;
     }
 }

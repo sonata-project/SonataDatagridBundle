@@ -28,25 +28,13 @@ interface ProxyQueryInterface
      */
     public function execute(array $params = [], ?int $hydrationMode = null);
 
-    /**
-     * @param mixed $sortBy
-     */
-    public function setSortBy($sortBy): self;
+    public function setSortBy(array $parentAssociationMappings, array $fieldMapping): self;
 
-    /**
-     * @return mixed
-     */
-    public function getSortBy();
+    public function getSortBy(): ?string;
 
-    /**
-     * @param mixed $sortOrder
-     */
-    public function setSortOrder($sortOrder): self;
+    public function setSortOrder(string $sortOrder): self;
 
-    /**
-     * @return mixed
-     */
-    public function getSortOrder();
+    public function getSortOrder(): ?string;
 
     public function setFirstResult(?int $firstResult): self;
 
@@ -57,4 +45,8 @@ interface ProxyQueryInterface
     public function getMaxResults(): ?int;
 
     public function getResults(): array;
+
+    public function getUniqueParameterId(): int;
+
+    public function entityJoin(array $associationMappings): string;
 }
