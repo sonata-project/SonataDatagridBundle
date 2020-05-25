@@ -19,7 +19,7 @@ use Sonata\DatagridBundle\Exception\NoValueException;
 /**
  * @author Thomas Rabaix <thomas.rabaix@sonata-project.org>
  */
-class FieldDescription implements FieldDescriptionInterface
+abstract class BaseFieldDescription implements FieldDescriptionInterface
 {
     /**
      * @var string|null the field name
@@ -176,51 +176,14 @@ class FieldDescription implements FieldDescriptionInterface
         $this->setOptions(array_merge_recursive($this->options, $options));
     }
 
-    public function getTargetEntity(): ?string
-    {
-        return $this->associationMapping ? $this->associationMapping['targetEntity'] : null;
-    }
-
-    public function setAssociationMapping(array $associationMapping): void
-    {
-        $this->associationMapping = $associationMapping;
-
-        $this->type = $this->type ?: $associationMapping['type'];
-        $this->mappingType = $this->mappingType ?: $associationMapping['type'];
-        $this->fieldName = $associationMapping['fieldName'];
-    }
-
     public function getAssociationMapping(): array
     {
         return $this->associationMapping;
     }
 
-    public function setFieldMapping(array $fieldMapping): void
-    {
-        $this->fieldMapping = $fieldMapping;
-
-        $this->type = $this->type ?: $fieldMapping['type'];
-        $this->mappingType = $this->mappingType ?: $fieldMapping['type'];
-        $this->fieldName = $this->fieldName ?: $fieldMapping['fieldName'];
-    }
-
     public function getFieldMapping(): array
     {
         return $this->fieldMapping;
-    }
-
-    /**
-     * @throws \RuntimeException
-     */
-    public function setParentAssociationMappings(array $parentAssociationMappings): void
-    {
-        foreach ($parentAssociationMappings as $parentAssociationMapping) {
-            if (!\is_array($parentAssociationMapping)) {
-                throw new \RuntimeException('An association mapping must be an array');
-            }
-        }
-
-        $this->parentAssociationMappings = $parentAssociationMappings;
     }
 
     public function getParentAssociationMappings(): array
@@ -239,11 +202,6 @@ class FieldDescription implements FieldDescriptionInterface
     public function getMappingType()
     {
         return $this->mappingType;
-    }
-
-    public function isIdentifier(): bool
-    {
-        return isset($this->fieldMapping['id']) ? $this->fieldMapping['id'] : false;
     }
 
     public function isVirtual(): bool
@@ -314,30 +272,6 @@ class FieldDescription implements FieldDescriptionInterface
             implode('()", "', $getters),
             \get_class($object)
         ));
-    }
-
-    /**
-     * @throws NoValueException
-     *
-     * @return mixed
-     */
-    public function getValue(?object $object)
-    {
-        foreach ($this->parentAssociationMappings as $parentAssociationMapping) {
-            $object = $this->getFieldValue($object, $parentAssociationMapping['fieldName']);
-        }
-
-        $fieldMapping = $this->getFieldMapping();
-        // Support embedded object for mapping
-        // Ref: https://www.doctrine-project.org/projects/doctrine-orm/en/latest/tutorials/embeddables.html
-        if (isset($fieldMapping['declaredField'])) {
-            $parentFields = explode('.', $fieldMapping['declaredField']);
-            foreach ($parentFields as $parentField) {
-                $object = $this->getFieldValue($object, $parentField);
-            }
-        }
-
-        return $this->getFieldValue($object, $this->fieldName);
     }
 
     private function getFieldGetterKey(object $object, ?string $fieldName): ?string

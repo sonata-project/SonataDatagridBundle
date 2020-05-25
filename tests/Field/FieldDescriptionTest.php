@@ -15,10 +15,10 @@ namespace Sonata\DatagridBundle\Tests\Field;
 
 use PHPUnit\Framework\TestCase;
 use Sonata\DatagridBundle\Exception\NoValueException;
-use Sonata\DatagridBundle\Field\FieldDescription;
 use Sonata\DatagridBundle\Tests\Fixtures\Entity\Foo;
 use Sonata\DatagridBundle\Tests\Fixtures\Entity\FooBoolean;
 use Sonata\DatagridBundle\Tests\Fixtures\Entity\FooCall;
+use Sonata\DatagridBundle\Tests\Fixtures\Field\FieldDescription;
 
 class FieldDescriptionTest extends TestCase
 {

@@ -85,7 +85,7 @@ interface FieldDescriptionInterface
 
     public function getAssociationMapping(): array;
 
-    public function getTargetEntity(): ?string;
+    public function getTargetModel(): ?string;
 
     public function setFieldMapping(array $fieldMapping): void;
 
