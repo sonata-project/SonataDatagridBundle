@@ -42,12 +42,14 @@ interface FieldDescriptionInterface
      * Set the type, this is a mandatory field as it used to select the correct template
      * or the logic associated to the current FieldDescription object.
      *
-     * @param string|int $type
+     * This can be a string (text, array, datetime, boolean) or an int (ClassMetadata::ONE_TO_MANY)
+     *
+     * @param int|string $type
      */
     public function setType($type): void;
 
     /**
-     * @return int|string
+     * @return int|string|null
      */
     public function getType();
 
@@ -98,7 +100,9 @@ interface FieldDescriptionInterface
     /**
      * Set the original mapping type (only used if the field is linked to an entity).
      *
-     * @param string|int|null $mappingType
+     * This can be a string (text, array, datetime, boolean) or an int (ClassMetadata::ONE_TO_MANY)
+     *
+     * @param int|string $mappingType
      */
     public function setMappingType($mappingType): void;
 
