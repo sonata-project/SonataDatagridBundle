@@ -173,7 +173,13 @@ abstract class BaseFieldDescription implements FieldDescriptionInterface
 
     public function mergeOptions(array $options = []): void
     {
-        $this->setOptions(array_merge_recursive($this->options, $options));
+        foreach ($options as $name => $option) {
+            if (\is_array($option)) {
+                $this->mergeOption($name, $option);
+            } else {
+                $this->setOption($name, $option);
+            }
+        }
     }
 
     public function getAssociationMapping(): array

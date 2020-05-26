@@ -51,6 +51,11 @@ class FieldDescriptionTest extends TestCase
 
         $this->assertCount(1, $description->getOption('bar'));
 
+        $description->setOptions(['boolean' => true]);
+        $description->mergeOptions(['boolean' => false]);
+
+        $this->assertFalse($description->getOption('boolean'));
+
         $this->assertNull($description->getTemplate());
         $description->setOptions(['type' => 'integer', 'template' => 'foo.twig.html']);
 
