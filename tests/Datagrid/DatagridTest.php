@@ -18,6 +18,7 @@ use Sonata\DatagridBundle\Datagrid\Datagrid;
 use Sonata\DatagridBundle\Filter\FilterInterface;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
+use Sonata\DatagridBundle\Tests\Fixtures\Field\FieldDescription;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilder;
@@ -291,8 +292,9 @@ class DatagridTest extends TestCase
 
     public function testBuildPagerWithSortBy(): void
     {
+        $fieldDescription = new FieldDescription('name');
         $this->datagrid = new Datagrid($this->query, $this->pager, $this->formBuilder, [
-            '_sort_by' => 'name',
+            '_sort_by' => $fieldDescription,
         ]);
 
         $filter = $this->createMock(FilterInterface::class);
@@ -313,7 +315,7 @@ class DatagridTest extends TestCase
 
         $this->datagrid->buildPager();
 
-        $this->assertSame(['_sort_by' => 'name', 'foo' => null], $this->datagrid->getValues());
+        $this->assertSame(['_sort_by' => $fieldDescription, 'foo' => null], $this->datagrid->getValues());
         $this->assertInstanceOf(FormBuilder::class, $this->formBuilder->get('fooFormName'));
         $this->assertSame(['bar' => 'baz'], $this->formBuilder->get('fooFormName')->getOptions());
         $this->assertInstanceOf(FormBuilder::class, $this->formBuilder->get('_sort_by'));

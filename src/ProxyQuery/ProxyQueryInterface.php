@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Sonata\DatagridBundle\ProxyQuery;
 
+use Sonata\DatagridBundle\Field\FieldDescriptionInterface;
+
 /**
  * Interface used by the Datagrid to build the query.
  */
@@ -28,25 +30,13 @@ interface ProxyQueryInterface
      */
     public function execute(array $params = [], ?int $hydrationMode = null);
 
-    /**
-     * @param mixed $sortBy
-     */
-    public function setSortBy($sortBy): self;
+    public function setSortBy(?FieldDescriptionInterface $sortBy): self;
 
-    /**
-     * @return mixed
-     */
-    public function getSortBy();
+    public function getSortBy(): ?FieldDescriptionInterface;
 
-    /**
-     * @param mixed $sortOrder
-     */
-    public function setSortOrder($sortOrder): self;
+    public function setSortOrder(?string $sortOrder): self;
 
-    /**
-     * @return mixed
-     */
-    public function getSortOrder();
+    public function getSortOrder(): ?string;
 
     public function setFirstResult(?int $firstResult): self;
 

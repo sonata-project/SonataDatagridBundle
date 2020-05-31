@@ -13,9 +13,12 @@ declare(strict_types=1);
 
 namespace Sonata\DatagridBundle\Datagrid;
 
+use Sonata\DatagridBundle\Field\FieldDescriptionInterface;
 use Sonata\DatagridBundle\Filter\FilterInterface;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
+use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormInterface;
@@ -55,7 +58,7 @@ final class Datagrid implements DatagridInterface
     private $formBuilder;
 
     /**
-     * @var FormInterface
+     * @var FormInterface|null
      */
     private $form;
 
@@ -109,6 +112,15 @@ final class Datagrid implements DatagridInterface
         $this->formBuilder->add('_page', HiddenType::class);
         $this->formBuilder->add('_per_page', HiddenType::class);
 
+        $this->formBuilder->get('_sort_by')->addViewTransformer(new CallbackTransformer(
+            static function ($value) {
+                return $value;
+            },
+            static function ($value) {
+                return $value instanceof FieldDescriptionInterface ? $value->getName() : $value;
+            }
+        ));
+
         $this->form = $this->formBuilder->getForm();
         $this->form->submit($this->values);
 
@@ -116,12 +128,25 @@ final class Datagrid implements DatagridInterface
 
         foreach ($this->getFilters() as $name => $filter) {
             $this->values[$name] = $this->values[$name] ?? null;
-            $filter->apply($this->query, $data[$filter->getFormName()] ?? null);
+
+            $filterFormName = $filter->getFormName();
+            if (isset($this->values[$filterFormName]['value']) && '' !== $this->values[$filterFormName]['value']) {
+                $filter->apply($this->query, $data[$filterFormName]);
+            }
         }
 
         if (isset($this->values['_sort_by'])) {
-            $this->query->setSortBy($this->values['_sort_by']);
-            $this->query->setSortOrder($this->values['_sort_order'] ?? null);
+            $sortBy = $this->values['_sort_by'];
+            if (!$sortBy instanceof FieldDescriptionInterface) {
+                throw new UnexpectedTypeException($this->values['_sort_by'], FieldDescriptionInterface::class);
+            }
+
+            if (false !== $sortBy->getOption('sortable', false)) {
+                $this->values['_sort_order'] = $this->values['_sort_order'] ?? 'ASC';
+
+                $this->query->setSortBy($this->values['_sort_by']);
+                $this->query->setSortOrder($this->values['_sort_order']);
+            }
         }
 
         $this->pager->setMaxPerPage($this->values['_per_page'] ?? 25);

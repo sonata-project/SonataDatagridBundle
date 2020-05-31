@@ -13,29 +13,24 @@ declare(strict_types=1);
 
 namespace Sonata\DatagridBundle\ProxyQuery;
 
-use Doctrine\ORM\QueryBuilder;
+use Sonata\DatagridBundle\Field\FieldDescriptionInterface;
 
 abstract class BaseProxyQuery implements ProxyQueryInterface
 {
-    /**
-     * @var QueryBuilder
-     */
-    protected $queryBuilder;
-
     /**
      * @var array
      */
     protected $results = [];
 
     /**
-     * @var array
+     * @var FieldDescriptionInterface|null
      */
-    private $sortBy = [];
+    private $sortBy;
 
     /**
-     * @var array
+     * @var string|null
      */
-    private $sortOrder = [];
+    private $sortOrder;
 
     /**
      * @var int|null
@@ -47,53 +42,26 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
      */
     private $maxResults;
 
-    public function __construct(QueryBuilder $queryBuilder)
-    {
-        $this->queryBuilder = $queryBuilder;
-    }
-
-    public function __clone()
-    {
-        $this->queryBuilder = clone $this->queryBuilder;
-    }
-
-    public function __call(string $name, array $args)
-    {
-        return \call_user_func_array([$this->queryBuilder, $name], $args);
-    }
-
-    /**
-     * @param mixed $sortBy
-     */
-    public function setSortBy($sortBy): ProxyQueryInterface
+    public function setSortBy(?FieldDescriptionInterface $sortBy): ProxyQueryInterface
     {
         $this->sortBy = $sortBy;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSortBy()
+    public function getSortBy(): ?FieldDescriptionInterface
     {
         return $this->sortBy;
     }
 
-    /**
-     * @param mixed $sortOrder
-     */
-    public function setSortOrder($sortOrder): ProxyQueryInterface
+    public function setSortOrder(?string $sortOrder): ProxyQueryInterface
     {
         $this->sortOrder = $sortOrder;
 
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSortOrder()
+    public function getSortOrder(): ?string
     {
         return $this->sortOrder;
     }
@@ -120,14 +88,6 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
     public function getMaxResults(): ?int
     {
         return $this->maxResults;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getQueryBuilder()
-    {
-        return $this->queryBuilder;
     }
 
     public function getResults(): array

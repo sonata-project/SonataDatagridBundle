@@ -19,6 +19,31 @@ use Sonata\DatagridBundle\ProxyQuery\BaseProxyQuery;
 
 final class ProxyQuery extends BaseProxyQuery
 {
+    /**
+     * @var QueryBuilder
+     */
+    protected $queryBuilder;
+
+    public function __construct(QueryBuilder $queryBuilder)
+    {
+        $this->queryBuilder = $queryBuilder;
+    }
+
+    public function __clone()
+    {
+        $this->queryBuilder = clone $this->queryBuilder;
+    }
+
+    public function __call(string $name, array $args)
+    {
+        return \call_user_func_array([$this->queryBuilder, $name], $args);
+    }
+
+    public function getQueryBuilder(): QueryBuilder
+    {
+        return $this->queryBuilder;
+    }
+
     public function execute(array $params = [], ?int $hydrationMode = null)
     {
         $this->queryBuilder->setMaxResults($this->getMaxResults());

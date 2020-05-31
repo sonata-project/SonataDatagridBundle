@@ -11,12 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Sonata\DatagridBundle\Tests\ProxyQuery;
+namespace Sonata\DatagridBundle\Tests\ProxyQuery\Doctrine;
 
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\TestCase;
-use Sonata\DatagridBundle\ProxyQuery\BaseProxyQuery;
+use Sonata\DatagridBundle\ProxyQuery\Doctrine\ProxyQuery;
 
 /**
  * @author Romain Mouillard <romain.mouillard@gmail.com>
@@ -38,9 +38,7 @@ class BaseProxyQueryTest extends TestCase
             ->method('getType')
             ->willReturn('foobar');
 
-        $proxyQuery = $this->getMockBuilder(BaseProxyQuery::class)
-            ->setConstructorArgs([$queryBuilder])
-            ->getMockForAbstractClass();
+        $proxyQuery = new ProxyQuery($queryBuilder);
 
         $this->assertSame('foobar', $proxyQuery->getType());
     }
