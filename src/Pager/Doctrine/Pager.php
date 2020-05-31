@@ -22,6 +22,14 @@ use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 
 /**
  * @author Jonathan H. Wage <jonwage@gmail.com>
+ *
+ * TODO:
+ * This bundle should not rely on Doctrine\ORM. You should use the DoctrineORMAdminBundle Pager
+ * instead because multiple bugfix/new feature was not added to the DatagridBundle Pager but
+ * the DoctrineORMAdminBundle require SonataAdminBundle which lead to a lot of requirements for nothing.
+ * We should split DoctrineORMAdminBundle to provide a DoctrineORMDatagridBundle.
+ *
+ * @deprecated prefer using the DoctrineORMAdminBundle Pager if possible
  */
 final class Pager extends BasePager
 {

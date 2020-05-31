@@ -17,6 +17,15 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\DatagridBundle\ProxyQuery\BaseProxyQuery;
 
+/**
+ * TODO:
+ * This bundle should not rely on Doctrine\ORM. You should use the DoctrineORMAdminBundle ProxyQuery
+ * instead because multiple bugfix/new feature was not added to the DatagridBundle ProxyQuery but
+ * the DoctrineORMAdminBundle require SonataAdminBundle which lead to a lot of requirements for nothing.
+ * We should split DoctrineORMAdminBundle to provide a DoctrineORMDatagridBundle.
+ *
+ * @deprecated prefer using the DoctrineORMAdminBundle ProxyQuery if possible
+ */
 final class ProxyQuery extends BaseProxyQuery
 {
     /**
