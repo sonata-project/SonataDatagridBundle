@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sonata\DatagridBundle\Datagrid;
 
+use Sonata\DatagridBundle\Field\FieldDescriptionInterface;
 use Sonata\DatagridBundle\Filter\FilterInterface;
 use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
@@ -50,4 +51,10 @@ interface DatagridInterface
     public function removeFilter(string $name): void;
 
     public function hasActiveFilters(): bool;
+
+    public function hasDisplayableFilters(): bool;
+
+    public function getSortParameters(FieldDescriptionInterface $fieldDescription): array;
+
+    public function getPaginationParameters(int $page): array;
 }
