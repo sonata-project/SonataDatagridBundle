@@ -18,11 +18,6 @@ use Sonata\DatagridBundle\Field\FieldDescriptionInterface;
 abstract class BaseProxyQuery implements ProxyQueryInterface
 {
     /**
-     * @var array
-     */
-    protected $results = [];
-
-    /**
      * @var FieldDescriptionInterface|null
      */
     private $sortBy;
@@ -41,6 +36,11 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
      * @var int|null
      */
     private $maxResults;
+
+    /**
+     * @var int
+     */
+    private $uniqueParameterId = 0;
 
     public function setSortBy(?FieldDescriptionInterface $sortBy): ProxyQueryInterface
     {
@@ -90,8 +90,8 @@ abstract class BaseProxyQuery implements ProxyQueryInterface
         return $this->maxResults;
     }
 
-    public function getResults(): array
+    public function getUniqueParameterId(): int
     {
-        return $this->results;
+        return $this->uniqueParameterId++;
     }
 }

@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sonata\DatagridBundle\Pager\Doctrine;
 
-use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Sonata\DatagridBundle\Pager\BasePager;
 use Sonata\DatagridBundle\Pager\PagerInterface;
@@ -56,9 +55,9 @@ final class Pager extends BasePager
         return (int) $countQuery->getQuery()->getSingleScalarResult();
     }
 
-    public function getResults($hydrationMode = Query::HYDRATE_OBJECT): ?array
+    public function getResults(): ?array
     {
-        return $this->getQuery()->execute([], $hydrationMode);
+        return $this->getQuery()->execute();
     }
 
     public function init(): void

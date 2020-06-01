@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sonata\DatagridBundle\ProxyQuery;
 
 use Sonata\DatagridBundle\Field\FieldDescriptionInterface;
+use Sonata\DatagridBundle\Mapping\AssociationMappingInterface;
 
 /**
  * Interface used by the Datagrid to build the query.
@@ -28,7 +29,7 @@ interface ProxyQueryInterface
     /**
      * @return mixed
      */
-    public function execute(array $params = [], ?int $hydrationMode = null);
+    public function execute();
 
     public function setSortBy(?FieldDescriptionInterface $sortBy): self;
 
@@ -46,5 +47,10 @@ interface ProxyQueryInterface
 
     public function getMaxResults(): ?int;
 
-    public function getResults(): array;
+    public function getUniqueParameterId(): int;
+
+    /**
+     * @param AssociationMappingInterface[] $associationMappings
+     */
+    public function entityJoin(array $associationMappings): string;
 }

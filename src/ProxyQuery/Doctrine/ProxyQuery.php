@@ -15,6 +15,7 @@ namespace Sonata\DatagridBundle\ProxyQuery\Doctrine;
 
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Sonata\DatagridBundle\Mapping\AssociationMappingInterface;
 use Sonata\DatagridBundle\ProxyQuery\BaseProxyQuery;
 
 /**
@@ -31,7 +32,12 @@ final class ProxyQuery extends BaseProxyQuery
     /**
      * @var QueryBuilder
      */
-    protected $queryBuilder;
+    private $queryBuilder;
+
+    /**
+     * @var array
+     */
+    private $entityJoinAliases = [];
 
     public function __construct(QueryBuilder $queryBuilder)
     {
@@ -48,6 +54,44 @@ final class ProxyQuery extends BaseProxyQuery
         return \call_user_func_array([$this->queryBuilder, $name], $args);
     }
 
+    /**
+     * @param AssociationMappingInterface[] $associationMappings
+     */
+    public function entityJoin(array $associationMappings): string
+    {
+        $alias = current($this->queryBuilder->getRootAliases());
+
+        $newAlias = 's';
+
+        $joinedEntities = $this->queryBuilder->getDQLPart('join');
+
+        foreach ($associationMappings as $associationMapping) {
+            // Do not add left join to already joined entities with custom query
+            foreach ($joinedEntities as $joinExprList) {
+                foreach ($joinExprList as $joinExpr) {
+                    $newAliasTmp = $joinExpr->getAlias();
+
+                    if (sprintf('%s.%s', $alias, $associationMapping->getFieldName()) === $joinExpr->getJoin()) {
+                        $this->entityJoinAliases[] = $newAliasTmp;
+                        $alias = $newAliasTmp;
+
+                        continue 3;
+                    }
+                }
+            }
+
+            $newAlias .= '_'.$associationMapping->getFieldName();
+            if (!\in_array($newAlias, $this->entityJoinAliases, true)) {
+                $this->entityJoinAliases[] = $newAlias;
+                $this->queryBuilder->leftJoin(sprintf('%s.%s', $alias, $associationMapping->getFieldName()), $newAlias);
+            }
+
+            $alias = $newAlias;
+        }
+
+        return $alias;
+    }
+
     public function getQueryBuilder(): QueryBuilder
     {
         return $this->queryBuilder;
@@ -62,6 +106,9 @@ final class ProxyQuery extends BaseProxyQuery
         $sortOrder = $this->getSortOrder();
 
         if ($sortBy && $sortOrder) {
+            $alias = $this->entityJoin($sortBy->getParentAssociationMappings());
+            $sortBy = $alias.'.'.$sortBy->getFieldMapping()->getFieldName();
+
             $rootAliases = $this->queryBuilder->getRootAliases();
             $rootAlias = $rootAliases[0];
             $sortBy = sprintf('%s.%s', $rootAlias, $sortBy);
@@ -75,7 +122,7 @@ final class ProxyQuery extends BaseProxyQuery
     /**
      * Generates new QueryBuilder for Postgresql or Oracle if necessary.
      */
-    public function preserveSqlOrdering(QueryBuilder $queryBuilder): QueryBuilder
+    private function preserveSqlOrdering(QueryBuilder $queryBuilder): QueryBuilder
     {
         $rootAliases = $queryBuilder->getRootAliases();
         $rootAlias = $rootAliases[0];
@@ -87,7 +134,9 @@ final class ProxyQuery extends BaseProxyQuery
 
         // todo : check how doctrine behave, potential SQL injection here ...
         if ($this->getSortBy()) {
-            $sortBy = $this->getSortBy();
+            $alias = $this->entityJoin($this->getSortBy()->getParentAssociationMappings());
+            $sortBy = $alias.'.'.$this->getSortBy()->getFieldMapping()->getFieldName();
+
             if (false === strpos($sortBy, '.')) {
                 // add the current alias
                 $sortBy = $rootAlias.'.'.$sortBy;
