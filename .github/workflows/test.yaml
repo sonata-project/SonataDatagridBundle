@@ -38,10 +38,6 @@ jobs:
                       variant: normal
                     - php-version: '8.0'
                       dependencies: highest
-                      allowed-to-fail: true
-                      variant: normal
-                    - php-version: '7.4'
-                      dependencies: highest
                       allowed-to-fail: false
                       variant: 'symfony/symfony:"4.4.*"'
 
