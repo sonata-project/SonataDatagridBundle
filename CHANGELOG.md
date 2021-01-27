@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.3.0](https://github.com/sonata-project/SonataDatagridBundle/compare/3.2.0...3.3.0) - 2021-01-27
+### Added
+- [[#315](https://github.com/sonata-project/SonataDatagridBundle/pull/315)] Add support for PHP 8.0 ([@Yozhef](https://github.com/Yozhef))
+
 ## [3.2.0](https://github.com/sonata-project/SonataDatagridBundle/compare/3.1.1...3.2.0) - 2020-04-05
 ### Added
 - Add generics to pager
