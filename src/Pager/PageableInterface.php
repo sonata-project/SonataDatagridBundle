@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Sonata\DatagridBundle\Pager;
 
 /**
- * @template-covariant T of object
+ * @phpstan-template T of \Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface
  */
 interface PageableInterface
 {
@@ -22,7 +22,7 @@ interface PageableInterface
      * @param array<string, mixed>  $criteria
      * @param array<string, string> $sort
      *
-     * @return PagerInterface<T>
+     * @phpstan-return PagerInterface<T>
      */
     public function getPager(
         array $criteria,

@@ -18,22 +18,50 @@ use Sonata\DatagridBundle\Pager\PagerInterface;
 use Sonata\DatagridBundle\ProxyQuery\ProxyQueryInterface;
 use Symfony\Component\Form\FormInterface;
 
+/**
+ * @phpstan-template T of ProxyQueryInterface
+ */
 interface DatagridInterface
 {
+    public const SORT_ORDER = '_sort_order';
+    public const SORT_BY = '_sort_by';
+    public const PAGE = '_page';
+    public const PER_PAGE = '_per_page';
+
+    /**
+     * @phpstan-return PagerInterface<T>
+     */
     public function getPager(): PagerInterface;
 
+    /**
+     * @phpstan-return T
+     */
     public function getQuery(): ProxyQueryInterface;
 
+    /**
+     * NEXT_MAJOR: Change return type to  `iterable<object>`
+     *
+     * @return array<object>|null
+     */
     public function getResults(): ?array;
 
     public function buildPager(): void;
 
     public function addFilter(FilterInterface $filter): void;
 
+    /**
+     * @return array<string, FilterInterface>
+     */
     public function getFilters(): array;
 
+    /**
+     * @param string[] $keys
+     */
     public function reorderFilters(array $keys): void;
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getValues(): array;
 
     /**

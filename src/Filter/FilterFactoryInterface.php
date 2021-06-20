@@ -16,7 +16,10 @@ namespace Sonata\DatagridBundle\Filter;
 interface FilterFactoryInterface
 {
     /**
-     * @return mixed
+     * @param array<string, mixed> $options
+     * @phpstan-param class-string $type
+     *
+     * @return FilterInterface
      */
     public function create(string $name, string $type, array $options = []);
 }
